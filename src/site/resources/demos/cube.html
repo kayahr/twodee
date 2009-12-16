@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>ThreeDee demo: Cube</title>
+    <script src="../main/javascript/threedee.js" type="text/javascript"></script>
+    <script src="../main/javascript/threedee/math/Vector.js" type="text/javascript"></script>
+    <script src="../main/javascript/threedee/math/Matrix.js" type="text/javascript"></script>
+    <script src="../main/javascript/threedee/model/Polygon.js" type="text/javascript"></script>
+    <script src="../main/javascript/threedee/model/Model.js" type="text/javascript"></script>
+    <script src="../main/javascript/threedee/model/Cube.js" type="text/javascript"></script>
+    <script src="../main/javascript/threedee/scene/rendering/Line.js" type="text/javascript"></script>
+    <script src="../main/javascript/threedee/scene/rendering/Plane.js" type="text/javascript"></script>
+    <script src="../main/javascript/threedee/scene/rendering/Frustum.js" type="text/javascript"></script>
+    <script src="../main/javascript/threedee/scene/rendering/PolygonBuffer.js" type="text/javascript"></script>
+    <script src="../main/javascript/threedee/scene/SceneNode.js" type="text/javascript"></script>
+    <script src="../main/javascript/threedee/scene/ModelNode.js" type="text/javascript"></script>
+    <script src="../main/javascript/threedee/scene/Scene.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    /* <![CDATA[ */
+
+    // Create a simple cube
+    var cube = new threedee.Cube(10);
+
+    // Create the scene
+    var scene = new threedee.Scene();
+    var node = new threedee.ModelNode(cube);
+    node.setTransform(new threedee.Matrix().setTranslateZ(50).rotateY(45 * Math.PI / 180));
+    scene.setRootNode(node);
+
+    // The graphics context
+    var g;
+
+    function init()
+    {
+        g = document.getElementById("canvas").getContext("2d");
+        render();
+    }
+
+    function render()
+    {
+        var canvas, width, height;
+        
+        canvas = g.canvas;
+        width = canvas.width;
+        height = canvas.height;
+
+        g.clearRect(0, 0, width, height); 
+        scene.render(g, width, height);
+
+        node.getTransform().rotateY(0.5 * Math.PI / 180);
+        node.getTransform().rotateX(0.5 * Math.PI / 180);
+
+        setTimeout(render, 20);
+    }
+    
+    /* ]]> */
+    </script>
+  </head>
+  <body onload="init()">
+    <h1>ThreeDee demo: Cube</h1>
+    <p>
+      This demo shows a simple rotating cube. 
+    </p>
+    <hr />
+    <canvas id="canvas" width="480" height="320" style="background:black"></canvas>
+    <hr />
+    <p>
+      Copyright (C) 2009 Klaus Reimer
+    </p>
+  </body>
+</html>

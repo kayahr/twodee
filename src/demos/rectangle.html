@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>ThreeDee demo: Rectangle</title>
+    <script src="../main/javascript/twodee.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/math/Vector.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/math/Matrix.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/model/Color.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/model/Polygon.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/model/Model.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/model/Rectangle.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/output/RenderOptions.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/scene/updater/NodeUpdater.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/scene/updater/RotateUpdater.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/scene/updater/KeyboardUpdater.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/scene/rendering/FpsCounter.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/scene/rendering/Line.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/scene/rendering/RenderPolygon.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/scene/rendering/RenderModel.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/scene/rendering/PolygonBuffer.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/scene/SceneNode.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/scene/ModelNode.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/scene/Scene.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    /* <![CDATA[ */
+
+    var renderOptions = new twodee.RenderOptions();
+    renderOptions.fpsInfo = true;
+    renderOptions.debugInfo = true;
+
+    // Creates the root node
+    var rootNode = new twodee.SceneNode();
+
+    // Create a simple rectangle and add it to the root node
+    var rectangle = new twodee.Rectangle(100);
+    var rectangleNode = new twodee.ModelNode(rectangle);
+    rootNode.appendChild(rectangleNode);
+
+    // Add updaters to rectangle so it rotates nicely around all axes
+    var rotateUpdater = new twodee.RotateUpdater(90 * Math.PI / 180);
+    rectangleNode.addUpdater(rotateUpdater);
+
+    // Create the scene
+    var scene = new twodee.Scene();    
+    scene.setRootNode(rootNode);
+    
+    // The graphics context
+    var g;
+
+    function init()
+    {
+        g = document.getElementById("canvas").getContext("2d");
+        setInterval(render, 0);
+    }
+
+    function render()
+    {
+        var canvas, width, height;
+        
+        canvas = g.canvas;
+        width = canvas.width;
+        height = canvas.height;
+
+        g.clearRect(0, 0, width, height);
+
+        scene.update(); 
+        scene.render(g, width, height, renderOptions);
+
+        document.getElementById("debugInfo").innerHTML = scene.getDebugInfo();
+    }
+    
+    /* ]]> */
+    </script>
+  </head>
+  <body onload="init()">
+    <h1>TwoDee demo: Square</h1>
+    <p>
+      This demo shows a simple rotating square. 
+    </p>
+    <hr />
+    <div style="position:relative">
+      <canvas id="canvas" width="480" height="320" style="background:black"></canvas>
+      <pre id="debugInfo" style="position:absolute;left:5px;top:5px;font-size:12px;color:#0f0;margin:0"></pre>
+    </div>
+    <hr />
+    <p>
+      Copyright (C) 2009 Klaus Reimer
+    </p>
+  </body>
+</html>

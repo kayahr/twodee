@@ -1,0 +1,223 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.ailis.twodee</groupId>
+  <artifactId>twodee</artifactId>
+  <packaging>jar</packaging>
+  <name>ThreeDee</name>
+  <version>1.0.0</version>
+
+  <description>JavaScript 2D scene graph</description>
+  
+  <inceptionYear>2009</inceptionYear>
+
+  <organization>
+    <name>Klaus Reimer</name>
+    <url>http://www.ailis.de/~k/</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>LGPL</name>
+      <url>LICENSE.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
+  <ciManagement>
+    <system>Hudson</system>
+    <url>https://www.ailis.de/hudson/</url>
+  </ciManagement>
+
+  <scm>
+    <url>https://scm.ailis.de/viewvc/svn/javascript/twodee/trunk/</url>
+    <connection>scm:svn:https://scm.ailis.de/svn/javascript/twodee/trunk/</connection>
+
+  </scm>
+
+  <properties> 
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
+  </properties>
+
+  <build>
+  
+    <sourceDirectory>src/main/javascript</sourceDirectory>
+    <testSourceDirectory>src/test/javascript</testSourceDirectory>
+    <outputDirectory>target/scripts</outputDirectory>
+    <testOutputDirectory>target/test-scripts</testOutputDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/javascript</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/javascript</directory>
+      </testResource>
+    </testResources>
+  
+    <plugins>
+    
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <chmod>false</chmod>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>net.sf.alchim</groupId>
+        <artifactId>yuicompressor-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <nosuffix>true</nosuffix>
+          <force>true</force>
+          <linebreakpos>80</linebreakpos>
+          <aggregations>
+            <aggregation>
+              <insertNewLine>true</insertNewLine>
+              <output>${project.build.directory}/twodee.js</output>
+              <includes>
+                <include>scripts/*.js</include>
+                <include>scripts/twodee/math/*.js</include>
+                <include>scripts/twodee/model/*.js</include>
+                <include>scripts/twodee/scene/rendering/*.js</include>
+                <include>scripts/twodee/scene/*.js</include>
+              </includes>
+            </aggregation>
+          </aggregations>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>jsdoc</id>
+            <phase>site</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+                <property name="jsDocVersion" value="1.10.2" />
+                <tempfile property="temp.dir" prefix=".jsdoc." />
+                <mkdir dir="${temp.dir}" />
+                <get src="http://downloads.sourceforge.net/project/jsdoc/jsdoc/jsdoc-${jsDocVersion}/JSDoc-${jsDocVersion}.tgz" dest="${temp.dir}/jsdoc.tar.gz" />
+                <untar src="${temp.dir}/jsdoc.tar.gz" dest="${temp.dir}" compression="gzip" />
+                <exec executable="perl" failonerror="true">
+                  <arg value="${temp.dir}/JSDoc-${jsDocVersion}/jsdoc.pl" />
+                  <arg value="-d" />
+                  <arg value="${basedir}/target/site/apidocs" />
+                  <arg value="--project-name" />
+                  <arg value="${project.name}" />
+                  <arg value="--project-summary" />
+                  <arg value="${basedir}/README.txt" />
+                  <arg value="--logo" />
+                  <arg value="${basedir}/src/site/resources/images/logo.png" />
+                  <arg value="-r" />
+
+                  <arg value="--package-naming" />
+                  <arg value="${basedir}/src/main/javascript" />
+                </exec>
+                <delete dir="${temp.dir}" />
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+
+  </build>
+
+  <reporting>
+
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>index</report>
+              <report>summary</report>
+              <report>dependencies</report>
+              <report>project-team</report>
+
+              <report>license</report>
+              <report>scm</report>
+              <report>surefire</report>
+              <report>cim</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+      </plugin>
+
+    </plugins>
+
+  </reporting>
+
+  <distributionManagement>
+    <repository>
+      <id>ailis-releases</id>
+      <name>Ailis Maven Releases</name>
+      <url>https://www.ailis.de/nexus/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>ailis-snapshots</id>
+      <name>Ailis Maven Snapshots</name>
+      <url>https://www.ailis.de/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <site>
+      <id>k-website</id>
+      <url>scpexe://k@ailis.de/home/k/public_html/projects/wlandsuite</url>
+    </site>
+  </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>ailis-releases</id>
+      <name>Ailis Maven Releases</name>
+      <url>https://www.ailis.de/nexus/content/repositories/releases</url>
+    </repository>
+    <repository>
+      <id>ailis-snapshots</id>
+      <name>Ailis Maven Snapshots</name>
+      <url>https://www.ailis.de/nexus/content/repositories/snapshots</url>
+      <snapshots />
+    </repository>
+  </repositories>
+
+</project>
+
+
