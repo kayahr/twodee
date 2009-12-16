@@ -35,7 +35,7 @@ twodee.KeyboardUpdater = function(element)
 twodee.inherit(twodee.KeyboardUpdater, twodee.NodeUpdater);
 
 /** The angle in clock-wise RAD */
-twodee.KeyboardUpdater.prototype.speed = 10;
+twodee.KeyboardUpdater.prototype.speed = 100;
 
 /** The rotation speed */
 twodee.KeyboardUpdater.prototype.rotSpeed = 45 * Math.PI / 180;
@@ -73,12 +73,12 @@ twodee.KeyboardUpdater.prototype.handleKeyDown = function(e)
             this.right = true;
             break;
 
-        case 81:
-            this.rollLeft = true;
+        case 69:
+            this.rotateLeft = true;
             break;
             
-        case 69:
-            this.rollRight = true;
+        case 81:
+            this.rotateRight = true;
             break;
 
         default:
@@ -120,12 +120,12 @@ twodee.KeyboardUpdater.prototype.handleKeyUp = function(e)
             this.right = false;
             break;
 
-        case 81:
-            this.rollLeft = false;
+        case 69:
+            this.rotateLeft = false;
             break;
             
-        case 69:
-            this.rollRight = false;
+        case 81:
+            this.rotateRight = false;
             break;
 
         default:
@@ -145,7 +145,7 @@ twodee.KeyboardUpdater.prototype.handleKeyUp = function(e)
 
 twodee.KeyboardUpdater.prototype.update = function(node, delta)
 {
-    var x, y, z, rx, ry, rz, transform;
+    var x, y, r, transform;
     
     x = this.right ? 1 : (this.left ? -1 : 0);
     y = this.down ? 1 : (this.up ? -1 : 0);
@@ -155,6 +155,6 @@ twodee.KeyboardUpdater.prototype.update = function(node, delta)
     
     transform.translate(x * this.speed * delta / 1000, y * this.speed
         * delta / 1000);
-    
-    transform.rotateZ(r * this.rotSpeed * delta / 1000);
+
+    transform.rotate(r * this.rotSpeed * delta / 1000);
 };

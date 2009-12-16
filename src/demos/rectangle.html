@@ -32,6 +32,8 @@
     // Creates the root node
     var rootNode = new twodee.SceneNode();
 
+    rootNode.getTransform().translate(50, 0);
+
     // Create a simple rectangle and add it to the root node
     var rectangle = new twodee.Rectangle(100);
     var rectangleNode = new twodee.ModelNode(rectangle);
@@ -39,7 +41,9 @@
 
     // Add updaters to rectangle so it rotates nicely around all axes
     var rotateUpdater = new twodee.RotateUpdater(90 * Math.PI / 180);
-    rectangleNode.addUpdater(rotateUpdater);
+    var keyboardUpdater = new twodee.KeyboardUpdater();
+    //rectangleNode.addUpdater(rotateUpdater);
+    rectangleNode.addUpdater(keyboardUpdater);
 
     // Create the scene
     var scene = new twodee.Scene();    

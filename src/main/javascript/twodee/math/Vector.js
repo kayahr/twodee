@@ -223,8 +223,8 @@ twodee.Vector.prototype.getAngle = function(v)
 twodee.Vector.prototype.transform = function(m)
 {
     return this.set(
-        m.m00 * this.x + m.m01 * this.y,
-        m.m10 * this.x + m.m11 * this.y);
+        m.m00 * this.x + m.m01 * this.y + m.m02,
+        m.m10 * this.x + m.m11 * this.y + m.m12);
 };
 
 
