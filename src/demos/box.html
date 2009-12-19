@@ -80,6 +80,9 @@
         scene.update(); 
         scene.render(g, width, height, renderOptions);
 
+        g.strokeStyle = "#fff";
+        g.strokeText("Dies ist test, jawohl!", 50, 50);
+
         document.getElementById("debugInfo").innerHTML = scene.getDebugInfo();
     }
     
