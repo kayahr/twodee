@@ -497,13 +497,22 @@ twodee.Matrix.prototype.invert = function()
 
 
 /**
- * Returns the CSS representation of the matrix. 
- * 
- * @return {String} The CSS representation of the matrix
+ * Applies the matrix to the specified HTML element. Unfortunatly the CSS
+ * syntax is differently between mozilla and webkit. This method should be
+ * replaced by a toCSS() method returning a string when some day CSS 3 is
+ * officially supported.
+ *
+ * @param {HTMLElement} element
+ *            The HTML element to apply the matrix to
  */
 
-twodee.Matrix.prototype.toCSS = function()
+twodee.Matrix.prototype.applyToElement = function(element)
 {
-    return "matrix(" + this.m00 + "," + this.m10 + "," + this.m01 + "," +
-                       this.m11 + "," + this.m02 + "px," + this.m12 + "px)";
+    var s, common;
+    
+    s = element.style;
+    common = "matrix(" + this.m00 + "," + this.m10 + "," + this.m01 +
+        "," + this.m11 + "," + this.m02;
+    s.MozTransform = common + "px," + this.m12 + "px)";
+    s.webkitTransform = common + "," + this.m12 + ")";
 };

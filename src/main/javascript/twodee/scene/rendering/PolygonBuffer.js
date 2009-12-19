@@ -102,7 +102,7 @@ twodee.PolygonBuffer.prototype.addElement = function(element, transform)
     s = element.style;
     s.left = Math.round(this.width / 2 - element.offsetWidth / 2) + "px";
     s.top = Math.round(this.height / 2 - element.offsetHeight / 2) + "px";
-    s.webkitTransform = s.MozTransform = transform.toCSS();
+    transform.applyToElement(element);
     this.elements.push(element);
 };
 
