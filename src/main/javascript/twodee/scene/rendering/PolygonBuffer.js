@@ -18,8 +18,12 @@ twodee.PolygonBuffer = function()
     this.vertices = [];
     this.polygons = [];
     this.collidePolygons = [];
+    this.elements = [];
     this.fpsCounter = new twodee.FpsCounter();
 };
+
+/** The frame ID. @prototype @type {Number} */
+twodee.PolygonBuffer.prototype.frameId = 0;
 
 /** The last gathered debug info. @private @type {String} */
 twodee.PolygonBuffer.prototype.debugInfo = "";
@@ -29,6 +33,9 @@ twodee.PolygonBuffer.prototype.vertices = null;
 
 /** The polygons in the buffer. @private @type {Array} */
 twodee.PolygonBuffer.prototype.polygons = null;
+
+/** The elements in the buffer. @private @type {Array} */
+twodee.PolygonBuffer.prototype.elements = null;
 
 /** The polygons which can collide. @private @type {Array} */
 twodee.PolygonBuffer.prototype.collidePolygons = null;
@@ -71,10 +78,32 @@ twodee.PolygonBuffer.prototype.prepare = function(width, height)
     this.vertices = [];
     this.polygons = [];
     this.collidePolygons = [];
+    this.elements = [];
 
     // Remember output size
     this.width = width;
     this.height = height;
+};
+
+
+/**
+ * Adds an HTML element to the buffer.
+ * 
+ * @param {HTMLElement} element
+ *            The element to add
+ * @param {twodee.Matrix} transform
+ *            The transformation matrix to use
+ */
+
+twodee.PolygonBuffer.prototype.addElement = function(element, transform)
+{
+    var s;
+    
+    s = element.style;
+    s.left = Math.round(this.width / 2 - element.offsetWidth / 2) + "px";
+    s.top = Math.round(this.height / 2 - element.offsetHeight / 2) + "px";
+    s.webkitTransform = s.MozTransform = transform.toCSS();
+    this.elements.push(element);
 };
 
 
@@ -85,6 +114,8 @@ twodee.PolygonBuffer.prototype.prepare = function(width, height)
  *            The model to add
  * @param {twodee.Matrix} transform
  *            The transformation matrix to use
+ * @param {Boolean} collidable
+ *            If model is collidable
  */
 
 twodee.PolygonBuffer.prototype.addModel = function(model, transform, collidable)
@@ -129,13 +160,15 @@ twodee.PolygonBuffer.prototype.addModel = function(model, transform, collidable)
  * 
  * @param {CanvasRenderingContext2D} g
  *            The graphics context
+ * @param {HTMLElement} container
+ *            The container element for HTML element nodes
  */
 
-twodee.PolygonBuffer.prototype.render = function(g)
+twodee.PolygonBuffer.prototype.render = function(g, container)
 {
     var x, y, i, max, vertexCount, polygon, v, vertex,
         solid, debugInfo, fpsInfo, polygonCounter, vertexCounter;
-
+    
     // Pull render options in local variables
     solid = this.renderOptions.solid;
     debugInfo = this.renderOptions.debugInfo;
@@ -202,6 +235,9 @@ twodee.PolygonBuffer.prototype.render = function(g)
             vertexCounter += vertexCount; 
         }
     }
+
+    // Render HTML elements
+    if (container) this.renderElements(container);
     
     // Gather debugging info if requested
     if (fpsInfo || debugInfo)
@@ -228,6 +264,42 @@ twodee.PolygonBuffer.prototype.render = function(g)
 
     // Restore the original transformation
     g.restore();
+
+    // Increase the frame id
+    this.frameId++;
+};
+
+
+/**
+ * Renders the HTML elements.
+ * 
+ * @param {HTMLElement} container
+ *            The container HTML element
+ * @private
+ */
+
+twodee.PolygonBuffer.prototype.renderElements = function(container)
+{
+    var prevElement, element, i, max;
+    
+    // Draw HTML elements
+    for (i = 0, max = this.elements.length; i < max; i++)
+    {
+        element = this.elements[i];
+        if (element.parentNode != container)
+            container.appendChild(element);
+        element.frameId = this.frameId;
+    }
+
+    // Remove obsolete HTML elements
+    element = container.lastChild;
+    while (element)
+    {
+        prevElement = element.reviousSibling;
+        if (element.frameId != this.frameId)
+            container.removeChild(element);
+        element = prevElement;
+    }    
 };
 
 

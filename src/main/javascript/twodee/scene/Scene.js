@@ -89,6 +89,8 @@ twodee.Scene.prototype.update = function(delta)
  * 
  * @param {CanvasRenderingContext2D} g
  *            The graphics context
+ * @param {HTMLElement} container
+ *            The container element for HTML element nodes
  * @param {Number} width
  *            The output width in pixels
  * @param {Number} height
@@ -100,7 +102,7 @@ twodee.Scene.prototype.update = function(delta)
  *            default camera at position 0,0 is used
  */
 
-twodee.Scene.prototype.render = function(g, width, height, renderOptions,
+twodee.Scene.prototype.render = function(g, container, width, height, renderOptions,
     camera)
 {
     var rootTransform;
@@ -124,7 +126,7 @@ twodee.Scene.prototype.render = function(g, width, height, renderOptions,
     this.rootNode.render(this.buffer, rootTransform);
 
     // Render the polygon buffer onto the screen
-    this.buffer.render(g);
+    this.buffer.render(g, container);
 };
 
 

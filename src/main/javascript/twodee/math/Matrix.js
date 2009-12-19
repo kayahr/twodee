@@ -494,3 +494,16 @@ twodee.Matrix.prototype.invert = function()
             this.m01*this.m20 - this.m00*this.m21,
             this.m00*this.m11 - this.m01*this.m10).divide(d);
 };
+
+
+/**
+ * Returns the CSS representation of the matrix. 
+ * 
+ * @return {String} The CSS representation of the matrix
+ */
+
+twodee.Matrix.prototype.toCSS = function()
+{
+    return "matrix(" + this.m00 + "," + this.m10 + "," + this.m01 + "," +
+                       this.m11 + "," + this.m02 + "px," + this.m12 + "px)";
+};
