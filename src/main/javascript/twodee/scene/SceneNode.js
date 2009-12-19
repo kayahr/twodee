@@ -6,19 +6,30 @@
 
 
 /**
- * @constructor
  * Constructs a new scene node.
  *            
+ * @constructor
  * @class
+ * @extends twodee.Object
  * A scene node. Can be used directly to create invisible group nodes or can be
  * extended to implement other node types.
  */
 
 twodee.SceneNode = function()
 {
+    twodee.Object.call(this);
     this.transform = new twodee.Matrix();
     this.updaters = [];
+    
+    this.id = this.constructor.counter++;
 };
+twodee.inherit(twodee.SceneNode, twodee.Object);
+
+/** Instance counter. @private @type {Number} */
+twodee.SceneNode.counter = 0; 
+
+/** The node polygon ID. @private @type {Number} */
+twodee.SceneNode.prototype.id = 0;
 
 /** The registered updaters. @private @type {Array} */
 twodee.SceneNode.prototype.updaters = null;
@@ -40,6 +51,18 @@ twodee.SceneNode.prototype.lastChild = null;
 
 /** The transformation of this node. @private @type {twodee.Matrix} */
 twodee.SceneNode.prototype.transform = null;
+
+
+/**
+ * Returns the node id.
+ * 
+ * @return {Number} The node id
+ */
+
+twodee.SceneNode.prototype.getId = function()
+{
+    return this.id;
+};
 
 
 /**

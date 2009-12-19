@@ -17,6 +17,7 @@ twodee.PolygonBuffer = function()
 {
     this.vertices = [];
     this.polygons = [];
+    this.collidePolygons = [];
     this.fpsCounter = new twodee.FpsCounter();
 };
 
@@ -28,6 +29,9 @@ twodee.PolygonBuffer.prototype.vertices = null;
 
 /** The polygons in the buffer. @private @type {Array} */
 twodee.PolygonBuffer.prototype.polygons = null;
+
+/** The polygons which can collide. @private @type {Array} */
+twodee.PolygonBuffer.prototype.collidePolygons = null;
 
 /** The screen width. @private @type {Number} */
 twodee.PolygonBuffer.prototype.width = 0;
@@ -66,6 +70,7 @@ twodee.PolygonBuffer.prototype.prepare = function(width, height)
     // Reset the buffer
     this.vertices = [];
     this.polygons = [];
+    this.collidePolygons = [];
 
     // Remember output size
     this.width = width;
@@ -82,9 +87,9 @@ twodee.PolygonBuffer.prototype.prepare = function(width, height)
  *            The transformation matrix to use
  */
 
-twodee.PolygonBuffer.prototype.addModel = function(model, transform)
+twodee.PolygonBuffer.prototype.addModel = function(model, transform, collidable)
 {
-    var i, max, polygon;
+    var i, max, polygon, j, jmax;
     
     // Transform the vertices of the model
     model.transform(transform);
@@ -96,8 +101,22 @@ twodee.PolygonBuffer.prototype.addModel = function(model, transform)
         
         polygon.init();
 
-        // TODO do clipping
-        if (false) continue;
+        // Check for collisions
+        if (collidable)
+        {
+            polygon.initCollisions();
+            for (j = 0, jmax = this.collidePolygons.length; j < jmax; j++)
+            {
+                other = this.collidePolygons[j];
+                
+                if (polygon.collidesWith(other))
+                {
+                    polygon.collide(other);
+                    other.collide(polygon);
+                }
+            }
+            this.collidePolygons.push(polygon);
+        }
         
         // Add the polygon to the buffer
         this.polygons.push(polygon);        
@@ -133,6 +152,10 @@ twodee.PolygonBuffer.prototype.render = function(g)
 
     // Set the default stroke color
     g.strokeStyle = "#fff";
+    
+    // Finish collision detection
+    for (i = 0, max = this.collidePolygons.length; i < max; i++)
+        this.collidePolygons[i].doneCollisions();
 
     // Draw the polygons
     for (i = 0, max = this.polygons.length; i < max; i++)

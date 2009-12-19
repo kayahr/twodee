@@ -255,3 +255,20 @@ twodee.Vector.fromJSON = function(data)
     if (!data) return null;
     return new twodee.Vector(data.x, data.y);
 };
+
+
+/**
+ * Converts this vector into its orthogonal vector and returns a reference to
+ * it.
+ * 
+ * @return {twodee.Vector}
+ *             The reference to this vector
+ */
+
+twodee.Vector.prototype.orthogonal = function()
+{
+    var tmp = this.x;
+    this.x = -this.y;
+    this.y = tmp;
+    return this;
+};

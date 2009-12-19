@@ -2,14 +2,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title>ThreeDee demo: Rectangle</title>
+    <title>ThreeDee demo: Box</title>
     <script src="../main/javascript/twodee.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/Object.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/math/Vector.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/math/Matrix.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/model/Color.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/model/Polygon.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/model/Model.js" type="text/javascript"></script>
-    <script src="../main/javascript/twodee/model/Rectangle.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/model/Box.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/output/RenderOptions.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/scene/updater/NodeUpdater.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/scene/updater/RotateUpdater.js" type="text/javascript"></script>
@@ -34,16 +35,24 @@
 
     rootNode.getTransform().translate(50, 0);
 
-    // Create a simple rectangle and add it to the root node
-    var rectangle = new twodee.Rectangle(100);
-    var rectangleNode = new twodee.ModelNode(rectangle);
-    rootNode.appendChild(rectangleNode);
+    // Create a simple box and add it to the root node
+    var box = new twodee.Box(100);
+    var boxNode = new twodee.ModelNode(box);
+    boxNode.setCollidable(true);
+    rootNode.appendChild(boxNode);
 
-    // Add updaters to rectangle so it rotates nicely around all axes
+    // Create a simple box and add it to the root node
+    var box2 = new twodee.Box(50);
+    var boxNode2 = new twodee.ModelNode(box2);
+    boxNode2.getTransform().translate(175, 0);
+    boxNode2.setCollidable(true);
+    rootNode.appendChild(boxNode2);
+
+    // Add updaters to box so it rotates nicely around all axes
     var rotateUpdater = new twodee.RotateUpdater(90 * Math.PI / 180);
     var keyboardUpdater = new twodee.KeyboardUpdater();
-    //rectangleNode.addUpdater(rotateUpdater);
-    rectangleNode.addUpdater(keyboardUpdater);
+    //boxNode.addUpdater(rotateUpdater);
+    boxNode.addUpdater(keyboardUpdater);
 
     // Create the scene
     var scene = new twodee.Scene();    

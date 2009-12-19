@@ -6,20 +6,20 @@
 
 
 /**
- * @constructor
- * Constructs a new Rectangle with the specified sizes.
+ * Constructs a new Box with the specified sizes.
  * 
  * @param {Number} xRadius
  *            The X radius
  * @param {Number} yRadius
  *            The Y radius. Optional. Defaults to X radius.
  *            
+ * @constructor
  * @class
  * @extends twodee.Model
- * A Rectangle model.
+ * A Box model.
  */
 
-twodee.Rectangle = function(xRadius, yRadius)
+twodee.Box = function(xRadius, yRadius)
 {
     if (yRadius === undefined) yRadius = xRadius;
 
@@ -34,4 +34,4 @@ twodee.Rectangle = function(xRadius, yRadius)
         ]
     );
 };
-twodee.inherit(twodee.Rectangle, twodee.Model);
+twodee.inherit(twodee.Box, twodee.Model);
