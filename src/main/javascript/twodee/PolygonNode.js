@@ -11,11 +11,11 @@
  * @param {twodee.Polygon} polygon
  *            Optional polygon. If not set then it must be set with the
  *            setPolygon() method.
- * @param {twodee.Color} fillColor
- *            Optional fill color. null means no filling. Default is a white
+ * @param {String} fillStyle
+ *            Optional fill style. null means no filling. Default is a white
  *            color.
- * @param {twodee.Color} strokeColor
- *            Optional stroke color. null means no stroking and this is the
+ * @param {String} strokeStyle
+ *            Optional stroke style. null means no stroking and this is the
  *            default.            
  *            
  * @constructor
@@ -23,23 +23,23 @@
  * @class A node which draws a polygon.
  */
 
-twodee.PolygonNode = function(polygon, fillColor, strokeColor)
+twodee.PolygonNode = function(polygon, fillStyle, strokeStyle)
 {
     twodee.SceneNode.call(this);
     if (polygon) this.setPolygon(polygon);
-    if (fillColor !== undefined) this.fillColor = fillColor;
-    if (strokeColor !== undefined) this.strokeColor = strokeColor;
+    if (fillStyle !== undefined) this.fillStyle = fillStyle;
+    if (strokeStyle !== undefined) this.strokeStyle = strokeStyle;
 };
 twodee.inherit(twodee.PolygonNode, twodee.SceneNode);
 
 /** The polygon. @private @type {twodee.Polygon} */
 twodee.PolygonNode.prototype.polygon = null;
 
-/** The fill color. @private @type {twodee.Color} */
-twodee.PolygonNode.prototype.fillColor = twodee.Color.WHITE;
+/** The fill style. @private @type {String} */
+twodee.PolygonNode.prototype.fillStyle = "#fff";
 
-/** The stroke color. @private @type {twodee.Color} */
-twodee.PolygonNode.prototype.strokeColor = null;
+/** The stroke style. @private @type {String} */
+twodee.PolygonNode.prototype.strokeStyle = null;
 
 
 /**
@@ -68,52 +68,52 @@ twodee.PolygonNode.prototype.getPolygon = function()
 
 
 /**
- * Sets the fill color. null means no filling.
+ * Sets the fill style. null means no filling.
  * 
- * @param {twodee.Color} fillColor
- *            The fill color
+ * @param {String} fillStyle
+ *            The fill style to set
  */
 
-twodee.PolygonNode.prototype.setFillColor = function(fillColor)
+twodee.PolygonNode.prototype.setFillStyle = function(fillStyle)
 {
-    this.fillColor = fillColor;
+    this.fillStyle =  fillStyle;
 };
 
 
 /**
- * Returns the fill color.
+ * Returns the fill style.
  * 
- * @return {twodee.Color} The fill color
+ * @return {String} The fill style
  */
 
-twodee.PolygonNode.prototype.getStrokeColor = function()
+twodee.PolygonNode.prototype.getStrokeStyle = function()
 {
-    return this.strokeColor;
+    return this.strokeStyle;
 };
 
 
 /**
- * Sets the stroke color. null means no filling.
+ * Sets the stroke style. null means no stroking.
  * 
- * @param {twodee.Color} strokeColor
- *            The stroke color
+ * @param {String} strokeStyle
+ *            The stroke style to set
  */
 
-twodee.PolygonNode.prototype.setStrokeColor = function(strokeColor)
+twodee.PolygonNode.prototype.setStrokeStyle = function(strokeStyle)
 {
-    this.strokeColor = strokeColor;
+    this.strokeStyle = strokeStyle;
 };
 
 
 /**
- * Returns the stroke color.
+ * Returns the stroke style.
  * 
- * @return {twodee.Color} The stroke color
+ * @return {String} The stroke style
  */
 
-twodee.PolygonNode.prototype.getStrokeColor = function()
+twodee.PolygonNode.prototype.getStrokeStyle = function()
 {
-    return this.strokeColor;
+    return this.strokeStyle;
 };
 
 
@@ -126,29 +126,29 @@ twodee.PolygonNode.prototype.getStrokeColor = function()
 
 twodee.PolygonNode.prototype.render = function(g)
 {   
-    var polygon, fillColor, strokeColor;
+    var polygon, fillStyle, strokeStyle;
     
-    fillColor = this.fillColor;
-    strokeColor = this.strokeColor;
+    fillStyle = this.fillStyle;
+    strokeStyle = this.strokeStyle;
     
     // Only do something when fill and stroke color is present
-    if (fillColor || strokeColor)
+    if (fillStyle || strokeStyle)
     {
         // Apply the polygon to the canvas
         polygon = this.polygon;    
         polygon.apply(g);
 
         // Fill the polygon if fill color is set
-        if (fillColor)
+        if (fillStyle)
         {
-            g.fillStyle = fillColor.toCSS();
+            g.fillStyle = fillStyle;
             g.fill();
         }
         
         // Stroke the polygon if stroke color is set
-        if (strokeColor)
+        if (strokeStyle)
         {
-            g.strokeStyle = strokeColor.toCSS();
+            g.strokeStyle = strokeStyle;
             g.stroke();
         }
     }
