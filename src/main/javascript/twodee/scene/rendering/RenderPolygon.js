@@ -26,17 +26,13 @@ twodee.RenderPolygon = function(model, polygon, vertices)
     
     this.model = model;
     this.color = polygon.getColor();
-    this.vertices = [];
+    this.vertices = twodee.newArray();
     this.size = polygon.countVertices();
-    this.origSize = this.size;
     for (i = 0, max = this.size; i < max; i++)
         this.vertices.push(vertices[polygon.getVertex(i)]);
     
-    this.polygon = [];
-    this.prevPolygon = [];
-    
-    this.collisions = {};
-    this.prevCollisions = {};
+    this.collisions = twodee.newObject();
+    this.prevCollisions = twodee.newObject();
     
     this.id = this.constructor.counter++;    
 };
@@ -59,24 +55,6 @@ twodee.RenderPolygon.prototype.vertices = null;
 /** The current number of used vertices. @private @type {Number} */
 twodee.RenderPolygon.prototype.size = 0;
 
-/** The original number of vertices. @private @type {Number} */
-twodee.RenderPolygon.prototype.origSize = 0;
-
-/** The extra vectors added to the original ones. @private @type {Number} */
-twodee.RenderPolygon.prototype.extras = 0;
-
-/** The vertex indices that forms the polygon. @private @type {Array} */
-twodee.RenderPolygon.prototype.polygon = null;
-
-/** The previous vertex indices that forms the polygon. @private @type {Array} */
-twodee.RenderPolygon.prototype.prevPolygon = null;
-
-/** The normal vector cache. @private @type {twodee.Vector} */
-twodee.RenderPolygon.prototype.normal = null;
-
-/** The center vector cache. @private @type {twodee.Vector} */
-twodee.RenderPolygon.prototype.center = null;
-
 /** The referenced vertices. @private @type {Array} */
 twodee.RenderPolygon.prototype.vertices = null;
 
@@ -98,6 +76,18 @@ twodee.RenderPolygon.prototype.collided = false;
 /** If polygon collided previously. @private @type {Boolean} */
 twodee.RenderPolygon.prototype.prevCollided = false;
 
+/** The top coordinate of the bounding box. @private @type {Number} */
+twodee.RenderPolygon.prototype.top = 0;
+
+/** The bottom coordinate of the bounding box. @private @type {Number} */
+twodee.RenderPolygon.prototype.bottom = 0;
+
+/** The left coordinate of the bounding box. @private @type {Number} */
+twodee.RenderPolygon.prototype.left = 0;
+
+/** The right coordinate of the bounding box. @private @type {Number} */
+twodee.RenderPolygon.prototype.right = 0; 
+    
 
 /**
  * Returns the render polygon id.
@@ -119,11 +109,25 @@ twodee.RenderPolygon.prototype.getId = function()
 
 twodee.RenderPolygon.prototype.init = function()
 {
-    var i;
+    var i, left, right, top, bottom;
     
-    this.size = this.origSize;
-    for (i = this.size - 1; i >= 0; i--) this.polygon[i] = i;
-    this.extras = 0;
+    right = left = this.vertices[0].x;
+    top = bottom = this.vertices[0].y;
+    for (i = this.size - 1; i >= 0; i--)
+    {
+        if (i)
+        {
+            left = Math.min(left, this.vertices[i].x);
+            right = Math.max(right, this.vertices[i].x);
+            top = Math.min(top, this.vertices[i].y);
+            bottom = Math.max(bottom, this.vertices[i].y);
+        }
+    }
+    this.left = left;
+    this.top = top;
+    this.right = right;
+    this.bottom = bottom;
+    
 };
 
 
@@ -149,41 +153,7 @@ twodee.RenderPolygon.prototype.countVertices = function()
 
 twodee.RenderPolygon.prototype.getVertex = function(index)
 {
-    return this.vertices[this.polygon[index]];
-};
-
-
-/**
- * Returns the center of the polygon.
- * 
- * Speed-optimization: The calculated center vector is cached in an instance
- * scope variable to prevent creation of vector objects on reach frame render.
- * WARNING: If you want to use the returned center vector for a longer time
- * (and not only for a single frame) then you should copy the vector because
- * otherwise the content may change when the polygon changes.
- * 
- * @return {twodee.Vector} The center of the polygon
- */
-
-twodee.RenderPolygon.prototype.getCenter = function()
-{
-    var vertexCount, ax, ay, i, v;
-    
-    vertexCount = this.size;
-    ax = 0;
-    ay = 0;
-
-    for (i = 0; i < vertexCount; i++)
-    {
-        v = this.vertices[this.polygon[i]];
-        ax += v.x;
-        ay += v.y;
-    }
-    ax /= vertexCount;
-    ay /= vertexCount;
-
-    if (!this.center) this.center = new twodee.Vector();
-    return this.center.set(ax, ay);
+    return this.vertices[index];
 };
 
 
@@ -218,7 +188,10 @@ twodee.RenderPolygon.prototype.collidesWith = function(other)
     if (!this.size || !other.size) return false;
     
     // If bounding boxes do not collide then the polygons can't collide
-    // TODO if (!this.getBounds().collide(other.getBounds())) return false;
+    if (this.top > other.bottom) return false;
+    if (this.bottom < other.top) return false;
+    if (this.left > other.right) return false;
+    if (this.right < other.left) return false;
     
     // Process all faces of the first polygon
     for (i = 0, max = this.size; i < max; i++)
@@ -262,16 +235,16 @@ twodee.RenderPolygon.prototype.isSeparationAxis = function(other, faceIndex)
 
     // Get the face (and it's normal)
     base = this.vertices[faceIndex];
-    normal = this.vertices[faceIndex2].copy().sub(base).orthogonal();
+    normal = this.vertices[faceIndex2].copy(this.constructor.V1).sub(base).orthogonal();
     
     // Check on which side the first polygon is
-    point = this.vertices[pointIndex].copy().sub(base);
+    point = this.vertices[pointIndex].copy(this.constructor.V2).sub(base);
     dir1 = point.dot(normal) > 0;
     
-    // Check if all points of second polyhon are on the other side
+    // Check if all points of second polygon are on the other side
     for (i = 0, max = other.size; i < max; i++)
     {
-        point = other.vertices[i].copy().sub(base);
+        point = other.vertices[i].copy(this.constructor.V2).sub(base);
         dir2 = point.dot(normal) > 0;
         
         // If point is on the same side as the first polygon then this is
@@ -307,7 +280,7 @@ twodee.RenderPolygon.prototype.initCollisions = function()
     if (!this.collided && !this.prevCollided) return;
     
     this.prevCollisions = this.collisions;
-    this.collisions = {};
+    this.collisions = twodee.newObject();
     this.prevCollided = this.collided;
     this.collided = false;
 };

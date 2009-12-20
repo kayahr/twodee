@@ -19,7 +19,7 @@ twodee.SceneNode = function()
 {
     twodee.Object.call(this);
     this.transform = new twodee.Matrix();
-    this.updaters = [];
+    this.updaters = twodee.newArray();
     
     this.id = this.constructor.counter++;
 };
@@ -330,13 +330,15 @@ twodee.SceneNode.prototype.update = function(delta)
 
 twodee.SceneNode.prototype.render = function(buffer, transform)
 {
-    var childNode;
+    var childNode, matrix;
     
     childNode = this.firstChild;
     while (childNode)
     {
-        childNode.render(buffer, transform.copy().transform(childNode
-            .getTransform()));
+        matrix = twodee.Matrix.get();
+        matrix = transform.copy(matrix).transform(childNode.getTransform());
+        childNode.render(buffer, matrix);
+        twodee.Matrix.release(matrix);
         childNode = childNode.getNextSibling();
     }
 };

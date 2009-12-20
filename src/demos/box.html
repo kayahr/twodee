@@ -34,30 +34,27 @@
     // Creates the root node
     var rootNode = new twodee.SceneNode();
 
-    rootNode.getTransform().translate(50, 0);
-
-    // Create a simple box and add it to the root node
-    var box = new twodee.Box(100);
-    var boxNode = new twodee.ModelNode(box);
-    boxNode.setCollidable(true);
-    rootNode.appendChild(boxNode);
-
-    var textNode = new twodee.TextNode("Testtext");
-    textNode.getTransform().translate(-100, 0);
-    boxNode.appendChild(textNode);
-
-    // Create a simple box and add it to the root node
-    var box2 = new twodee.Box(50);
-    var boxNode2 = new twodee.ModelNode(box2);
-    boxNode2.getTransform().translate(175, 0);
-    boxNode2.setCollidable(true);
-    rootNode.appendChild(boxNode2);
-
-    // Add updaters to box so it rotates nicely around all axes
-    var rotateUpdater = new twodee.RotateUpdater(90 * Math.PI / 180);
-    var keyboardUpdater = new twodee.KeyboardUpdater();
-    boxNode.addUpdater(rotateUpdater);
-    boxNode.addUpdater(keyboardUpdater);
+    for (x = -2; x <= 2; x++)
+    {
+        for (y = -2; y <= 2; y++)
+        {
+            var box = new twodee.Box(20);
+            var boxNode = new twodee.ModelNode(box);
+            boxNode.getTransform().translate(x * 60, y * 60);
+            boxNode.setCollidable(true);
+            rootNode.appendChild(boxNode);
+            if (x || y)
+            {
+                var rotateUpdater = new twodee.RotateUpdater(45 * Math.PI / 180);   
+                boxNode.addUpdater(rotateUpdater);
+            }
+            else
+            {
+                var keyboardUpdater = new twodee.KeyboardUpdater();
+                boxNode.addUpdater(keyboardUpdater);                
+            }
+        }
+    }
 
     // Create the scene
     var scene = new twodee.Scene();    
@@ -102,8 +99,8 @@
     </p>
     <hr />
     <div style="position:relative">
+      <div id="elementsCanvas" style="position:absolute;left:0;top:0;width:480px;height:100%;overflow:hidden"></div>
       <canvas id="canvas" width="480" height="320" style="background:black"></canvas>
-      <div id="elementsCanvas" style="position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden"></div>
       <pre id="debugInfo" style="position:absolute;left:5px;top:5px;font-size:12px;color:#0f0;margin:0"></pre>     
     </div>
     <hr />

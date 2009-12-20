@@ -15,10 +15,10 @@
 
 twodee.PolygonBuffer = function()
 {
-    this.vertices = [];
-    this.polygons = [];
-    this.collidePolygons = [];
-    this.elements = [];
+    this.vertices = twodee.newArray();
+    this.polygons = twodee.newArray();
+    this.collidePolygons = twodee.newArray();
+    this.elements = twodee.newArray();
     this.fpsCounter = new twodee.FpsCounter();
 };
 
@@ -75,10 +75,10 @@ twodee.PolygonBuffer.prototype.setRenderOptions = function(renderOptions)
 twodee.PolygonBuffer.prototype.prepare = function(width, height)
 {
     // Reset the buffer
-    this.vertices = [];
-    this.polygons = [];
-    this.collidePolygons = [];
-    this.elements = [];
+    this.vertices.length = 0;
+    this.polygons.length = 0;
+    this.collidePolygons.length = 0;
+    this.elements.length = 0;
 
     // Remember output size
     this.width = width;
@@ -183,9 +183,6 @@ twodee.PolygonBuffer.prototype.render = function(g, container)
     g.save();
     g.translate(this.width / 2, this.height / 2);
 
-    // Set the default stroke color
-    g.strokeStyle = "#fff";
-    
     // Finish collision detection
     for (i = 0, max = this.collidePolygons.length; i < max; i++)
         this.collidePolygons[i].doneCollisions();
@@ -197,6 +194,7 @@ twodee.PolygonBuffer.prototype.render = function(g, container)
         
         // Render the path
         vertexCount = polygon.countVertices();
+        
         g.beginPath();
         for (v = 0; v < vertexCount; v++)
         {
@@ -213,9 +211,10 @@ twodee.PolygonBuffer.prototype.render = function(g, container)
         g.closePath();
 
         // Set fill or stroke color (Depends on if solid polygons are rendered)
-        if (solid)
+        if (solid && vertexCount > 2)
         {
             g.fillStyle = polygon.getColor().toCSS();
+            g.strokeStyle = polygon.getColor().toCSS();
             g.fill();
             if (this.renderOptions.outline)
             {
@@ -225,9 +224,16 @@ twodee.PolygonBuffer.prototype.render = function(g, container)
         }
         else
         {
+            g.strokeStyle = polygon.getColor().toCSS();
             g.stroke();
         }        
-        
+
+        // Draw bounding boxes
+        /*
+        g.strokeStyle = "red";
+        g.strokeRect(polygon.left, polygon.top, polygon.right - polygon.left, polygon.bottom - polygon.top);
+        */
+
         // Update counters if needed
         if (debugInfo)
         {
@@ -237,7 +243,7 @@ twodee.PolygonBuffer.prototype.render = function(g, container)
     }
 
     // Render HTML elements
-    if (container) this.renderElements(container);
+    //if (container) this.renderElements(container);
     
     // Gather debugging info if requested
     if (fpsInfo || debugInfo)
@@ -258,7 +264,11 @@ twodee.PolygonBuffer.prototype.render = function(g, container)
                 "\n  Vector: " + twodee.Vector.count() +
                 "\n  Matrix: " + twodee.Matrix.count() +
                 "\n  Color: " + twodee.Color.count() +
-                "\n  Polygon: " + twodee.Polygon.count();
+                "\n  Polygon: " + twodee.Polygon.count() +
+                "\n  Arrays: " + twodee.countArrays() +
+                "\n  Maps: " + twodee.countObjects() +
+                "\n\nPooled objectes:" +
+                "\n  Matrix: " + twodee.Matrix.countPooled()
         }
     }
 

@@ -27,7 +27,7 @@ twodee.RenderOptions.prototype.fpsInfo = false;
 twodee.RenderOptions.prototype.debugInfo = false;
 
 /** If outline should be rendered when filling polygons. @type {Boolean} */
-twodee.RenderOptions.prototype.outline = true;
+twodee.RenderOptions.prototype.outline = false;
 
 /** The outline color (null=fill color). @type {String} */
 twodee.RenderOptions.prototype.outlineColor = null;

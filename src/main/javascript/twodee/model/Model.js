@@ -112,10 +112,10 @@ twodee.Model.prototype.toJSON = function()
 {
     var data, vertices, polygons, i, max;
     
-    vertices = [];
+    vertices = twodee.newArray();
     for (i = 0, max = this.vertices.length; i < max; i++)
         vertices.push(this.vertices[i].toJSON());
-    polygons = [];
+    polygons = twodee.newArray();
     for (i = 0, max = this.polygons.length; i < max; i++)
         polygons.push(this.polygons[i].toJSON());
     
@@ -141,12 +141,12 @@ twodee.Model.fromJSON = function(data)
     var color, i, max, vertices;
     
     // Parse polygons
-    polygons = [];
+    polygons = twodee.newArray();
     for (i = 0, max = data.p.length; i < max; i++)
         polygons.push(twodee.Polygon.fromJSON(data.p[i]));
 
     // Parse vertexes
-    vertices = [];
+    vertices = twodee.newArray();
     for (i = 0, max = data.v.length; i < max; i++)
         vertices.push(twodee.Vector.fromJSON(data.v[i]));
     

@@ -14,7 +14,7 @@
 
 twodee.Object = function()
 {
-    this.slots = [];
+    this.slots = twodee.newArray();
 };
 
 /** The connected slots. @private @type {Array} */
@@ -36,7 +36,7 @@ twodee.Object.prototype.getSlots = function(signal)
     var slots;
     
     slots = this.slots[signal];
-    if (!slots) slots = this.slots[signal] = [];
+    if (!slots) slots = this.slots[signal] = twodee.newArray();
     return slots;
 };
 
@@ -107,7 +107,7 @@ twodee.Object.prototype.sendSignal = function(signal, args__)
     var slots, i, args;
     
     // Build arguments array 
-    args = [];
+    args = twodee.newArray();
     for (i = 2; i < arguments.length; i++) args.push(arguments[i]);
     
     // Call all connected slots

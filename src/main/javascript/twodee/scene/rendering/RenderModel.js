@@ -27,16 +27,16 @@ twodee.RenderModel = function(model, node)
     this.model = model;
     this.node = node;
     
-    this.vertices = [];
+    this.vertices = twodee.newArray();
     for (i = 0, max = this.model.countVertices(); i < max; i++)
         this.vertices.push(this.model.getVertex(i).copy());
     
-    this.polygons = [];
+    this.polygons = twodee.newArray();
     for (i = 0, max = this.model.countPolygons();  i < max; i++)
         this.polygons.push(new twodee.RenderPolygon(this, this.model.getPolygon(i),
             this.vertices));
     
-    this.collisions = {};
+    this.collisions = twodee.newObject();
 
     this.id = this.constructor.counter++;    
 };

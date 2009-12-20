@@ -21,6 +21,9 @@ twodee.Matrix = function()
 /** Instance counter. @private @type {Number} */
 twodee.Matrix.counter = 0;
 
+/** The matrix pool. @private @type {Array} */
+twodee.Matrix.pool = twodee.newArray();
+
 /** A temporary matrix for internal operations. @private @type {twodee.Matrix} */
 twodee.Matrix.TMP = new twodee.Matrix();
 
@@ -67,14 +70,55 @@ twodee.Matrix.count = function()
 
 
 /**
- * Returns a copy of this matrix.
+ * Gets a matrix from the pool. If the pool is empty then a new matrix is
+ * created.
  * 
+ * @return {twodee.Matrix} The retrieved or created matrix
+ */
+
+twodee.Matrix.get = function()
+{
+    return this.pool.length ? this.pool.pop() : new twodee.Matrix(); 
+};
+
+
+/**
+ * Returns the number of pooled matrices.
+ * 
+ * @return {Number} The number of pooled matrices
+ */
+
+twodee.Matrix.countPooled = function()
+{
+    return this.pool.length;
+};
+
+/**
+ * Releases a matrix back into the pool.
+ * 
+ * @param {twodee.Matrix} matrix
+ *            The matrix to release
+ */
+
+twodee.Matrix.release = function(matrix)
+{
+    this.pool.push(matrix);
+};
+
+
+/**
+ * Returns a copy of this matrix. If a target matrix is specified then the
+ * matrix is copied into this target matrix. If not specified then a new
+ * fresh matrix is created.
+ * 
+ * @param {twodee.Matrix} target
+ *            Optional target matrix
  * @return {twodee.Matrix} A copy of this matrix
  */
 
-twodee.Matrix.prototype.copy = function()
+twodee.Matrix.prototype.copy = function(target)
 {
-    return new twodee.Matrix().set(
+    return (target ? target : new twodee.Matrix()).set(
         this.m00, this.m01, this.m02,
         this.m10, this.m11, this.m12,
         this.m20, this.m21, this.m22);
