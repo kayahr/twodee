@@ -399,6 +399,8 @@ twodee.SceneNode.prototype.removeUpdater = function(updater)
 
 twodee.SceneNode.prototype.setBounds = function(bounds)
 {
+    if (this.collidable && !bounds)
+        throw new Error("Collidable nodes must have bounds");
     this.bounds = bounds;
 };
 
