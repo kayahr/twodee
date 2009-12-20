@@ -9,13 +9,11 @@
     <script src="../main/javascript/twodee/Matrix.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/BoundingBox.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/Polygon.js" type="text/javascript"></script>
-    <script src="../main/javascript/twodee/NodeUpdater.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/SceneNode.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/PolygonNode.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/Scene.js" type="text/javascript"></script>
-    <script src="../main/javascript/twodee/RotateUpdater.js" type="text/javascript"></script>
-    <script src="../main/javascript/twodee/KeyboardUpdater.js" type="text/javascript"></script>
     <script src="../main/javascript/twodee/FpsCounter.js" type="text/javascript"></script>
+    <script src="../main/javascript/twodee/Physics.js" type="text/javascript"></script>
     <script type="text/javascript">
     /* <![CDATA[ */
 
@@ -35,9 +33,13 @@
     boxNode.setCollidable(true);
     rootNode.appendChild(boxNode);
 
-    // Apply rotate updater to box node
-    var rotateUpdater = new twodee.RotateUpdater(45 * Math.PI / 180);   
-    boxNode.addUpdater(rotateUpdater);
+    // Apply physics
+    var physics = new twodee.Physics();
+    physics.setSpin(45 * Math.PI / 180);
+    physics.getDrift().set(50, 25);
+    boxNode.setPhysics(physics);
+
+    // Watch collisions
     boxNode.connect("collisionStarted", function(a, b) { console.log("Collision started"); });
     boxNode.connect("collisionStopped", function(a, b) { console.log("Collision stopped"); });
 

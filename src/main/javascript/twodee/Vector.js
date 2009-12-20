@@ -64,6 +64,18 @@ twodee.Vector.prototype.copy = function(v)
 
 
 /**
+ * Checks if this vector is a zero vector.
+ * 
+ * @return {Boolean} True if vector is a zero vector, false if not
+ */
+
+twodee.Vector.prototype.isZero = function()
+{
+    return !this.x && !this.y; 
+};
+
+
+/**
  * Sets the vector coordinates.
  * 
  * @param {Number} x
@@ -128,6 +140,28 @@ twodee.Vector.prototype.scale = function(fx, fy)
 {
     this.x *= fx;
     this.y *= fy === undefined ? fx : fy;
+    return this;
+};
+
+
+/**
+ * Rotates the vector by the specified angle.
+ * 
+ * @param {Number} angle
+ *            The rotation angle in clockwise RAD.
+ * @return {twodee.Vector} This vector
+ */
+
+twodee.Vector.prototype.rotate = function(angle)
+{
+    var x, y, s, c;
+    
+    s = Math.sin(angle);
+    c = Math.cos(angle);
+    x = this.x;
+    y = this.y;
+    this.x = x * c - y * s;
+    this.y = x * s + y * c;
     return this;
 };
 

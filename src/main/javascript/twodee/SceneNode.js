@@ -19,7 +19,6 @@ twodee.SceneNode = function()
 {
     twodee.Object.call(this);
     this.transform = new twodee.Matrix();
-    this.updaters = [];
     this.collisions = {};
     this.previousCollisions = {};
     
@@ -32,9 +31,6 @@ twodee.SceneNode.counter = 0;
 
 /** The node polygon ID. @private @type {Number} */
 twodee.SceneNode.prototype.id = 0;
-
-/** The registered updaters. @private @type {Array} */
-twodee.SceneNode.prototype.updaters = null;
 
 /** The parent node. Can be null if there is none. @private @type {twodee.SceneNode} */
 twodee.SceneNode.prototype.parentNode = null;
@@ -68,6 +64,9 @@ twodee.SceneNode.prototype.collisions = null;
 
 /** Map with nodes which collided previously with this one. @private @type {Object} */
 twodee.SceneNode.prototype.previousCollisions = null;
+
+/** The physics model. @private @type {twodee.Physics} */
+twodee.SceneNode.prototype.physics = null;
 
 
 /**
@@ -355,41 +354,6 @@ twodee.SceneNode.prototype.getTransform = function()
 
 
 /**
- * Adds the specified node updater to this node.
- * 
- * @param {twodee.NodeUpdater} updater
- *            The updater to add
- */
-
-twodee.SceneNode.prototype.addUpdater = function(updater)
-{
-    this.updaters.push(updater);
-};
-
-
-/**
- * Removes the specified node updater from this node.
- * 
- * @param {twodee.NodeUpdater} updater
- *            The updater to remove
- */
-
-twodee.SceneNode.prototype.removeUpdater = function(updater)
-{
-    var i;
-    
-    for (i = this.updaters.length - 1; i >= 0; i--)
-    {
-        if (this.updaters[i] == updater)
-        {
-            this.updaters.splice(i, 1);
-            break;
-        }
-    }
-};
-
-
-/**
  * Sets the bounds of this node. Specify null to use no bounds. Nodes without
  * bounds never participate in collision detection.
  * 
@@ -510,8 +474,32 @@ twodee.SceneNode.prototype.processCollisions = function()
 
 
 /**
+ * Sets the physics model. Specify null to remove the existing physics model.
+ * 
+ * @param {twodee.Physics} physics
+ *            The physics model to set
+ */
+
+twodee.SceneNode.prototype.setPhysics = function(physics)
+{
+    this.physics = physics;
+};
+
+
+/**
+ * Returns the physics model. May return null if node has no physics model.
+ * 
+ * @return {twodee.Physics} The physics model or null if not present
+ */
+
+twodee.SceneNode.prototype.getPhysics = function()
+{
+    return this.physics;
+};
+
+/**
  * Updates the node with the specified time delta. Default implementation is
- * executing the connected node updaters.
+ * processing the physics model if present.
  * 
  * @param {Number} delta
  *            The time elapsed since the last scene update (in milliseconds)
@@ -519,10 +507,11 @@ twodee.SceneNode.prototype.processCollisions = function()
 
 twodee.SceneNode.prototype.update = function(delta)
 {
-    var i, max;
+    var physics;
     
-    for (i = 0, max = this.updaters.length; i < max; i++)
-        this.updaters[i].update(this, delta);
+    // Process the physics model if present
+    physics = this.physics;
+    if (physics) physics.process(this, delta);
 };
 
 

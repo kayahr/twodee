@@ -103,11 +103,11 @@ twodee.Polygon.prototype.apply = function(g)
     max = vertices.length;
     g.beginPath();
     vertex = vertices[0];
-    g.moveTo(vertex.x, vertex.y);
+    g.moveTo(vertex.x, -vertex.y);
     for (i = 1; i < max; i++)
     {
         vertex = vertices[i];
-        g.lineTo(vertex.x, vertex.y);
+        g.lineTo(vertex.x, -vertex.y);
     }
     if (max > 2) g.closePath();    
 };
