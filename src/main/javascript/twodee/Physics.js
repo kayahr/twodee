@@ -23,6 +23,9 @@ twodee.Physics.prototype.drift = null;
 /** The spin in clock-wise RAD per second. @private @type {Number} */
 twodee.Physics.prototype.spin = 0;
 
+/** The lifetime in seconds. @private @type {Number} */
+twodee.Physics.prototype.lifetime = Infinity;
+
 
 /**
  * Returns the drift vector. There is no setter because you should modify
@@ -63,6 +66,31 @@ twodee.Physics.prototype.setSpin = function(spin)
 
 
 /**
+ * Returns the lifetime in seconds. May return Infinity.
+ * 
+ * @return {Number} The lifetime
+ */
+
+twodee.Physics.prototype.getLifetime = function()
+{
+    return this.lifetime;
+};
+
+
+/**
+ * Sets the lifetime in seconds. Default value is Infinity.
+ * 
+ * @param {Number} lifetime
+ *            The lifetime to set
+ */
+
+twodee.Physics.prototype.setLifetime = function(lifetime)
+{
+    this.lifetime = lifetime;
+};
+
+
+/**
  * Processes the physics model for the specified node and time delta.
  * 
  * @param {twodee.SceneNode} node
@@ -75,8 +103,19 @@ twodee.Physics.prototype.process = function(node, delta)
 {
     var spin, transform, drift, factor, angle, v;
     
-    transform = node.getTransform();
     factor = delta / 1000;
+
+    // Process the lifetime
+    this.lifetime = Math.max(0, this.lifetime - factor);
+    if (!this.lifetime)
+    {
+        node.remove();
+        return;
+    }
+
+    
+    
+    transform = node.getTransform();
     
     // Process the spinning
     spin = this.spin;
@@ -93,4 +132,5 @@ twodee.Physics.prototype.process = function(node, delta)
         v = drift.copy().rotate(-angle);
         transform.translate(v.x * factor, v.y * factor);
     }
+    
 };

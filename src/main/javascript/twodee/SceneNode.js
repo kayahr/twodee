@@ -209,6 +209,19 @@ twodee.SceneNode.prototype.hasChildNodes = function()
 
 
 /**
+ * Removes this node from its parent.
+ */
+
+twodee.SceneNode.prototype.remove = function()
+{
+    var parentNode;
+    
+    parentNode = this.parentNode;
+    if (parentNode) parentNode.removeChild(this);
+};
+
+
+/**
  * Removes the specified child node from this node.
  * 
  * @param {twodee.SceneNode} node

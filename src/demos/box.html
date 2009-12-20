@@ -37,17 +37,18 @@
     var physics = new twodee.Physics();
     physics.setSpin(45 * Math.PI / 180);
     physics.getDrift().set(50, 25);
+    physics.setLifetime(5);
     boxNode.setPhysics(physics);
-
-    // Watch collisions
-    boxNode.connect("collisionStarted", function(a, b) { console.log("Collision started"); });
-    boxNode.connect("collisionStopped", function(a, b) { console.log("Collision stopped"); });
 
     var boxNode2 = new twodee.PolygonNode(box);
     boxNode2.setCollidable(true);
     boxNode2.setFillStyle("#f00");
     boxNode2.getTransform().translate(110, 0);
     rootNode.appendChild(boxNode2);
+
+    // Watch collisions
+    boxNode2.connect("collisionStarted", function(a, b) { console.log("Collision started"); });
+    boxNode2.connect("collisionStopped", function(a, b) { console.log("Collision stopped"); });
 
     // Create the scene
     var scene = new twodee.Scene();    
