@@ -35,9 +35,11 @@
 
     // Apply physics
     var physics = new twodee.Physics();
-    physics.setSpin(45 * Math.PI / 180);
-    physics.getDrift().set(50, 25);
-    physics.setLifetime(5);
+    physics.setSpin(45 * Math.PI / 180 * 0);
+    physics.getDrift().set(00, 0);
+    physics.getAcceleration().set(0, 5 * 0);
+    physics.setSpinAcceleration(5);
+    //physics.setLifetime(5);
     boxNode.setPhysics(physics);
 
     var boxNode2 = new twodee.PolygonNode(box);

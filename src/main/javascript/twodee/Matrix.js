@@ -146,7 +146,7 @@ twodee.Matrix.prototype.setIdentity = function()
  * Sets the entries of this matrix to a rotation matrix.
  * 
  * @param {Number} angle
- *            The rotation angle in clock-wise RAD
+ *            The rotation angle in anti-clockwise RAD
  * @return {twodee.Matrix}
  *            This matrix
  */
@@ -165,9 +165,9 @@ twodee.Matrix.prototype.setRotate = function(angle)
 
 
 /**
- * Returns the rotation angle in clock-wise RAD.
+ * Returns the rotation angle in anti-clockwise RAD.
  * 
- * @return {number} The rotation angle in clock-wise RAD
+ * @return {number} The rotation angle in anti-clockwise RAD
  */
 
 twodee.Matrix.prototype.getRotationAngle = function()
@@ -462,7 +462,7 @@ twodee.Matrix.prototype.scaleY = function(f)
  * Rotates this matrix by the specified angle
  * 
  * @param {Number} r
- *            The angle in clock-wise RAD
+ *            The angle in anti-clockwise RAD
  * @return {twodee.Matrix}
  *            This matrix
  */

@@ -148,7 +148,7 @@ twodee.Vector.prototype.scale = function(fx, fy)
  * Rotates the vector by the specified angle.
  * 
  * @param {Number} angle
- *            The rotation angle in clockwise RAD.
+ *            The rotation angle in anti-clockwise RAD.
  * @return {twodee.Vector} This vector
  */
 
@@ -236,7 +236,7 @@ twodee.Vector.prototype.toUnit = function()
  * 
  * @param {twodee.Vector} v
  *            The other vector
- * @return {Number} The angle in clockwise RAD.
+ * @return {Number} The angle in anti-clockwise RAD.
  */
 
 twodee.Vector.prototype.getAngle = function(v)

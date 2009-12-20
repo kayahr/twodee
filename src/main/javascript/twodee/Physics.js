@@ -15,21 +15,28 @@
 twodee.Physics = function()
 {
     this.drift = new twodee.Vector();
+    this.acceleration = new twodee.Vector();
 };
 
 /** The drift vector. Length is units per second. @private @type {twodee.Vector} */
 twodee.Physics.prototype.drift = null;
 
-/** The spin in clock-wise RAD per second. @private @type {Number} */
+/** The acceleration vector.Length is units per square second. @private @type {twodee.Vector} */
+twodee.Physics.prototype.acceleration = null;
+
+/** The spin in anti-clockwise RAD per second. @private @type {Number} */
 twodee.Physics.prototype.spin = 0;
+
+/** The spin acceleration in anti-clockwise RAD per square second. @private @type {Number} */
+twodee.Physics.prototype.spinAcceleration = 0;
 
 /** The lifetime in seconds. @private @type {Number} */
 twodee.Physics.prototype.lifetime = Infinity;
 
 
 /**
- * Returns the drift vector. There is no setter because you should modify
- * the returned vector instead.
+ * Returns the drift vector. The length is units per second. There is no setter
+ * because you should modify the returned vector instead.
  * 
  * @return {twodee.Vector} The drift vector. Never null
  */
@@ -41,7 +48,20 @@ twodee.Physics.prototype.getDrift = function()
 
 
 /**
- * Returns the spin in clock-wise RAD per second.
+ * Returns the acceleration vector. The length is units per square second.
+ * There is no setter because you should modify the returned vector instead.
+ * 
+ * @return {twodee.Vector} The acceleration vector. Never null
+ */
+
+twodee.Physics.prototype.getAcceleration= function()
+{
+    return this.acceleration;
+};
+
+
+/**
+ * Returns the spin in anti-clockwise RAD per second.
  * 
  * @return {Number} The current spin
  */
@@ -53,7 +73,7 @@ twodee.Physics.prototype.getSpin = function()
 
 
 /**
- * Sets the spin in clock-wise RAD per second.
+ * Sets the spin in anti-clockwise RAD per second.
  * 
  * @param {Number} spin
  *            The spin to set
@@ -62,6 +82,31 @@ twodee.Physics.prototype.getSpin = function()
 twodee.Physics.prototype.setSpin = function(spin)
 {
     this.spin = spin;
+};
+
+
+/**
+ * Returns the spin acceleration in anti-clockwise RAD per square second.
+ * 
+ * @return {Number} The current spin acceleration
+ */
+
+twodee.Physics.prototype.getSpinAcceleration = function()
+{
+    return this.spinAcceleration;
+};
+
+
+/**
+ * Sets the spin acceleration in anti-clockwise RAD per square second.
+ * 
+ * @param {Number} spinAcceleration
+ *            The spin acceleration to set
+ */
+
+twodee.Physics.prototype.setSpinAcceleration = function(spinAcceleration)
+{
+    this.spinAcceleration = spinAcceleration;
 };
 
 
@@ -101,7 +146,8 @@ twodee.Physics.prototype.setLifetime = function(lifetime)
 
 twodee.Physics.prototype.process = function(node, delta)
 {
-    var spin, transform, drift, factor, angle, v;
+    var spin, transform, drift, factor, angle, v, acceleration,
+        spinAcceleration;
     
     factor = delta / 1000;
 
@@ -112,9 +158,17 @@ twodee.Physics.prototype.process = function(node, delta)
         node.remove();
         return;
     }
+    
+    // Process the acceleration
+    acceleration = this.acceleration;
+    if (!acceleration.isZero())
+        this.drift.add(acceleration.copy().scale(factor));
+    
+    // Process the spin acceleration
+    spinAcceleration = this.spinAcceleration;
+    if (spinAcceleration)
+        this.spin += spinAcceleration * factor;
 
-    
-    
     transform = node.getTransform();
     
     // Process the spinning
