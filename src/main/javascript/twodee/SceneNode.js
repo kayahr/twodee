@@ -19,7 +19,7 @@ twodee.SceneNode = function()
 {
     twodee.Object.call(this);
     this.transform = new twodee.Matrix();
-    this.updaters = twodee.newArray();
+    this.updaters = [];
     this.collisions = {};
     this.previousCollisions = {};
     

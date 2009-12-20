@@ -21,9 +21,6 @@ twodee.Matrix = function()
 /** Instance counter. @private @type {Number} */
 twodee.Matrix.counter = 0;
 
-/** The matrix pool. @private @type {Array} */
-twodee.Matrix.pool = twodee.newArray();
-
 /** A temporary matrix for internal operations. @private @type {twodee.Matrix} */
 twodee.Matrix.TMP = new twodee.Matrix();
 
@@ -66,43 +63,6 @@ twodee.Matrix.count = function()
     var value = this.counter;
     this.counter = 0;
     return value;
-};
-
-
-/**
- * Gets a matrix from the pool. If the pool is empty then a new matrix is
- * created.
- * 
- * @return {twodee.Matrix} The retrieved or created matrix
- */
-
-twodee.Matrix.get = function()
-{
-    return this.pool.length ? this.pool.pop() : new twodee.Matrix(); 
-};
-
-
-/**
- * Returns the number of pooled matrices.
- * 
- * @return {Number} The number of pooled matrices
- */
-
-twodee.Matrix.countPooled = function()
-{
-    return this.pool.length;
-};
-
-/**
- * Releases a matrix back into the pool.
- * 
- * @param {twodee.Matrix} matrix
- *            The matrix to release
- */
-
-twodee.Matrix.release = function(matrix)
-{
-    this.pool.push(matrix);
 };
 
 
@@ -537,26 +497,4 @@ twodee.Matrix.prototype.invert = function()
             this.m10*this.m21 - this.m11*this.m20,
             this.m01*this.m20 - this.m00*this.m21,
             this.m00*this.m11 - this.m01*this.m10).divide(d);
-};
-
-
-/**
- * Applies the matrix to the specified HTML element. Unfortunatly the CSS
- * syntax is differently between mozilla and webkit. This method should be
- * replaced by a toCSS() method returning a string when some day CSS 3 is
- * officially supported.
- *
- * @param {HTMLElement} element
- *            The HTML element to apply the matrix to
- */
-
-twodee.Matrix.prototype.applyToElement = function(element)
-{
-    var s, common;
-    
-    s = element.style;
-    common = "matrix(" + this.m00 + "," + this.m10 + "," + this.m01 +
-        "," + this.m11 + "," + this.m02;
-    s.MozTransform = common + "px," + this.m12 + "px)";
-    s.webkitTransform = common + "," + this.m12 + ")";
 };
