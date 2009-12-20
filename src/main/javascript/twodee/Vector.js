@@ -208,7 +208,7 @@ twodee.Vector.prototype.cross = function(v)
  * @return {Number} The vector length
  */
 
-twodee.Vector.prototype.length = function()
+twodee.Vector.prototype.getLength = function()
 {
     return Math.sqrt(this.x * this.x + this.y * this.y);
 };
@@ -224,7 +224,7 @@ twodee.Vector.prototype.toUnit = function()
 {
     var len;
     
-    len = this.length();
+    len = this.getLength();
     this.x /= len;
     this.y /= len;
     return this;

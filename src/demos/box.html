@@ -36,9 +36,11 @@
     // Apply physics
     var physics = new twodee.Physics();
     physics.setSpin(45 * Math.PI / 180 * 0);
-    physics.getDrift().set(00, 0);
-    physics.getAcceleration().set(0, 5 * 0);
-    physics.setSpinAcceleration(5);
+    physics.getVelocity().set(0, 0);
+    physics.getAcceleration().set(100, 0);
+    physics.setMaxVelocity(50);
+    physics.setMaxSpin(360 * Math.PI / 180);
+    physics.setSpinAcceleration(0);
     //physics.setLifetime(5);
     boxNode.setPhysics(physics);
 

@@ -14,12 +14,18 @@
 
 twodee.Physics = function()
 {
-    this.drift = new twodee.Vector();
+    this.velocity = new twodee.Vector();
     this.acceleration = new twodee.Vector();
 };
 
-/** The drift vector. Length is units per second. @private @type {twodee.Vector} */
-twodee.Physics.prototype.drift = null;
+/** The velocity vector. Length is units per second. @private @type {twodee.Vector} */
+twodee.Physics.prototype.velocity = null;
+
+/** The minimum velocity in units per second. @private @type {Number} */
+twodee.Physics.prototype.minVelocity = Number.MIN_VALUE;
+
+/** The maximum velocity in units per second. @private @type {Number} */
+twodee.Physics.prototype.maxVelocity = Number.MAX_VALUE;
 
 /** The acceleration vector.Length is units per square second. @private @type {twodee.Vector} */
 twodee.Physics.prototype.acceleration = null;
@@ -30,20 +36,76 @@ twodee.Physics.prototype.spin = 0;
 /** The spin acceleration in anti-clockwise RAD per square second. @private @type {Number} */
 twodee.Physics.prototype.spinAcceleration = 0;
 
+/** The minimum spin acceleration. @private @type {Number} */
+twodee.Physics.prototype.minSpin = Number.MIN_VALUE;
+
+/** The maximum spin acceleration. @private @type {Number} */
+twodee.Physics.prototype.maxSpin = Number.MAX_VALUE;
+
 /** The lifetime in seconds. @private @type {Number} */
 twodee.Physics.prototype.lifetime = Infinity;
 
 
 /**
- * Returns the drift vector. The length is units per second. There is no setter
+ * Returns the velocity vector. The length is units per second. There is no setter
  * because you should modify the returned vector instead.
  * 
- * @return {twodee.Vector} The drift vector. Never null
+ * @return {twodee.Vector} The velocity vector. Never null
  */
 
-twodee.Physics.prototype.getDrift = function()
+twodee.Physics.prototype.getVelocity = function()
 {
-    return this.drift;
+    return this.velocity;
+};
+
+
+/**
+ * Sets the minimum velocity in units per second.
+ * 
+ * @param {Number} minVelocity
+ *            The minimum velocity to set
+ */
+
+twodee.Physics.prototype.setMinVelocity = function(minVelocity)
+{
+    this.minVelocity = minVelocity;
+};
+
+
+/**
+ * Returns the minimum velocity in units per second.
+ * 
+ * @return {Number} The minimum velocity
+ */
+
+twodee.Physics.prototype.getMinVelocity = function()
+{
+    return this.minVelocity;
+};
+
+
+/**
+ * Sets the maximum velocity in units per second.
+ * 
+ * @param {Number} maxVelocity
+ *            The maximum velocity to set
+ */
+
+twodee.Physics.prototype.setMaxVelocity = function(maxVelocity)
+{
+    this.maxVelocity = maxVelocity;
+};
+
+
+/**
+ * Returns the maximum velocity in units per second.
+ * 
+ * @return {Number} The maximum velocity
+ */
+
+twodee.Physics.prototype.getMaxVelocity = function()
+{
+    return this.maxVelocity;
 };
 
 
@@ -111,6 +173,56 @@ twodee.Physics.prototype.setSpinAcceleration = function(spinAcceleration)
 
 
 /**
+ * Returns the minimum spin in anti-clockwise RAD per second.
+ * 
+ * @return {Number} The minimum spin
+ */
+
+twodee.Physics.prototype.getMinSpin = function()
+{
+    return this.minSpin;
+};
+
+
+/**
+ * Sets the minimum spin in anti-clockwise RAD per second.
+ * 
+ * @param {Number} minSpin
+ *            The minimum spin to set
+ */
+
+twodee.Physics.prototype.setMinSpin = function(minSpin)
+{
+    this.minSpin = minSpin;
+};
+
+
+/**
+ * Returns the maximum spin in anti-clockwise RAD per second.
+ * 
+ * @return {Number} The maximum spin
+ */
+
+twodee.Physics.prototype.getMaxSpin = function()
+{
+    return this.maxSpin;
+};
+
+
+/**
+ * Sets the maximum spin in anti-clockwise RAD per second.
+ * 
+ * @param {Number} maxSpin
+ *            The maximum spin to set
+ */
+
+twodee.Physics.prototype.setMaxSpin = function(maxSpin)
+{
+    this.maxSpin = maxSpin;
+};
+
+
+/**
  * Returns the lifetime in seconds. May return Infinity.
  * 
  * @return {Number} The lifetime
@@ -146,8 +258,8 @@ twodee.Physics.prototype.setLifetime = function(lifetime)
 
 twodee.Physics.prototype.process = function(node, delta)
 {
-    var spin, transform, drift, factor, angle, v, acceleration,
-        spinAcceleration;
+    var spin, transform, velocity, factor, angle, v, acceleration,
+        spinAcceleration, curVelocity, maxVelocity, minVelocity;
     
     factor = delta / 1000;
 
@@ -158,33 +270,40 @@ twodee.Physics.prototype.process = function(node, delta)
         node.remove();
         return;
     }
-    
+
+    // Get the current node transform
+    transform = node.getTransform();    
+
+    // Process the velocity
+    velocity = this.velocity;
+    if (!velocity.isZero())
+    {
+        angle = transform.getRotationAngle();
+        v = velocity.copy().rotate(-angle);
+        transform.translate(v.x * factor, v.y * factor);
+    }    
+
     // Process the acceleration
     acceleration = this.acceleration;
     if (!acceleration.isZero())
-        this.drift.add(acceleration.copy().scale(factor));
-    
+    {
+        velocity.add(acceleration.copy().scale(factor));
+        curVelocity = velocity.getLength();
+        maxVelocity = this.maxVelocity;
+        minVelocity = this.minVelocity;
+        if (curVelocity > maxVelocity)
+            velocity.scale(maxVelocity / curVelocity);
+        else if (curVelocity < minVelocity)
+            velocity.scale(minVelocity / curVelocity);
+    }
+        
+    // Process the spinning
+    spin = this.spin;
+    if (spin) transform.rotate(spin * factor);
+
     // Process the spin acceleration
     spinAcceleration = this.spinAcceleration;
     if (spinAcceleration)
-        this.spin += spinAcceleration * factor;
-
-    transform = node.getTransform();
-    
-    // Process the spinning
-    spin = this.spin;
-    if (spin)
-    {
-        transform.rotate(spin * factor);
-    }
-    
-    // Process the drifting
-    drift = this.drift;
-    if (!drift.isZero())
-    {
-        angle = transform.getRotationAngle();
-        v = drift.copy().rotate(-angle);
-        transform.translate(v.x * factor, v.y * factor);
-    }
-    
+        this.spin = Math.max(this.minSpin, Math.min(this.maxSpin, spin +
+            spinAcceleration * factor));
 };
