@@ -53,20 +53,6 @@ twodee.Matrix.prototype.m22 = 1;
 
 
 /**
- * Returns and resets the current instance counter.
- * 
- * @return {Number} The number of created instances since the last call
- */
-
-twodee.Matrix.count = function()
-{
-    var value = this.counter;
-    this.counter = 0;
-    return value;
-};
-
-
-/**
  * Returns a copy of this matrix. If a target matrix is specified then the
  * matrix is copied into this target matrix. If not specified then a new
  * fresh matrix is created.

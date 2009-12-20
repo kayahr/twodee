@@ -14,8 +14,11 @@
 
 twodee.BoundingBox = function()
 {
-    // Empty
+    this.constructor.counter++;
 };
+
+/** Instance counter. @private @type {Number} */
+twodee.BoundingBox.counter = 0;
 
 /** The top bound. @private @type {Number} */
 twodee.BoundingBox.prototype.top = Number.POSITIVE_INFINITY;

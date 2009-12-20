@@ -29,8 +29,12 @@ twodee.PolygonNode = function(polygon, fillStyle, strokeStyle)
     if (polygon) this.setPolygon(polygon);
     if (fillStyle !== undefined) this.fillStyle = fillStyle;
     if (strokeStyle !== undefined) this.strokeStyle = strokeStyle;
+    this.constructor.counter++;
 };
 twodee.inherit(twodee.PolygonNode, twodee.SceneNode);
+
+/** Instance counter. @private @type {Number} */
+twodee.PolygonNode.counter = 0; 
 
 /** The polygon. @private @type {twodee.Polygon} */
 twodee.PolygonNode.prototype.polygon = null;

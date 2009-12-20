@@ -36,20 +36,6 @@ twodee.Vector.prototype.y = 0;
 
 
 /**
- * Returns and resets the current instance counter.
- * 
- * @return {Number} The number of created instances since the last call
- */
-
-twodee.Vector.count = function()
-{
-    var value = this.counter;
-    this.counter = 0;
-    return value;
-};
-
-
-/**
  * Returns a copy of this vector.
  * 
  * @param {twodee.Vector} v

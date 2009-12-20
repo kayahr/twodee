@@ -16,7 +16,14 @@ twodee.Physics = function()
 {
     this.velocity = new twodee.Vector();
     this.acceleration = new twodee.Vector();
+    this.constructor.counter++;
 };
+
+/** Instance counter. @private @type {Number} */
+twodee.Physics.counter = 0;
+
+/** A static temporary vector for speed optimization. @private @type {twodee.Vector} */
+twodee.Physics.V = new twodee.Vector();
 
 /** The velocity vector. Length is units per second. @private @type {twodee.Vector} */
 twodee.Physics.prototype.velocity = null;
@@ -271,15 +278,16 @@ twodee.Physics.prototype.process = function(node, delta)
         return;
     }
 
-    // Get the current node transform
+    // Get the current node transform and a temporary vector
     transform = node.getTransform();    
+    v = this.constructor.V;
 
     // Process the velocity
     velocity = this.velocity;
     if (!velocity.isZero())
     {
         angle = transform.getRotationAngle();
-        v = velocity.copy().rotate(-angle);
+        velocity.copy(v).rotate(-angle);
         transform.translate(v.x * factor, v.y * factor);
     }    
 
@@ -287,7 +295,7 @@ twodee.Physics.prototype.process = function(node, delta)
     acceleration = this.acceleration;
     if (!acceleration.isZero())
     {
-        velocity.add(acceleration.copy().scale(factor));
+        velocity.add(acceleration.copy(v).scale(factor));
         curVelocity = velocity.getLength();
         maxVelocity = this.maxVelocity;
         minVelocity = this.minVelocity;

@@ -25,7 +25,13 @@ twodee.Polygon = function(vertices)
 };
 
 /** Instance counter. @private @type {Number} */
-twodee.Polygon.counter = 0; 
+twodee.Polygon.counter = 0;
+
+/** A static temporary vector for speed optimization. @private @type {twodee.Vector} */
+twodee.Polygon.V1 = new twodee.Vector();
+
+/** Another static temporary vector for speed optimization. @private @type {twodee.Vector} */
+twodee.Polygon.V2 = new twodee.Vector();
 
 /** The transformed vertices. @private @type {Array} */
 twodee.Polygon.prototype.transformedVertices = null;
@@ -35,21 +41,6 @@ twodee.Polygon.prototype.vertices = null;
 
 /** The bounding box. @private @type {twodee.BoundingBox} */
 twodee.Polygon.prototype.boundingBox = null;
-
-
-
-/**
- * Returns and resets the current instance counter.
- * 
- * @return {Number} The number of created instances since the last call
- */
-
-twodee.Polygon.count = function()
-{
-    var value = this.counter;
-    this.counter = 0;
-    return value;
-};
 
 
 /**
