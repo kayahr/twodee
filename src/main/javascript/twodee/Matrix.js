@@ -15,7 +15,7 @@
 
 twodee.Matrix = function()
 {
-    this.constructor.counter++;
+    twodee.Matrix.counter++;
 };
 
 /** Instance counter. @private @type {Number} */

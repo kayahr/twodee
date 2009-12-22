@@ -14,7 +14,7 @@
 
 twodee.BoundingBox = function()
 {
-    this.constructor.counter++;
+    twodee.BoundingBox.counter++;
 };
 
 /** Instance counter. @private @type {Number} */

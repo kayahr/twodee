@@ -22,7 +22,7 @@ twodee.Vector = function(x, y)
 {
     if (x) this.x = x;
     if (y) this.y = y;
-    this.constructor.counter++;
+    twodee.Vector.counter++;
 };
 
 /** Instance counter. @private @type {Number} */

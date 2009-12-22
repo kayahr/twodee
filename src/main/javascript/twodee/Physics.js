@@ -16,7 +16,7 @@ twodee.Physics = function()
 {
     this.velocity = new twodee.Vector();
     this.acceleration = new twodee.Vector();
-    this.constructor.counter++;
+    twodee.Physics.counter++;
 };
 
 /** Instance counter. @private @type {Number} */
@@ -280,7 +280,7 @@ twodee.Physics.prototype.process = function(node, delta)
 
     // Get the current node transform and a temporary vector
     transform = node.getTransform();    
-    v = this.constructor.V;
+    v = twodee.Physics.V;
 
     // Process the velocity
     velocity = this.velocity;

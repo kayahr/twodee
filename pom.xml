@@ -3,8 +3,8 @@
   <groupId>de.ailis.twodee</groupId>
   <artifactId>twodee</artifactId>
   <packaging>jar</packaging>
-  <name>ThreeDee</name>
-  <version>1.0.0</version>
+  <name>TwoDee</name>
+  <version>1.0.0-SNAPSHOT</version>
 
   <description>JavaScript 2D scene graph</description>
   
@@ -98,11 +98,18 @@
               <insertNewLine>true</insertNewLine>
               <output>${project.build.directory}/twodee.js</output>
               <includes>
-                <include>scripts/*.js</include>
-                <include>scripts/twodee/math/*.js</include>
-                <include>scripts/twodee/model/*.js</include>
-                <include>scripts/twodee/scene/rendering/*.js</include>
-                <include>scripts/twodee/scene/*.js</include>
+                <include>scripts/twodee.js</include>
+                <include>scripts/twodee/Object.js</include>
+                <include>scripts/twodee/Vector.js</include>
+                <include>scripts/twodee/Matrix.js</include>
+                <include>scripts/twodee/BoundingBox.js</include>
+                <include>scripts/twodee/Polygon.js</include>
+                <include>scripts/twodee/SceneNode.js</include>
+                <include>scripts/twodee/PolygonNode.js</include>
+                <include>scripts/twodee/ImageNode.js</include>
+                <include>scripts/twodee/Scene.js</include>
+                <include>scripts/twodee/FpsCounter.js</include>
+                <include>scripts/twodee/Physics.js</include>
               </includes>
             </aggregation>
           </aggregations>

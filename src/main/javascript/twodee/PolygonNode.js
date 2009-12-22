@@ -29,7 +29,7 @@ twodee.PolygonNode = function(polygon, fillStyle, strokeStyle)
     if (polygon) this.setPolygon(polygon);
     if (fillStyle !== undefined) this.fillStyle = fillStyle;
     if (strokeStyle !== undefined) this.strokeStyle = strokeStyle;
-    this.constructor.counter++;
+    twodee.PolygonNode.counter++;
 };
 twodee.inherit(twodee.PolygonNode, twodee.SceneNode);
 
@@ -55,7 +55,8 @@ twodee.PolygonNode.prototype.strokeStyle = null;
 
 twodee.PolygonNode.prototype.setPolygon = function(polygon)
 {
-    this.setBounds(this.polygon = polygon.copy());
+    this.setBounds(polygon);
+    this.polygon = this.getBounds();
 };
 
 

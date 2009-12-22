@@ -22,7 +22,7 @@ twodee.SceneNode = function()
     this.collisions = {};
     this.previousCollisions = {};
     
-    this.id = this.constructor.counter++;
+    this.id = twodee.SceneNode.counter++;
 };
 twodee.inherit(twodee.SceneNode, twodee.Object);
 
@@ -378,7 +378,7 @@ twodee.SceneNode.prototype.setBounds = function(bounds)
 {
     if (this.collidable && !bounds)
         throw new Error("Collidable nodes must have bounds");
-    this.bounds = bounds;
+    this.bounds = bounds.copy();
 };
 
 

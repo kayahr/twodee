@@ -21,7 +21,7 @@ twodee.Polygon = function(vertices)
     this.transformedVertices = [];
     this.boundingBox = new twodee.BoundingBox();
     this.reset();
-    this.constructor.counter++;
+    twodee.Polygon.counter++;
 };
 
 /** Instance counter. @private @type {Number} */
@@ -94,11 +94,11 @@ twodee.Polygon.prototype.apply = function(g)
     max = vertices.length;
     g.beginPath();
     vertex = vertices[0];
-    g.moveTo(vertex.x, -vertex.y);
+    g.moveTo(vertex.x, vertex.y);
     for (i = 1; i < max; i++)
     {
         vertex = vertices[i];
-        g.lineTo(vertex.x, -vertex.y);
+        g.lineTo(vertex.x, vertex.y);
     }
     if (max > 2) g.closePath();    
 };
@@ -210,8 +210,8 @@ twodee.Polygon.prototype.isSeparationAxis = function(other, faceIndex)
         vertices, otherVertices, tmp1, tmp2;
 
     // Get static temporary vectors (Prevents garbage collector stressing)
-    tmp1 = this.constructor.V1;
-    tmp2 = this.constructor.V2;
+    tmp1 = twodee.Polygon.V1;
+    tmp2 = twodee.Polygon.V2;
 
     // Create some shortcuts
     vertices = this.transformedVertices;
