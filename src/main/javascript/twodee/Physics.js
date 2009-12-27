@@ -50,7 +50,7 @@ twodee.Physics.prototype.minSpin = Number.MIN_VALUE;
 twodee.Physics.prototype.maxSpin = Number.MAX_VALUE;
 
 /** The lifetime in seconds. @private @type {Number} */
-twodee.Physics.prototype.lifetime = Infinity;
+twodee.Physics.prototype.lifetime = Number.POSITIVE_INFINITY;
 
 
 /**
