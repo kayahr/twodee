@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <title>ThreeDee demo: Box</title>
-    <script src="../twodee.js" type="text/javascript"></script>
+    <script src="../../twodee.js" type="text/javascript"></script>
     <script type="text/javascript">
     /* <![CDATA[ */
 
@@ -18,16 +18,31 @@
     // Creates the root node
     var rootNode = new twodee.SceneNode();
 
-    // Create the img node
-    var img = new Image();
-    img.src = "asteroid.png";
-    var imgNode = new twodee.ImageNode(img);
-    rootNode.appendChild(imgNode);
+    // Create the box node
+    var boxNode = new twodee.PolygonNode(box);
+    boxNode.setCollidable(true);
+    rootNode.appendChild(boxNode);
 
+    // Apply physics
     var physics = new twodee.Physics();
-    physics.setSpin(20 * Math.PI / 180);
-    physics.getVelocity().set(20, 10);
-    imgNode.setPhysics(physics);
+    physics.setSpin(0.1 * Math.PI / 180);
+    physics.getVelocity().set(0, 0);
+    physics.getAcceleration().set(0.1, 0.1);
+    physics.setMaxVelocity(50);
+    physics.setMaxSpin(360 * Math.PI / 180);
+    physics.setSpinAcceleration(0.1);
+    //physics.setLifetime(5);
+    boxNode.setPhysics(physics);
+
+    var boxNode2 = new twodee.PolygonNode(box);
+    boxNode2.setCollidable(true);
+    boxNode2.setFillStyle("#f00");
+    boxNode2.getTransform().translate(110, 0);
+    rootNode.appendChild(boxNode2);
+
+    // Watch collisions
+    boxNode2.connect("collisionStarted", function(a, b) { console.log("Collision started"); });
+    boxNode2.connect("collisionStopped", function(a, b) { console.log("Collision stopped"); });
 
     // Create the scene
     var scene = new twodee.Scene();    
