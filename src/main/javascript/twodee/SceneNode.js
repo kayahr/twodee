@@ -383,6 +383,18 @@ twodee.SceneNode.prototype.setBounds = function(bounds)
 
 
 /**
+ * Returns the bounds of this node.
+ * 
+ * @return {twodee.Polygon} The node bounds
+ */
+
+twodee.SceneNode.prototype.getBounds = function()
+{
+    return this.bounds;
+};
+
+
+/**
  * Sets the collidable state of the node.
  * 
  * @param {Boolean} collidable
