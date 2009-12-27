@@ -1,3 +1,4 @@
+/** The twodee namespace */
 var twodee = {};
 
 /**
@@ -11,9 +12,10 @@ var twodee = {};
 
 twodee.inherit = function(subClass, superClass)
 {
-    var tmp = new Function();
-    tmp.prototype = superClass.prototype;
-    subClass.prototype = new tmp();
+    var tmp = superClass.prototype;
+    superClass = new Function();
+    superClass.prototype = tmp;
+    subClass.prototype = new superClass();
     subClass.prototype.constructor = subClass;
 };
 
