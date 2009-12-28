@@ -108,7 +108,7 @@ twodee.Object.prototype.sendSignal = function(signal, args__)
     
     // Build arguments array 
     args = [];
-    for (i = 2; i < arguments.length; i++) args.push(arguments[i]);
+    for (i = 1; i < arguments.length; i++) args.push(arguments[i]);
     
     // Call all connected slots
     slots = this.getSlots(signal);

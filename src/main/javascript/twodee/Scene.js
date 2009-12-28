@@ -17,7 +17,6 @@ twodee.Scene = function()
 {
     this.collidables = [];
 };
-
 /** The root node of the scene. @private @type {twodee.SceneNode} */
 twodee.Scene.prototype.rootNode = null;
 
@@ -97,14 +96,15 @@ twodee.Scene.prototype.update = function(delta)
 
 twodee.Scene.prototype.updateNode = function(node, delta)
 {
-    var child;
+    var child, next;
     
     node.update(delta);
     child = node.getFirstChild();
     while (child)
     {
+        next = child.getNextSibling();
         this.updateNode(child, delta);
-        child = child.getNextSibling();
+        child = next;
     }
 };
 
@@ -157,7 +157,10 @@ twodee.Scene.prototype.render = function(g, width, height)
 
 twodee.Scene.prototype.renderNode = function(node, g)
 {
-    var transform, child, i, other, collidables;
+    var transform, child, i, other, collidables, next;
+    
+    // Do nothing if node is disabled
+    if (!node.isEnabled()) return;
     
     // Update the effective transformation of the node
     transform = node.updateTransformation();
@@ -179,13 +182,17 @@ twodee.Scene.prototype.renderNode = function(node, g)
     }
     
     // Render the node
+    g.save();
+    g.globalAlpha = node.getOpacity();
     node.render(g, transform);
+    g.restore();
     
     // Process all the child nodes (recursively)
     child = node.getFirstChild();
     while (child)
     {
+        next = child.getNextSibling();
         this.renderNode(child, g);
-        child = child.getNextSibling();
+        child = next;
     }
 };

@@ -68,6 +68,11 @@ twodee.SceneNode.prototype.previousCollisions = null;
 /** The physics model. @private @type {twodee.Physics} */
 twodee.SceneNode.prototype.physics = null;
 
+/** If node is enabled or not. @private @type {Boolean} */
+twodee.SceneNode.prototype.enabled = true;
+
+/** The opacity. @private @type {Number} */
+twodee.SceneNode.prototype.opacity = 1;
 
 /**
  * Returns the node id.
@@ -218,6 +223,16 @@ twodee.SceneNode.prototype.remove = function()
     
     parentNode = this.parentNode;
     if (parentNode) parentNode.removeChild(this);
+};
+
+
+/**
+ * Removes all child nodes.
+ */
+
+twodee.SceneNode.prototype.removeChildren = function()
+{
+    while (this.firstChild) this.removeChild(this.firstChild);
 };
 
 
@@ -475,7 +490,7 @@ twodee.SceneNode.prototype.processCollisions = function()
     {
         if (!(id in previousCollisions))
         {
-            this.sendSignal("collisionStarted", collisions[id]);
+            this.sendSignal("collisionStarted", this, collisions[id]);
         }
     }
     
@@ -484,7 +499,7 @@ twodee.SceneNode.prototype.processCollisions = function()
     {
         if (!(id in collisions))
         {
-            this.sendSignal("collisionStopped", previousCollisions[id]);            
+            this.sendSignal("collisionStopped", this, previousCollisions[id]);            
         }
         delete previousCollisions[id];
     }
@@ -553,4 +568,75 @@ twodee.SceneNode.prototype.update = function(delta)
 twodee.SceneNode.prototype.render = function(g, transform)
 {
     // Empty
+};
+
+
+/**
+ * Enables the node.
+ */
+
+twodee.SceneNode.prototype.enable = function()
+{
+    this.setEnabled(true);
+};
+
+
+/**
+ * Disables the node.
+ */
+
+twodee.SceneNode.prototype.disable = function()
+{
+    this.setEnabled(false);
+};
+
+
+/**
+ * Enables or disables the node.
+ * 
+ * @param {Boolean} enabled
+ *            True to enable the node, false to disable it
+ */
+
+twodee.SceneNode.prototype.setEnabled = function(enabled)
+{
+    this.enabled = enabled;
+};
+
+
+/**
+ * Checks if node is enabled or not.
+ * 
+ * @return {Boolean} True if node is enabled, false if not
+ */
+
+twodee.SceneNode.prototype.isEnabled = function()
+{
+    return this.enabled;
+};
+
+
+/**
+ * Sets the opacity of the node.
+ * 
+ * @param {Number} opacity
+ *            The opacity to set. 1.0 = Fully solid, 0.0 = fully transparent
+ */
+
+twodee.SceneNode.prototype.setOpacity = function(opacity)
+{
+    this.opacity = opacity;
+};
+
+
+/**
+ * Returns the current opacity of the node.
+ * 
+ * @return {Number}
+ *             The node opacity. 1.0 = Fully solid, 0.0 = fully transparent
+ */
+
+twodee.SceneNode.prototype.getOpacity = function()
+{
+    return this.opacity;
 };

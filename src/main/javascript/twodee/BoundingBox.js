@@ -82,3 +82,27 @@ twodee.BoundingBox.prototype.collidesWith = function(other)
            this.left <= other.right &&
            this.right >= other.left;
 };
+
+
+/**
+ * Returns the width of the bounding box.
+ * 
+ * @return {Number} The bounding box width
+ */
+
+twodee.BoundingBox.prototype.getWidth = function()
+{
+    return this.right - this.left;
+};
+
+
+/**
+ * Returns the height of the bounding box.
+ * 
+ * @return {Number} The bounding box height
+ */
+
+twodee.BoundingBox.prototype.getHeight = function()
+{
+    return this.bottom - this.top;
+};

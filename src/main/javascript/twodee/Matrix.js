@@ -113,6 +113,30 @@ twodee.Matrix.prototype.set = function(m00, m01, m02, m10, m11, m12,
 
 
 /**
+ * Sets the matrix entries.
+ * 
+ * @param {twodee.Matrix} transform
+ *            The matrix to get the entries from
+ * @return {twodee.Matrix}
+ *            This matrix
+ */
+
+twodee.Matrix.prototype.setTransform = function(transform)
+{
+    this.m00 = transform.m00;
+    this.m01 = transform.m01;
+    this.m02 = transform.m02;
+    this.m10 = transform.m10;
+    this.m11 = transform.m11;
+    this.m12 = transform.m12;
+    this.m20 = transform.m20;
+    this.m21 = transform.m21;
+    this.m22 = transform.m22;
+    return this;    
+};
+
+
+/**
  * Sets the entries of this matrix to an identity matrix.
  * 
  * @return {twodee.Matrix}

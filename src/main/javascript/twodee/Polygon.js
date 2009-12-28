@@ -51,7 +51,12 @@ twodee.Polygon.prototype.boundingBox = null;
 
 twodee.Polygon.prototype.copy = function()
 {
-    return new twodee.Polygon(this.vertices.slice(0));
+    var vertices, i;
+    
+    vertices = this.vertices.slice(0);
+    for (i = vertices.length -1; i >= 0; i--)
+        vertices[i] = vertices[i].copy();
+    return new twodee.Polygon(vertices);
 };
 
 
@@ -153,7 +158,21 @@ twodee.Polygon.prototype.setTransform = function(m)
 
 twodee.Polygon.prototype.countVertices = function()
 {
-    return this.transformedVertices.length;
+    return this.vertices.length;
+};
+
+
+/**
+ * Returns the vertex with the specified index.
+ * 
+ * @param {Number} index
+ *            The vertex index
+ * @return {twodee.Vector} The vertex
+ */
+
+twodee.Polygon.prototype.getVertex = function(index)
+{
+    return this.vertices[index];
 };
 
 
@@ -242,4 +261,16 @@ twodee.Polygon.prototype.isSeparationAxis = function(other, faceIndex)
     
     // Separation axis is valid
     return true;    
+};
+
+
+/**
+ * Returns the current bounding box of this polygon.
+ * 
+ * @return {twodee.BoundingBox} The current bounding box
+ */
+
+twodee.Polygon.prototype.getBoundingBox = function()
+{
+    return this.boundingBox;
 };
