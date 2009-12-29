@@ -94,7 +94,7 @@ twodee.ImageNode.prototype.render = function(g, transform)
     height = img.height;
     if (!width || !height) return;
     
-    g.save(),
+    g.save();
     g.transform(transform.m00, transform.m10, transform.m01, transform.m11,
         transform.m02, transform.m12);
     g.drawImage(img, -width / 2, -height / 2);
