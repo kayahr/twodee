@@ -52,6 +52,9 @@ twodee.Physics.prototype.maxSpin = Number.POSITIVE_INFINITY;
 /** The lifetime in seconds. @private @type {Number} */
 twodee.Physics.prototype.lifetime = Number.POSITIVE_INFINITY;
 
+/** The decay time in seconds. @private @type {Number} */
+twodee.Physics.prototype.decay = 1;
+
 
 /**
  * Returns the velocity vector. The length is units per second. There is no setter
@@ -255,6 +258,35 @@ twodee.Physics.prototype.setLifetime = function(lifetime)
 
 
 /**
+ * Sets the decay time in seconds. Default value is 1 second. Decay only
+ * makes sense when a life time has been set. Example: Set lifetime to 10
+ * seconds and decay to 2 seconds. The scene node will start fading away
+ * (Decreasing the opacity) at 8 seconds and will be invisible and then
+ * removed at 10 seconds.
+ * 
+ * @param {Number} decay
+ *            The decay time in seconds
+ */
+
+twodee.Physics.prototype.setDecay = function(decay)
+{
+    this.decay = decay;
+};
+
+
+/**
+ * Returns the decay time in seconds.
+ * 
+ * @return {Number} The decay time in seconds
+ */
+
+twodee.Physics.prototype.getDecay = function()
+{
+    return this.decay;
+};
+
+
+/**
  * Processes the physics model for the specified node and time delta.
  * 
  * @param {twodee.SceneNode} node
@@ -266,17 +298,22 @@ twodee.Physics.prototype.setLifetime = function(lifetime)
 twodee.Physics.prototype.process = function(node, delta)
 {
     var spin, transform, velocity, factor, angle, v, acceleration,
-        spinAcceleration, curVelocity, maxVelocity, minVelocity;
+        spinAcceleration, curVelocity, maxVelocity, minVelocity, lifetime,
+        decay;
     
     factor = delta / 1000;
 
     // Process the lifetime
-    this.lifetime = Math.max(0, this.lifetime - factor);
-    if (!this.lifetime)
+    this.lifetime = lifetime = Math.max(0, this.lifetime - factor);
+    if (!lifetime)
     {
         node.remove();
         return;
     }
+    
+    // Process the decay
+    decay = this.decay;
+    if (decay > lifetime) node.setOpacity(lifetime / decay);
 
     // Get the current node transform and a temporary vector
     transform = node.getTransform();    

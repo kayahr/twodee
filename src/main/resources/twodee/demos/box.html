@@ -31,7 +31,8 @@
     physics.setMaxVelocity(50);
     physics.setMaxSpin(360 * Math.PI / 180);
     physics.setSpinAcceleration(0.1);
-    //physics.setLifetime(5);
+    physics.setLifetime(5);
+    //physics.setDecay(2);
     boxNode.setPhysics(physics);
 
     var boxNode2 = new twodee.PolygonNode(box);
