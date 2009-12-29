@@ -218,16 +218,22 @@ twodee.Vector.prototype.toUnit = function()
 
 
 /**
- * Returns the angle between this vector and the specified one.
+ * Calculate the angle between this vector and the specified one in radians.
+ * It returns always the shortest angle. If the angle is clock-wise then the
+ * returned number is positive. If it's counter-clock-wise then the angle is
+ * negative. So the return value of this method is always between -PI and +PI.
  * 
- * @param {twodee.Vector} v
- *            The other vector
- * @return {Number} The angle in anti-clockwise RAD.
+ * @param {jade.Vector2D} v
+ *            The second vector
+ * @return {Number}
+ *            The angle between the two vectors, in radians
  */
 
 twodee.Vector.prototype.getAngle = function(v)
 {
-    return Math.acos(this.copy().toUnit().dot(v.toUnit()));
+    var angle = Math.atan2(this.y, this.x) - Math.atan2(v.y, v.x);
+    if (angle > Math.PI) angle -= Math.PI * 2;
+    return angle;
 };
 
 
