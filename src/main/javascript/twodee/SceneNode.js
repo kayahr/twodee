@@ -348,16 +348,22 @@ twodee.SceneNode.prototype.replaceChild = function(oldNode, newNode)
 twodee.SceneNode.prototype.updateTransformation = function()
 {
     var parentNode, transform, bounds;
-    
-    // Initialize effective transformation with local transformation
-    transform = this.effectiveTransform = this.transform.copy(
-        this.effectiveTransform);
-    
+        
     // If node has a parent node then apply the effective parent transformation
     // to effective node transformation
     parentNode = this.parentNode;
     if (parentNode)
-        transform.transform(parentNode.effectiveTransform);
+    {        
+        this.effectiveTransform = parentNode.effectiveTransform.copy(this.effectiveTransform);
+        transform = this.effectiveTransform.transform(this.transform);
+    }
+    else
+    {
+        // If no parent node is present then effective transform is
+        // the local transform
+        transform = this.effectiveTransform = this.transform.copy(
+            this.effectiveTransform);
+    }
 
     // Transform the bounds if this node has bounds
     bounds = this.bounds;

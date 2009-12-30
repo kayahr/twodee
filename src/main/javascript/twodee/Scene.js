@@ -26,6 +26,9 @@ twodee.Scene.prototype.lastUpdate = 0;
 /** Temporary array with collidables during rendering. @private @type {Array} */
 twodee.Scene.prototype.collidables = null;
 
+/** If scene is paused or not. @private @type {Boolean} */
+twodee.Scene.prototype.paused = false;
+
 
 /**
  * Sets the root node.
@@ -66,7 +69,7 @@ twodee.Scene.prototype.update = function(delta)
 {
     var now, node;
     
-    if (!(node = this.rootNode)) return;
+    if (this.paused || !(node = this.rootNode)) return;
 
     if (delta === undefined)
     {
@@ -195,4 +198,25 @@ twodee.Scene.prototype.renderNode = function(node, g)
         this.renderNode(child, g);
         child = next;
     }
+};
+
+
+/**
+ * Pause the scene. No more updates are done, but rendering continues.
+ */
+
+twodee.Scene.prototype.pause = function()
+{
+    this.paused = true;
+    this.lastUpdate = 0;
+};
+
+
+/**
+ * Resumes the scene.
+ */
+
+twodee.Scene.prototype.resume = function()
+{
+    this.paused = false;
 };

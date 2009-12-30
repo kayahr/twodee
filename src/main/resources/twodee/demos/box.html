@@ -18,10 +18,15 @@
     // Creates the root node
     var rootNode = new twodee.SceneNode();
 
+    var innerNode = new twodee.SceneNode();
+    rootNode.appendChild(innerNode);
+
     // Create the box node
     var boxNode = new twodee.PolygonNode(box);
     boxNode.setCollidable(true);
-    rootNode.appendChild(boxNode);
+    innerNode.appendChild(boxNode);
+
+    
 
     // Apply physics
     var physics = new twodee.Physics();
@@ -31,15 +36,15 @@
     physics.setMaxVelocity(50);
     physics.setMaxSpin(360 * Math.PI / 180);
     physics.setSpinAcceleration(0.1);
-    physics.setLifetime(5);
+    //physics.setLifetime(5);
     //physics.setDecay(2);
-    boxNode.setPhysics(physics);
+    innerNode.setPhysics(physics);
 
     var boxNode2 = new twodee.PolygonNode(box);
     boxNode2.setCollidable(true);
     boxNode2.setFillStyle("#f00");
     boxNode2.getTransform().translate(110, 0);
-    rootNode.appendChild(boxNode2);
+    innerNode.appendChild(boxNode2);
 
     // Watch collisions
     boxNode2.connect("collisionStarted", function(a, b) { console.log("Collision started"); });
