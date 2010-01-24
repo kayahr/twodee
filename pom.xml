@@ -5,12 +5,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.ailis.twodee</groupId>
   <artifactId>twodee</artifactId>
-  <packaging>jar</packaging>
+  <packaging>javascript</packaging>
   <name>TwoDee</name>
   <version>1.0.0-SNAPSHOT</version>
   <url>http://www.ailis.de/~k/projects/twodee/</url>
   <description>JavaScript 2D scene graph</description>
-  <inceptionYear>2009</inceptionYear>
+  <inceptionYear>2010</inceptionYear>
   <organization>
     <name>Klaus Reimer</name>
     <url>http://www.ailis.de/~k/</url>
@@ -40,56 +40,28 @@
   </properties>
 
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/javascript</directory>
-        <excludes><exclude>**/*.js</exclude></excludes>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>src/test/javascript</directory>
-        <excludes><exclude>**/*.js</exclude></excludes>
-      </testResource>
-      <testResource>
-        <directory>src/test/resources</directory>
-      </testResource>
-    </testResources>
-
     <plugins>
       <plugin>
         <groupId>de.ailis.maven</groupId>
-        <artifactId>javascript-maven-plugin</artifactId>
-        <version>1.0.0</version>
-        
-        <executions>
-          <execution>
-            <goals>
-              <goal>compress</goal>
-            </goals>
-            <configuration>
-              <aggregate>twodee.js</aggregate>
-              <srcAggregate>twodee-src.js</srcAggregate>
-              <order>
-                <file>twodee.js</file>
-                <file>twodee/Object.js</file>
-                <file>twodee/Vector.js</file>
-                <file>twodee/Matrix.js</file>
-                <file>twodee/BoundingBox.js</file>
-                <file>twodee/Polygon.js</file>
-                <file>twodee/SceneNode.js</file>
-                <file>twodee/PolygonNode.js</file>
-                <file>twodee/ImageNode.js</file>
-                <file>twodee/Scene.js</file>
-                <file>twodee/FpsCounter.js</file>
-                <file>twodee/Physics.js</file>
-              </order>
-            </configuration>
-          </execution>          
-        </executions>
+        <artifactId>maven-javascript-plugin</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <extensions>true</extensions>
+        <configuration>
+          <order>
+            <file>twodee.js</file>
+            <file>twodee/Object.js</file>
+            <file>twodee/Vector.js</file>
+            <file>twodee/Matrix.js</file>
+            <file>twodee/BoundingBox.js</file>
+            <file>twodee/Polygon.js</file>
+            <file>twodee/SceneNode.js</file>
+            <file>twodee/PolygonNode.js</file>
+            <file>twodee/ImageNode.js</file>
+            <file>twodee/Scene.js</file>
+            <file>twodee/FpsCounter.js</file>
+            <file>twodee/Physics.js</file>
+           </order>
+        </configuration>
       </plugin>
     </plugins>
   </build>
