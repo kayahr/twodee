@@ -56,8 +56,11 @@ twodee.SceneNode.prototype.effectiveTransform = null;
 /** The node bounds. @private @type {twodee.Matrix} */
 twodee.SceneNode.prototype.bounds = null;
 
-/** If this node is collidable or not. @private @type {Boolean} */
-twodee.SceneNode.prototype.collidable = false;
+/** The collision type. 0 = None. @private @type {Number} */
+twodee.SceneNode.prototype.collisionType = 0;
+
+/** The collision mask. @private @type {Number} */
+twodee.SceneNode.prototype.collisionMask = 0;
 
 /** Map with nodes which collided with this one. @private @type {Object} */
 twodee.SceneNode.prototype.collisions = null;
@@ -388,8 +391,7 @@ twodee.SceneNode.prototype.getTransform = function()
 
 
 /**
- * Sets the bounds of this node. Specify null to use no bounds. Nodes without
- * bounds never participate in collision detection.
+ * Sets the bounds of this node. Specify null to use no bounds.
  * 
  * @param {twodee.Polygon} bounds
  *            The node bounds to set
@@ -397,8 +399,6 @@ twodee.SceneNode.prototype.getTransform = function()
 
 twodee.SceneNode.prototype.setBounds = function(bounds)
 {
-    if (this.collidable && !bounds)
-        throw new Error("Collidable nodes must have bounds");
     this.bounds = bounds.copy();
 };
 
@@ -416,31 +416,67 @@ twodee.SceneNode.prototype.getBounds = function()
 
 
 /**
- * Sets the collidable state of the node.
+ * Sets the collision type of the node.
  * 
- * @param {Boolean} collidable
- *            True to mark the node as collidable, false to disable
- *            collision detection for the node
+ * @param {Number} collisionType
+ *            The collision type to set. 0 means that the node is not
+ *            collidable at all.
  */
 
-twodee.SceneNode.prototype.setCollidable = function(collidable)
+twodee.SceneNode.prototype.setCollisionType = function(collisionType)
 {
-    if (collidable && !this.bounds)
-        throw new Error("Node has no bounds so it can't be collidable");
-    
-    this.collidable = collidable;
+    this.collisionType = collisionType;
 };
 
 
 /**
- * Checks if this node is collidable.
+ * Returns the collisiton type of the node. May return 0 of node is
+ * not collidable.
+ * 
+ * @return {Number} The collision type of the node
+ */
+
+twodee.SceneNode.prototype.getCollisionType = function()
+{
+    return this.collisionType;
+};
+
+
+/**
+ * Sets the collision bit mask of the node.
+ *
+ * @param {Number} collisionMask
+ *            The collision bit mask to set.
+ */
+
+twodee.SceneNode.prototype.setCollisionMask = function(collisionMask)
+{
+    this.collisionMask = collisionMask;
+};
+
+
+/**
+ * Returns the collisiton bit mask of the node.
+ *
+ * @return {Number} The collision bit mask
+ */
+
+twodee.SceneNode.prototype.getCollisionMask = function()
+{
+    return this.collisionMask;
+};
+
+
+/**
+ * Checks if the node is collidable. It is only collidable when it has
+ * a collision type and bounds set.
  * 
  * @return {Boolean} True if node is collidable, false if not
  */
 
 twodee.SceneNode.prototype.isCollidable = function()
 {
-    return this.collidable;
+    return !!this.collisionType && !!this.bounds;
 };
 
 
@@ -455,7 +491,13 @@ twodee.SceneNode.prototype.isCollidable = function()
  */
 
 twodee.SceneNode.prototype.collidesWith = function(other)
-{
+{    
+    // Check if nodes can collide according to the collision type and
+    // the collision mask.
+    if (!(this.collisionMask & other.collisionType) &&
+        !(other.collisionMask & this.collisionType)) return false;
+
+    // Check if bounds collide
     return this.bounds.collidesWith(other.bounds);
 };
 
