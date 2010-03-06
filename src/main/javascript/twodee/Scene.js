@@ -61,24 +61,30 @@ twodee.Scene.prototype.getRootNode = function()
  * 
  * @param {Number} delta
  *            The time elapsed since the last call to this method measured
- *            in milliseconds. This is optional. If not specified then
- *            it is calculated automatically
+ *            in milliseconds. This is optional. If not specified
+ *            then it is calculated automatically. If negative then the 
+ *            absolute value is used as the maximum time delta. This means
+ *            that a automatically calculated time delta which is larger then
+ *            this maximum value is trimmed down to the maximum time delta.
+ *            The default maximum value is 1000.
  */
 
 twodee.Scene.prototype.update = function(delta)
 {
-    var now, node;
+    var now, node, maxDelta;
     
     if (this.paused || !(node = this.rootNode)) return;
-
-    if (delta === undefined)
+    
+    if (delta <= 0)
     {
+        if (delta < 0)
+            maxDelta = -delta;
+        else
+            maxDelta = 1000;
+
         now = new Date().getTime();
-        delta = now - this.lastUpdate;
+        delta = Math.max(0, Math.min(maxDelta, now - this.lastUpdate));
         this.lastUpdate = now;
-        
-        // If delta is too large then ignore this update
-        if (delta > 10000) return;
     }
     
     // Update the root node
