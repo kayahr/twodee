@@ -25,13 +25,28 @@ twodee.ImageNode = function(image)
 };
 twodee.inherit(twodee.ImageNode, twodee.SceneNode);
 
-/** Instance counter. @private @type {number} */
+/** 
+ * Instance counter.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.ImageNode.counter = 0; 
 
-/** The image. @private @type {HTMLImageElement} */
+/**
+ * The image.
+ * 
+ * @private
+ * @type {HTMLImageElement}
+ */
 twodee.ImageNode.prototype.image = null;
 
-/** If bounds should be drawn (For debugging). @private @type {boolean} */
+/** 
+ * If bounds should be drawn (For debugging).
+ * 
+ * @private
+ * @type {boolean}
+ */
 twodee.ImageNode.prototype.showBounds = false;
 
 
@@ -102,7 +117,7 @@ twodee.ImageNode.prototype.render = function(g, transform)
 
     if (this.showBounds)
     {
-        this.bounds.apply(g);
+        this.getBounds().apply(g);
         g.strokeStyle = "red";
         g.stroke();
     }

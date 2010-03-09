@@ -2,6 +2,14 @@
 var twodee = {};
 
 /**
+ * Debug info counter map.
+ * 
+ * @private
+ * @type {Object.<string, number>}
+ */ 
+twodee.debugInfo = null;
+
+/**
  * Derives subClass from superClass.
  * 
  * @param {Function} subClass
@@ -19,13 +27,13 @@ twodee.inherit = function(subClass, superClass)
     subClass.prototype.constructor = subClass;
 };
 
-
 /**
  * Returns debugging info.
  * 
  * @return {string} The debugging info
  */
 
+/*
 twodee.getDebugInfo = function()
 {
     var boundingBox, matrix, physics, polygon, polygonNode,
@@ -60,3 +68,4 @@ twodee.getDebugInfo = function()
     
     return info;
 };
+*/

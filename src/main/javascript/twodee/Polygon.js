@@ -8,7 +8,7 @@
 /**
  * Constructs a new polygon
  * 
- * @param {Array} vertices
+ * @param {Array.<twodee.Vector>} vertices
  *            The vertices as array of vectors.
  *            
  * @constructor
@@ -24,52 +24,65 @@ twodee.Polygon = function(vertices)
     twodee.Polygon.counter++;
 };
 
-/** Instance counter. @private @type {number} */
+/**
+ * Instance counter.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.Polygon.counter = 0;
 
-/** A static temporary vector for speed optimization. @private @type {twodee.Vector} */
+/**
+ * A static temporary vector for speed optimization.
+ * 
+ * @private
+ * @type {twodee.Vector}
+ */
 twodee.Polygon.V1 = new twodee.Vector();
 
-/** Another static temporary vector for speed optimization. @private @type {twodee.Vector} */
+/**
+ * Another static temporary vector for speed optimization.
+ * 
+ * @private
+ * @type {twodee.Vector}
+ */
 twodee.Polygon.V2 = new twodee.Vector();
 
-/** The transformed vertices. @private @type {Array} */
+/**
+ * The transformed vertices.
+ * 
+ * @private
+ * @type {Array.<twodee.Vector>}
+ */
 twodee.Polygon.prototype.transformedVertices = null;
 
-/** The vertices of the polygon. @private @type {Array} */
+/**
+ * The vertices of the polygon.
+ * 
+ * @private
+ * @type {Array.<twodee.Vector>}
+ */
 twodee.Polygon.prototype.vertices = null;
 
-/** The bounding box. @private @type {twodee.BoundingBox} */
+/** 
+ * The bounding box.
+ * 
+ * @private 
+ * @type {twodee.BoundingBox}
+ */
 twodee.Polygon.prototype.boundingBox = null;
 
 
 /**
- * Returns a copy of this polygon.
- * 
- * @return {twodee.Polygon} The polygon copy
- */
-
-twodee.Polygon.prototype.copy = function()
-{
-    var vertices, i;
-    
-    vertices = this.vertices.slice(0);
-    for (i = vertices.length -1; i >= 0; i--)
-        vertices[i] = vertices[i].copy();
-    return new twodee.Polygon(vertices);
-};
-
-
-/**
- * Resets the transformed state of the polygon.
- * 
- * @private
- */
+* Resets the transformed state of the polygon.
+* 
+* @private
+*/
 
 twodee.Polygon.prototype.reset = function()
 {
     var i, transformedVertices, vertices, vertex;
-    
+ 
     transformedVertices = this.transformedVertices;
     vertices = this.vertices;
     i = transformedVertices.length = vertices.length;
@@ -81,6 +94,23 @@ twodee.Polygon.prototype.reset = function()
             transformedVertices[i]);
         this.boundingBox.update(vertex);
     }
+};
+
+
+/**
+ * Returns a copy of this polygon.
+ * 
+ * @return {twodee.Polygon} The polygon copy
+ */
+
+twodee.Polygon.prototype.copy = function()
+{
+    var vertices, i;
+
+    vertices = this.vertices.slice(0); // TODO Loosing type here
+    for (i = vertices.length - 1; i >= 0; i--)
+        vertices[i] = vertices[i].copy();
+    return new twodee.Polygon(vertices);
 };
 
 
@@ -195,7 +225,7 @@ twodee.Polygon.prototype.collidesWith = function(other)
     if (!this.boundingBox.collidesWith(other.boundingBox)) return false;
     
     // Process all faces of the first polygon
-    for (i = 0, max = this.countVertices().length; i < max; i++)
+    for (i = 0, max = this.countVertices(); i < max; i++)
         if (this.isSeparationAxis(other, i)) return false;
 
     // Process all faces of the second polygon

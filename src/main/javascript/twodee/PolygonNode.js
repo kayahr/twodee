@@ -33,16 +33,36 @@ twodee.PolygonNode = function(polygon, fillStyle, strokeStyle)
 };
 twodee.inherit(twodee.PolygonNode, twodee.SceneNode);
 
-/** Instance counter. @private @type {number} */
+/**
+ * Instance counter.
+ * 
+ * @private 
+ * @type {number} 
+ */
 twodee.PolygonNode.counter = 0; 
 
-/** The polygon. @private @type {twodee.Polygon} */
+/**
+ * The polygon. 
+ * 
+ * @private
+ * @type {twodee.Polygon} 
+ */
 twodee.PolygonNode.prototype.polygon = null;
 
-/** The fill style. @private @type {?string} */
+/**
+ * The fill style.
+ * 
+ * @private
+ * @type {?string}
+ */
 twodee.PolygonNode.prototype.fillStyle = "#fff";
 
-/** The stroke style. @private @type {?string} */
+/**
+ * The stroke style.
+ * 
+ * @private
+ * @type {?string}
+ */
 twodee.PolygonNode.prototype.strokeStyle = null;
 
 

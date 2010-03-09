@@ -17,7 +17,12 @@ twodee.Object = function()
     this.slots = [];
 };
 
-/** The connected slots. @private @type {Array} */
+/**
+ * The connected slots.
+ * 
+ * @private
+ * @type {Object.<string, Array.<{func:function(...),context:Object}>>}
+ */
 twodee.Object.prototype.slots = null;
 
 
@@ -27,26 +32,25 @@ twodee.Object.prototype.slots = null;
  * 
  * @param {string} signal
  *            The signal
- * @return {Array} The array with connected slots.
+ * @return {Array.<{func:function(...),context:Object}>} The array with connected slots.
  * @private
  */
 
 twodee.Object.prototype.getSlots = function(signal)
-{
-    var slots;
+{	
+    var slots; 
     
     slots = this.slots[signal];
     if (!slots) slots = this.slots[signal] = [];
     return slots;
 };
 
-
 /**
  * Connects a slot to a signal.
  * 
  * @param {string} signal
  *            The signal
- * @param {Function} func
+ * @param {function(...)} func
  *            The slot function
  * @param {Object} context
  *            The function context (Optional, defaults to "window")
@@ -54,7 +58,7 @@ twodee.Object.prototype.getSlots = function(signal)
 
 twodee.Object.prototype.connect = function(signal, func, context)
 {
-    this.getSlots(signal).push([ func, context ? context : window]);
+    this.getSlots(signal).push({ func: func, context: context ? context : window});
 };
 
 
@@ -63,7 +67,7 @@ twodee.Object.prototype.connect = function(signal, func, context)
  * 
  * @param {string} signal
  *            The signal. If not specified then everything is disconnected
- * @param {Function} func
+ * @param {function(...)} func
  *            The slot function. If not specified then all handlers for 
  *            specified signal are disconnected
  * @param {Object} context
@@ -72,7 +76,7 @@ twodee.Object.prototype.connect = function(signal, func, context)
 
 twodee.Object.prototype.disconnect = function(signal, func, context)
 {
-    var slots, i;
+    var slots, i, slot;
     
     // If no signal was specified then all signal handlers are disconnected
     if (!signal)
@@ -80,12 +84,12 @@ twodee.Object.prototype.disconnect = function(signal, func, context)
         this.slots = null;
         return;
     }
-    
     if (!context) context = window;
     slots = this.getSlots(signal);
     for (i = slots.length - 1; i >= 0; i--)
     {
-        if (!func || (slots[i][0] == func && slots[i][1] == context))
+    	slot = slots[i];
+        if (!func || (slot.func == func && slot.context == context))
         {
             slots.splice(i, 1);
         }
@@ -104,7 +108,7 @@ twodee.Object.prototype.disconnect = function(signal, func, context)
 
 twodee.Object.prototype.sendSignal = function(signal, args___)
 {
-    var slots, i, args;
+    var slots, i, args, slot;
     
     // Build arguments array 
     args = [];
@@ -114,6 +118,7 @@ twodee.Object.prototype.sendSignal = function(signal, args___)
     slots = this.getSlots(signal);
     for (i = slots.length - 1; i >= 0; i--)
     {
-        slots[i][0].apply(slots[i][1], args);
+    	slot = slots[i];
+        slot.func.apply(slot.context, args);
     }
 };

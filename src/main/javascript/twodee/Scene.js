@@ -17,16 +17,37 @@ twodee.Scene = function()
 {
     this.collidables = [];
 };
-/** The root node of the scene. @private @type {twodee.SceneNode} */
+
+
+/** 
+ * The root node of the scene. 
+ * 
+ * @private 
+ * @type {twodee.SceneNode} */
 twodee.Scene.prototype.rootNode = null;
 
-/** The last update timestamp. @private @type {number} */
+/** 
+ * The last update timestamp. 
+ * 
+ * @private 
+ * @type {number}
+ */
 twodee.Scene.prototype.lastUpdate = 0;
 
-/** Temporary array with collidables during rendering. @private @type {Array} */
+/** 
+ * Temporary array with collidables during rendering. 
+ * 
+ * @private 
+ * @type {Array.<twodee.SceneNode>}
+ */
 twodee.Scene.prototype.collidables = null;
 
-/** If scene is paused or not. @private @type {boolean} */
+/** 
+ * If scene is paused or not. 
+ * 
+ * @private 
+ * @type {boolean}
+ */
 twodee.Scene.prototype.paused = false;
 
 

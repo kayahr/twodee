@@ -26,56 +26,142 @@ twodee.SceneNode = function()
 };
 twodee.inherit(twodee.SceneNode, twodee.Object);
 
-/** Instance counter. @private @type {number} */
+/**
+ * Instance counter.
+ * 
+ * @private 
+ * @type {number}
+ */
 twodee.SceneNode.counter = 0; 
 
-/** The node polygon ID. @private @type {number} */
+/**
+ * The node polygon ID.
+ * 
+ * @private 
+ * @type {number}
+ */
 twodee.SceneNode.prototype.id = 0;
 
-/** The parent node. Can be null if there is none. @private @type {twodee.SceneNode} */
+/**
+ * The parent node. Can be null if there is none.
+ * 
+ * @private 
+ * @type {?twodee.SceneNode}
+ */
 twodee.SceneNode.prototype.parentNode = null;
 
-/** The next sibling node. Can be null if there is none. @private @type {twodee.SceneNode} */
+/** 
+ * The next sibling node. Can be null if there is none.
+ * 
+ * @private 
+ * @type {?twodee.SceneNode} 
+ */
 twodee.SceneNode.prototype.nextSibling = null;
 
-/** The previous sibling node. Can be null if there is none. @private @type {twodee.SceneNode} */
+/** 
+ * The previous sibling node. Can be null if there is none.
+ * 
+ * @private 
+ * @type {?twodee.SceneNode}
+ */
 twodee.SceneNode.prototype.previousSibling = null;
 
-/** The first child node. Can be null if there is none. @private @type {twodee.SceneNode} */
+/**
+ * The first child node. Can be null if there is none.
+ * 
+ * @private 
+ * @type {?twodee.SceneNode}
+ */
 twodee.SceneNode.prototype.firstChild = null;
 
-/** The last child node. Can be null if there is none. @private @type {twodee.SceneNode} */
+/** 
+ * The last child node. Can be null if there is none.
+ * 
+ * @private 
+ * @type {?twodee.SceneNode}
+ */
 twodee.SceneNode.prototype.lastChild = null;
 
-/** The transformation of this node. @private @type {twodee.Matrix} */
+/**
+ * The transformation of this node.
+ * 
+ * @private
+ * @type {?twodee.Matrix}
+ */
 twodee.SceneNode.prototype.transform = null;
 
-/** The effective transformation of this node. @private @type {twodee.Matrix} */
+/**
+ * The effective transformation of this node.
+ * 
+ * @private 
+ * @type {?twodee.Matrix}
+ */
 twodee.SceneNode.prototype.effectiveTransform = null;
 
-/** The node bounds. @private @type {twodee.Matrix} */
+/** 
+ * The node bounds.
+ * 
+ * @private 
+ * @type {?twodee.Polygon}
+ */
 twodee.SceneNode.prototype.bounds = null;
 
-/** The collision type. 0 = None. @private @type {number} */
+/**
+ * The collision type. 0 = None.
+ * 
+ * @private 
+ * @type {number}
+ */
 twodee.SceneNode.prototype.collisionType = 0;
 
-/** The collision mask. @private @type {number} */
+/**
+ * The collision mask.
+ * 
+ * @private 
+ * @type {number}
+ */
 twodee.SceneNode.prototype.collisionMask = 0;
 
-/** Map with nodes which collided with this one. @private @type {Object} */
+/**
+ * Map with nodes which collided with this one.
+ * 
+ * @private 
+ * @type {?Object.<string, twodee.SceneNode>}
+ */
 twodee.SceneNode.prototype.collisions = null;
 
-/** Map with nodes which collided previously with this one. @private @type {Object} */
+/**
+ * Map with nodes which collided previously with this one.
+ * 
+ * @private 
+ * @type {?Object.<string, twodee.SceneNode>}
+ */
 twodee.SceneNode.prototype.previousCollisions = null;
 
-/** The physics model. @private @type {twodee.Physics} */
+/**
+ * The physics model. 
+ * 
+ * @private 
+ * @type {?twodee.Physics}
+ */
 twodee.SceneNode.prototype.physics = null;
 
-/** If node is enabled or not. @private @type {boolean} */
+/** 
+ * If node is enabled or not. 
+ * 
+ * @private 
+ * @type {boolean} 
+ */
 twodee.SceneNode.prototype.enabled = true;
 
-/** The opacity. @private @type {number} */
+/** 
+ * The opacity.
+ * 
+ * @private 
+ * @type {number}
+ */
 twodee.SceneNode.prototype.opacity = 1;
+
 
 /**
  * Returns the node id.
@@ -343,9 +429,9 @@ twodee.SceneNode.prototype.replaceChild = function(oldNode, newNode)
  * from its local transformation and the effective transformation of its
  * parent).
  * 
- * @return {twodee.Matrix} The calculated effetive transformation of this node
+ * Do not call this method yourself. It is triggered by the scene.
  * 
- * @private Called from Scene class while rendering
+ * @return {twodee.Matrix} The calculated effetive transformation of this node
  */
 
 twodee.SceneNode.prototype.updateTransformation = function()
@@ -483,11 +569,11 @@ twodee.SceneNode.prototype.isCollidable = function()
 /**
  * Checks if this node collides with the specified node.
  * 
+ * Do not call this method yourself, it's called by the scene.
+ * 
  * @param {twodee.SceneNode} other
  *            The other scene node
  * @return {boolean} True if nodes collide, false if not
- * 
- * @private Called from Scene class
  */
 
 twodee.SceneNode.prototype.collidesWith = function(other)
@@ -505,10 +591,10 @@ twodee.SceneNode.prototype.collidesWith = function(other)
 /**
  * Informs the node that it has collided with the specified node.
  * 
+ * Do not call this method yourself, it is called by the scene.
+ * 
  * @param {twodee.SceneNode} other
  *            The node this one has collided with
- * 
- * @private Called from Scene class
  */
 
 twodee.SceneNode.prototype.collide = function(other)
@@ -522,12 +608,12 @@ twodee.SceneNode.prototype.collide = function(other)
  * the scene is complete. It checks which collisions are new or obsolete and
  * sends the required signals.
  * 
- * @private Called from Scene class
+ * Don't call this method yourself, it is done by the Scene.
  */
 
 twodee.SceneNode.prototype.processCollisions = function()
 {
-    var id, collisions, previousCollisions;
+    var /** @type {string} */ id, collisions, previousCollisions;
     
     // Create shorthand variables
     collisions = this.collisions;
@@ -584,6 +670,7 @@ twodee.SceneNode.prototype.getPhysics = function()
 {
     return this.physics;
 };
+
 
 /**
  * Updates the node with the specified time delta. Default implementation is

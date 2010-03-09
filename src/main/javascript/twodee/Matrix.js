@@ -18,37 +18,83 @@ twodee.Matrix = function()
     twodee.Matrix.counter++;
 };
 
-/** Instance counter. @private @type {number} */
+/**
+ * Instance counter.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.Matrix.counter = 0;
 
-/** A temporary matrix for internal operations. @private @type {twodee.Matrix} */
+/** 
+ * A temporary matrix for internal operations.
+ * 
+ * @private
+ * @type {twodee.Matrix}
+ */
 twodee.Matrix.TMP = new twodee.Matrix();
 
-/** The matrix entry 0;0. @type {number} */
+/**
+ * The matrix entry 0;0.
+ * 
+ * @type {number}
+ */
 twodee.Matrix.prototype.m00 = 1;
 
-/** The matrix entry 0;1. @type {number} */
+/**
+ * The matrix entry 0;1.
+ * 
+ * @type {number}
+ */
 twodee.Matrix.prototype.m01 = 0;
 
-/** The matrix entry 0;2. @type {number} */
+/**
+ * The matrix entry 0;2.
+ * 
+ * @type {number}
+ */
 twodee.Matrix.prototype.m02 = 0;
 
-/** The matrix entry 1;0. @type {number} */
+/**
+ * The matrix entry 1;0.
+ * 
+ * @type {number}
+ */
 twodee.Matrix.prototype.m10 = 0;
 
-/** The matrix entry 1;1. @type {number} */
+/**
+ * The matrix entry 1;1.
+ * 
+ * @type {number}
+ */
 twodee.Matrix.prototype.m11 = 1;
 
-/** The matrix entry 1;2. @type {number} */
+/**
+ * The matrix entry 1;2.
+ * 
+ * @type {number}
+ */
 twodee.Matrix.prototype.m12 = 0;
 
-/** The matrix entry 0;0. @type {number} */
+/**
+ * The matrix entry 0;0.
+ * 
+ * @type {number}
+ */
 twodee.Matrix.prototype.m20 = 0;
 
-/** The matrix entry 0;1. @type {number} */
+/**
+ * The matrix entry 0;1.
+ * 
+ * @type {number}
+ */
 twodee.Matrix.prototype.m21 = 0;
 
-/** The matrix entry 0;2. @type {number} */
+/**
+ * The matrix entry 0;2.
+ * 
+ * @type {number}
+ */
 twodee.Matrix.prototype.m22 = 1;
 
 

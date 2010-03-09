@@ -17,19 +17,44 @@ twodee.BoundingBox = function()
     twodee.BoundingBox.counter++;
 };
 
-/** Instance counter. @private @type {number} */
+/** 
+ * Instance counter.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.BoundingBox.counter = 0;
 
-/** The top bound. @private @type {number} */
+/**
+ * The top bound.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.BoundingBox.prototype.top = Number.POSITIVE_INFINITY;
 
-/** The right bound. @private @type {number} */
+/**
+ * The right bound.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.BoundingBox.prototype.right = Number.NEGATIVE_INFINITY;
 
-/** The bottom bound. @private @type {number} */
+/**
+ * The bottom bound.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.BoundingBox.prototype.bottom = Number.NEGATIVE_INFINITY;
 
-/** The left bound. @private @type {number} */
+/**
+ * The left bound.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.BoundingBox.prototype.left = Number.POSITIVE_INFINITY;
 
 

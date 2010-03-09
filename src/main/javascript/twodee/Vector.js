@@ -25,13 +25,26 @@ twodee.Vector = function(x, y)
     twodee.Vector.counter++;
 };
 
-/** Instance counter. @private @type {number} */
+/**
+ * Instance counter.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.Vector.counter = 0;
 
-/** The X coordinate. @type {number} */
+/**
+ * The X coordinate.
+ * 
+ * @type {number}
+ */
 twodee.Vector.prototype.x = 0;
 
-/** The Y coordinate. @type {number} */
+/**
+ * The Y coordinate.
+ * 
+ * @type {number}
+ */
 twodee.Vector.prototype.y = 0;
 
 
@@ -40,7 +53,7 @@ twodee.Vector.prototype.y = 0;
  * 
  * @param {twodee.Vector=} v
  *            Optional target vector
- * @return {twodee.Vector} A copy of this vector (or the target vector)
+ * @return {twodee.Vector} A copy of this vector or the target vector
  */
 
 twodee.Vector.prototype.copy = function(v)
@@ -271,7 +284,7 @@ twodee.Vector.prototype.toJSON = function()
  * specified JSON object (with keys 'x', and 'y'). Returns null if data
  * was empty.
  * 
- * @param {Object} data
+ * @param {{x:number,y:number}} data
  *            The vector as JSON object
  * @return {twodee.Vector} The vector object or null if data was empty
  */

@@ -19,40 +19,100 @@ twodee.Physics = function()
     twodee.Physics.counter++;
 };
 
-/** Instance counter. @private @type {number} */
+/**
+ * Instance counter.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.Physics.counter = 0;
 
-/** A static temporary vector for speed optimization. @private @type {twodee.Vector} */
+/** 
+ * A static temporary vector for speed optimization.
+ * 
+ * @private
+ * @type {twodee.Vector}
+ */
 twodee.Physics.V = new twodee.Vector();
 
-/** The velocity vector. Length is units per second. @private @type {twodee.Vector} */
+/**
+ * The velocity vector. Length is units per second.
+ * 
+ * @private
+ * @type {twodee.Vector}
+ */
 twodee.Physics.prototype.velocity = null;
 
-/** The minimum velocity in units per second. @private @type {number} */
+/**
+ * The minimum velocity in units per second.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.Physics.prototype.minVelocity = Number.NEGATIVE_INFINITY;
 
-/** The maximum velocity in units per second. @private @type {number} */
+/**
+ * The maximum velocity in units per second.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.Physics.prototype.maxVelocity = Number.POSITIVE_INFINITY;
 
-/** The acceleration vector.Length is units per square second. @private @type {twodee.Vector} */
+/**
+ * The acceleration vector.Length is units per square second.
+ * 
+ * @private
+ * @type {twodee.Vector}
+ */
 twodee.Physics.prototype.acceleration = null;
 
-/** The spin in anti-clockwise RAD per second. @private @type {number} */
+/**
+ * The spin in anti-clockwise RAD per second.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.Physics.prototype.spin = 0;
 
-/** The spin acceleration in anti-clockwise RAD per square second. @private @type {number} */
+/**
+ * The spin acceleration in anti-clockwise RAD per square second.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.Physics.prototype.spinAcceleration = 0;
 
-/** The minimum spin acceleration. @private @type {number} */
+/** 
+ * The minimum spin acceleration.
+ * 
+ * @private
+ * @type {number}
+ */
 twodee.Physics.prototype.minSpin = Number.NEGATIVE_INFINITY;
 
-/** The maximum spin acceleration. @private @type {number} */
+/** 
+ * The maximum spin acceleration. 
+ * 
+ * @private
+ * @type {number} 
+ */
 twodee.Physics.prototype.maxSpin = Number.POSITIVE_INFINITY;
 
-/** The lifetime in seconds. @private @type {number} */
+/** 
+ * The lifetime in seconds. 
+ * 
+ * @private
+ * @type {number} 
+ */
 twodee.Physics.prototype.lifetime = Number.POSITIVE_INFINITY;
 
-/** The decay time in seconds. @private @type {number} */
+/** 
+ * The decay time in seconds. 
+ * 
+ * @private
+ * @type {number} 
+ */
 twodee.Physics.prototype.decay = 1;
 
 
