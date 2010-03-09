@@ -23,7 +23,7 @@ twodee.inherit = function(subClass, superClass)
 /**
  * Returns debugging info.
  * 
- * @return {String} The debugging info
+ * @return {string} The debugging info
  */
 
 twodee.getDebugInfo = function()
@@ -31,7 +31,7 @@ twodee.getDebugInfo = function()
     var boundingBox, matrix, physics, polygon, polygonNode,
         sceneNode, vector, info, d;
     
-    d = this.debugInfo;
+    d = twodee.debugInfo;
     boundingBox = twodee.BoundingBox.counter;
     matrix = twodee.Matrix.counter;
     physics = twodee.Physics.counter;
@@ -49,7 +49,7 @@ twodee.getDebugInfo = function()
         "  SceneNode: " + sceneNode + " (" + (sceneNode - (d ? d.sceneNode : 0)) + ")\n" +
         "  Vector: " + vector + " (" + (vector - (d ? d.vector : 0)) + ")\n";
 
-    if (!d) d = this.debugInfo = {};
+    if (!d) d = twodee.debugInfo = {};
     d.boundingBox = boundingBox;
     d.matrix = matrix;
     d.physics = physics;

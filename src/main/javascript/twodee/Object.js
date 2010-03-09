@@ -25,7 +25,7 @@ twodee.Object.prototype.slots = null;
  * Returns the array with slots connected to the specified signal. If it
  * does not exist then a new empty array is created for this signal.
  * 
- * @param {String} signal
+ * @param {string} signal
  *            The signal
  * @return {Array} The array with connected slots.
  * @private
@@ -44,7 +44,7 @@ twodee.Object.prototype.getSlots = function(signal)
 /**
  * Connects a slot to a signal.
  * 
- * @param {String} signal
+ * @param {string} signal
  *            The signal
  * @param {Function} func
  *            The slot function
@@ -61,7 +61,7 @@ twodee.Object.prototype.connect = function(signal, func, context)
 /**
  * Disconnects a slot from a signal.
  * 
- * @param {String} signal
+ * @param {string} signal
  *            The signal. If not specified then everything is disconnected
  * @param {Function} func
  *            The slot function. If not specified then all handlers for 
@@ -77,7 +77,7 @@ twodee.Object.prototype.disconnect = function(signal, func, context)
     // If no signal was specified then all signal handlers are disconnected
     if (!signal)
     {
-        target.connectedSlots = null;
+        this.slots = null;
         return;
     }
     
@@ -96,13 +96,13 @@ twodee.Object.prototype.disconnect = function(signal, func, context)
 /**
  * Sends a signal.
  * 
- * @param {String} signal
+ * @param {string} signal
  *            The signal to send
- * @param {Object} args__
+ * @param {...} args___
  *            Variable number of optional arguments passed to the slots
  */
 
-twodee.Object.prototype.sendSignal = function(signal, args__)
+twodee.Object.prototype.sendSignal = function(signal, args___)
 {
     var slots, i, args;
     

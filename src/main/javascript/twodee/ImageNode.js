@@ -8,7 +8,7 @@
 /**
  * Constructs a new image node.
  * 
- * @param {Image} image
+ * @param {HTMLImageElement} image
  *            Optional image. If not set then it must be set with the
  *            setImage() method.
  *            
@@ -25,20 +25,20 @@ twodee.ImageNode = function(image)
 };
 twodee.inherit(twodee.ImageNode, twodee.SceneNode);
 
-/** Instance counter. @private @type {Number} */
+/** Instance counter. @private @type {number} */
 twodee.ImageNode.counter = 0; 
 
-/** The image. @private @type {Image} */
+/** The image. @private @type {HTMLImageElement} */
 twodee.ImageNode.prototype.image = null;
 
-/** If bounds should be drawn (For debugging). @private @type {Boolean} */
+/** If bounds should be drawn (For debugging). @private @type {boolean} */
 twodee.ImageNode.prototype.showBounds = false;
 
 
 /**
  * Sets the image
  * 
- * @param {Image} image
+ * @param {HTMLImageElement} image
  *            The image to set
  */
 
@@ -51,7 +51,7 @@ twodee.ImageNode.prototype.setImage = function(image)
 /**
  * Returns the image.
  * 
- * @return {Image} The image
+ * @return {HTMLImageElement} The image
  */
 
 twodee.ImageNode.prototype.getImage = function()
@@ -64,7 +64,7 @@ twodee.ImageNode.prototype.getImage = function()
  * Enables or disables the display of node bounds. This is for debugging
  * purposes.
  * 
- * @param {Boolean} showBounds
+ * @param {boolean} showBounds
  *            True to show the bounds, false to hide them
  */
 

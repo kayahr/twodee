@@ -9,9 +9,9 @@
  * @constructor
  * Constructs a new empty vector.
  * 
- * @param {Number} x
+ * @param {number=} x
  *            The X coordinate (Optional)
- * @param {Number} y
+ * @param {number=} y
  *            The Y coordinate (Optional)
  * 
  * @class
@@ -25,20 +25,20 @@ twodee.Vector = function(x, y)
     twodee.Vector.counter++;
 };
 
-/** Instance counter. @private @type {Number} */
+/** Instance counter. @private @type {number} */
 twodee.Vector.counter = 0;
 
-/** The X coordinate. @type {Number} */
+/** The X coordinate. @type {number} */
 twodee.Vector.prototype.x = 0;
 
-/** The Y coordinate. @type {Number} */
+/** The Y coordinate. @type {number} */
 twodee.Vector.prototype.y = 0;
 
 
 /**
  * Returns a copy of this vector.
  * 
- * @param {twodee.Vector} v
+ * @param {twodee.Vector=} v
  *            Optional target vector
  * @return {twodee.Vector} A copy of this vector (or the target vector)
  */
@@ -52,7 +52,7 @@ twodee.Vector.prototype.copy = function(v)
 /**
  * Checks if this vector is a zero vector.
  * 
- * @return {Boolean} True if vector is a zero vector, false if not
+ * @return {boolean} True if vector is a zero vector, false if not
  */
 
 twodee.Vector.prototype.isZero = function()
@@ -64,9 +64,9 @@ twodee.Vector.prototype.isZero = function()
 /**
  * Sets the vector coordinates.
  * 
- * @param {Number} x
+ * @param {number} x
  *            The X coordinate
- * @param {Number} y
+ * @param {number} y
  *            The Y coordinate
  * @return {twodee.Vector}
  *            This vector
@@ -115,9 +115,9 @@ twodee.Vector.prototype.sub = function(v)
 /**
  * Scales the vector with the specified factors.
  * 
- * @param {Number} fx
+ * @param {number} fx
  *            The X factor
- * @param {Number} fy
+ * @param {number=} fy
  *            The Y factor (Optional. Defaults to fx)
  * @return {twodee.Vector} This vector
  */
@@ -133,7 +133,7 @@ twodee.Vector.prototype.scale = function(fx, fy)
 /**
  * Rotates the vector by the specified angle.
  * 
- * @param {Number} angle
+ * @param {number} angle
  *            The rotation angle in anti-clockwise RAD.
  * @return {twodee.Vector} This vector
  */
@@ -157,7 +157,7 @@ twodee.Vector.prototype.rotate = function(angle)
  * 
  * @param {twodee.Vector} v
  *            The other vector
- * @return {Number}
+ * @return {number}
  *            The dot product
  */
 
@@ -191,7 +191,7 @@ twodee.Vector.prototype.cross = function(v)
 /**
  * Returns the length of the vector.
  * 
- * @return {Number} The vector length
+ * @return {number} The vector length
  */
 
 twodee.Vector.prototype.getLength = function()
@@ -223,9 +223,9 @@ twodee.Vector.prototype.toUnit = function()
  * returned number is positive. If it's counter-clock-wise then the angle is
  * negative. So the return value of this method is always between -PI and +PI.
  * 
- * @param {jade.Vector2D} v
+ * @param {twodee.Vector} v
  *            The second vector
- * @return {Number}
+ * @return {number}
  *            The angle between the two vectors, in radians
  */
 

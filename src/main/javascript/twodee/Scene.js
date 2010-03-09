@@ -20,13 +20,13 @@ twodee.Scene = function()
 /** The root node of the scene. @private @type {twodee.SceneNode} */
 twodee.Scene.prototype.rootNode = null;
 
-/** The last update timestamp. @private @type {Number} */
+/** The last update timestamp. @private @type {number} */
 twodee.Scene.prototype.lastUpdate = 0;
 
 /** Temporary array with collidables during rendering. @private @type {Array} */
 twodee.Scene.prototype.collidables = null;
 
-/** If scene is paused or not. @private @type {Boolean} */
+/** If scene is paused or not. @private @type {boolean} */
 twodee.Scene.prototype.paused = false;
 
 
@@ -59,7 +59,7 @@ twodee.Scene.prototype.getRootNode = function()
 /**
  * Updates the scene with the specified time delta (milliseconds);
  * 
- * @param {Number} delta
+ * @param {number} delta
  *            The time elapsed since the last call to this method measured
  *            in milliseconds. This is optional. If not specified
  *            then it is calculated automatically. If negative then the 
@@ -97,7 +97,7 @@ twodee.Scene.prototype.update = function(delta)
  * 
  * @param {twodee.SceneNode} node
  *            The node to update
- * @param {Number} delta
+ * @param {number} delta
  *            The time elapsed since the last call to this method measured
  *            in milliseconds.
  * @private
@@ -123,9 +123,9 @@ twodee.Scene.prototype.updateNode = function(node, delta)
  * 
  * @param {CanvasRenderingContext2D} g
  *            The graphics context
- * @param {Number} width
+ * @param {number} width
  *            The output width in pixels
- * @param {Number} height
+ * @param {number} height
  *            The output height in pixels
  */
 

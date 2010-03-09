@@ -24,7 +24,7 @@ twodee.Polygon = function(vertices)
     twodee.Polygon.counter++;
 };
 
-/** Instance counter. @private @type {Number} */
+/** Instance counter. @private @type {number} */
 twodee.Polygon.counter = 0;
 
 /** A static temporary vector for speed optimization. @private @type {twodee.Vector} */
@@ -153,7 +153,7 @@ twodee.Polygon.prototype.setTransform = function(m)
 /**
  * Returns the number of polygon vertices.
  * 
- * @return {Number} The number of polygon vertices
+ * @return {number} The number of polygon vertices
  */
 
 twodee.Polygon.prototype.countVertices = function()
@@ -165,7 +165,7 @@ twodee.Polygon.prototype.countVertices = function()
 /**
  * Returns the vertex with the specified index.
  * 
- * @param {Number} index
+ * @param {number} index
  *            The vertex index
  * @return {twodee.Vector} The vertex
  */
@@ -181,9 +181,9 @@ twodee.Polygon.prototype.getVertex = function(index)
  * Note that this check only works for convex polygons. A simple bounding box
  * check is done before the complex polygon collision detection is used.
  * 
- * @param {jade.Polygon} other
+ * @param {twodee.Polygon} other
  *            The other polygon to test collision with
- * @return {Boolean}
+ * @return {boolean}
  *            True if the polygons collide, false if not 
  */
 
@@ -216,9 +216,9 @@ twodee.Polygon.prototype.collidesWith = function(other)
  * 
  * @param {twodee.Polygon} other
  *            The other polygon 
- * @param {Number} faceIndex
+ * @param {number} faceIndex
  *            The index of the first vector of the face.
- * @return {Boolean}
+ * @return {boolean}
  *             If the face vector is a separation axis or not
  * @private
  */

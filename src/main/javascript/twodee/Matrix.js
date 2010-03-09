@@ -18,37 +18,37 @@ twodee.Matrix = function()
     twodee.Matrix.counter++;
 };
 
-/** Instance counter. @private @type {Number} */
+/** Instance counter. @private @type {number} */
 twodee.Matrix.counter = 0;
 
 /** A temporary matrix for internal operations. @private @type {twodee.Matrix} */
 twodee.Matrix.TMP = new twodee.Matrix();
 
-/** The matrix entry 0;0. @type {Number} */
+/** The matrix entry 0;0. @type {number} */
 twodee.Matrix.prototype.m00 = 1;
 
-/** The matrix entry 0;1. @type {Number} */
+/** The matrix entry 0;1. @type {number} */
 twodee.Matrix.prototype.m01 = 0;
 
-/** The matrix entry 0;2. @type {Number} */
+/** The matrix entry 0;2. @type {number} */
 twodee.Matrix.prototype.m02 = 0;
 
-/** The matrix entry 1;0. @type {Number} */
+/** The matrix entry 1;0. @type {number} */
 twodee.Matrix.prototype.m10 = 0;
 
-/** The matrix entry 1;1. @type {Number} */
+/** The matrix entry 1;1. @type {number} */
 twodee.Matrix.prototype.m11 = 1;
 
-/** The matrix entry 1;2. @type {Number} */
+/** The matrix entry 1;2. @type {number} */
 twodee.Matrix.prototype.m12 = 0;
 
-/** The matrix entry 0;0. @type {Number} */
+/** The matrix entry 0;0. @type {number} */
 twodee.Matrix.prototype.m20 = 0;
 
-/** The matrix entry 0;1. @type {Number} */
+/** The matrix entry 0;1. @type {number} */
 twodee.Matrix.prototype.m21 = 0;
 
-/** The matrix entry 0;2. @type {Number} */
+/** The matrix entry 0;2. @type {number} */
 twodee.Matrix.prototype.m22 = 1;
 
 
@@ -74,23 +74,23 @@ twodee.Matrix.prototype.copy = function(target)
 /**
  * Sets the matrix entries.
  * 
- * @param {Number} m00
+ * @param {number} m00
  *            The matrix entry 0;0
- * @param {Number} m01
+ * @param {number} m01
  *            The matrix entry 0;1
- * @param {Number} m02
+ * @param {number} m02
  *            The matrix entry 0;2
- * @param {Number} m10
+ * @param {number} m10
  *            The matrix entry 1;0
- * @param {Number} m11
+ * @param {number} m11
  *            The matrix entry 1;1
- * @param {Number} m12
+ * @param {number} m12
  *            The matrix entry 1;2
- * @param {Number} m20
+ * @param {number} m20
  *            The matrix entry 2;0
- * @param {Number} m21
+ * @param {number} m21
  *            The matrix entry 2;1
- * @param {Number} m22
+ * @param {number} m22
  *            The matrix entry 2;2
  * @return {twodee.Matrix}
  *            This matrix
@@ -155,7 +155,7 @@ twodee.Matrix.prototype.setIdentity = function()
 /**
  * Sets the entries of this matrix to a rotation matrix.
  * 
- * @param {Number} angle
+ * @param {number} angle
  *            The rotation angle in anti-clockwise RAD
  * @return {twodee.Matrix}
  *            This matrix
@@ -189,9 +189,9 @@ twodee.Matrix.prototype.getRotationAngle = function()
 /**
  * Sets the entries of this matrix to a scaling matrix.
  * 
- * @param {Number} fx
+ * @param {number} fx
  *            The X scale factor
- * @param {Number} fy
+ * @param {number} fy
  *            The Y scale factor. Optional. Defaults to fx.
  * @return {twodee.Matrix}
  *            This matrix
@@ -209,7 +209,7 @@ twodee.Matrix.prototype.setScale = function(fx, fy)
 /**
  * Sets the entries of this matrix to a X scaling matrix.
  * 
- * @param {Number} f
+ * @param {number} f
  *            The scale factor
  * @return {twodee.Matrix}
  *            This matrix
@@ -227,7 +227,7 @@ twodee.Matrix.prototype.setScaleX = function(f)
 /**
  * Sets the entries of this matrix to a Y scaling matrix.
  * 
- * @param {Number} f
+ * @param {number} f
  *            The scale factor
  * @return {twodee.Matrix}
  *            This matrix
@@ -245,9 +245,9 @@ twodee.Matrix.prototype.setScaleY = function(f)
 /**
  * Sets the entries of this matrix to a translation matrix.
  * 
- * @param {Number} dx
+ * @param {number} dx
  *            The X delta
- * @param {Number} dy
+ * @param {number} dy
  *            The Y delta.
  * @return {twodee.Matrix}
  *            This matrix
@@ -265,7 +265,7 @@ twodee.Matrix.prototype.setTranslate = function(dx, dy)
 /**
  * Sets the entries of this matrix to a X translation matrix.
  * 
- * @param {Number} d
+ * @param {number} d
  *            The delta
  * @return {twodee.Matrix}
  *            This matrix
@@ -283,7 +283,7 @@ twodee.Matrix.prototype.setTranslateX = function(d)
 /**
  * Sets the entries of this matrix to a Y translation matrix.
  * 
- * @param {Number} d
+ * @param {number} d
  *            The delta
  * @return {twodee.Matrix}
  *            This matrix
@@ -328,7 +328,7 @@ twodee.Matrix.prototype.transform = function(m)
 /**
  * Multiplies this matrix with the specified factor.
  * 
- * @param {Number} f
+ * @param {number} f
  *            The factor
  * @return {twodee.Matrix}
  *            This matrix
@@ -352,7 +352,7 @@ twodee.Matrix.prototype.multiply = function(f)
 /**
  * Divides this matrix by the specified factor.
  * 
- * @param {Number} f
+ * @param {number} f
  *            The factor
  * @return {twodee.Matrix}
  *            This matrix
@@ -376,9 +376,9 @@ twodee.Matrix.prototype.divide = function(f)
 /**
  * Translates this matrix by the specified deltas
  * 
- * @param {Number} dx
+ * @param {number} dx
  *            The X delta
- * @param {Number} dy
+ * @param {number} dy
  *            The Y delta
  * @return {twodee.Matrix}
  *            This matrix
@@ -393,7 +393,7 @@ twodee.Matrix.prototype.translate = function(dx, dy)
 /**
  * X-Translates this matrix by the specified delta
  * 
- * @param {Number} d
+ * @param {number} d
  *            The delta
  * @return {twodee.Matrix}
  *            This matrix
@@ -408,7 +408,7 @@ twodee.Matrix.prototype.translateX = function(d)
 /**
  * Y-Translates this matrix by the specified delta
  * 
- * @param {Number} d
+ * @param {number} d
  *            The delta
  * @return {twodee.Matrix}
  *            This matrix
@@ -423,9 +423,9 @@ twodee.Matrix.prototype.translateY = function(d)
 /**
  * Scales this matrix by the specified factors
  * 
- * @param {Number} fx
+ * @param {number} fx
  *            The X factor
- * @param {Number} fy
+ * @param {number} fy
  *            The Y factor. Optional. Defaults to fx.
  * @return {twodee.Matrix}
  *            This matrix
@@ -441,7 +441,7 @@ twodee.Matrix.prototype.scale = function(fx, fy)
 /**
  * X-Scales this matrix by the specified factor
  * 
- * @param {Number} f
+ * @param {number} f
  *            The factor
  * @return {twodee.Matrix}
  *            This matrix
@@ -456,7 +456,7 @@ twodee.Matrix.prototype.scaleX = function(f)
 /**
  * Y-Scales this matrix by the specified factor
  * 
- * @param {Number} f
+ * @param {number} f
  *            The factor
  * @return {twodee.Matrix}
  *            This matrix
@@ -471,7 +471,7 @@ twodee.Matrix.prototype.scaleY = function(f)
 /**
  * Rotates this matrix by the specified angle
  * 
- * @param {Number} r
+ * @param {number} r
  *            The angle in anti-clockwise RAD
  * @return {twodee.Matrix}
  *            This matrix
@@ -486,7 +486,7 @@ twodee.Matrix.prototype.rotate = function(r)
 /**
  * Returns the determinant of the matrix.
  * 
- * @return {Number} The determinant of the matrix
+ * @return {number} The determinant of the matrix
  */
 
 twodee.Matrix.prototype.getDeterminant = function()

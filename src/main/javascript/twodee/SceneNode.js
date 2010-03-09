@@ -26,10 +26,10 @@ twodee.SceneNode = function()
 };
 twodee.inherit(twodee.SceneNode, twodee.Object);
 
-/** Instance counter. @private @type {Number} */
+/** Instance counter. @private @type {number} */
 twodee.SceneNode.counter = 0; 
 
-/** The node polygon ID. @private @type {Number} */
+/** The node polygon ID. @private @type {number} */
 twodee.SceneNode.prototype.id = 0;
 
 /** The parent node. Can be null if there is none. @private @type {twodee.SceneNode} */
@@ -56,10 +56,10 @@ twodee.SceneNode.prototype.effectiveTransform = null;
 /** The node bounds. @private @type {twodee.Matrix} */
 twodee.SceneNode.prototype.bounds = null;
 
-/** The collision type. 0 = None. @private @type {Number} */
+/** The collision type. 0 = None. @private @type {number} */
 twodee.SceneNode.prototype.collisionType = 0;
 
-/** The collision mask. @private @type {Number} */
+/** The collision mask. @private @type {number} */
 twodee.SceneNode.prototype.collisionMask = 0;
 
 /** Map with nodes which collided with this one. @private @type {Object} */
@@ -71,16 +71,16 @@ twodee.SceneNode.prototype.previousCollisions = null;
 /** The physics model. @private @type {twodee.Physics} */
 twodee.SceneNode.prototype.physics = null;
 
-/** If node is enabled or not. @private @type {Boolean} */
+/** If node is enabled or not. @private @type {boolean} */
 twodee.SceneNode.prototype.enabled = true;
 
-/** The opacity. @private @type {Number} */
+/** The opacity. @private @type {number} */
 twodee.SceneNode.prototype.opacity = 1;
 
 /**
  * Returns the node id.
  * 
- * @return {Number} The node id
+ * @return {number} The node id
  */
 
 twodee.SceneNode.prototype.getId = function()
@@ -187,7 +187,7 @@ twodee.SceneNode.prototype.insertBefore = function(insertNode, referenceNode)
         throw new Error("Reference node is not my child node");
 
     // Remove from old parent if there is one
-    oldParent = newNode2.parentNode;
+    oldParent = insertNode.parentNode;
     if (oldParent) oldParent.removeChild(insertNode);
 
     // Insert the node
@@ -197,16 +197,16 @@ twodee.SceneNode.prototype.insertBefore = function(insertNode, referenceNode)
     else
         this.firstChild = insertNode;
     referenceNode.previousSibling = insertNode;
-    newNode.previousSibling = oldPrevious;
-    newNode.nextSibling = referenceNode;
-    newNode.parentNode = this;
+    insertNode.previousSibling = oldPrevious;
+    insertNode.nextSibling = referenceNode;
+    insertNode.parentNode = this;
 };
 
 
 /**
  * Checks if this node has child nodes.
  * 
- * @return {Boolean}
+ * @return {boolean}
  *            True if this node has child nodes, false if not
  */
 
@@ -418,7 +418,7 @@ twodee.SceneNode.prototype.getBounds = function()
 /**
  * Sets the collision type of the node.
  * 
- * @param {Number} collisionType
+ * @param {number} collisionType
  *            The collision type to set. 0 means that the node is not
  *            collidable at all.
  */
@@ -433,7 +433,7 @@ twodee.SceneNode.prototype.setCollisionType = function(collisionType)
  * Returns the collisiton type of the node. May return 0 of node is
  * not collidable.
  * 
- * @return {Number} The collision type of the node
+ * @return {number} The collision type of the node
  */
 
 twodee.SceneNode.prototype.getCollisionType = function()
@@ -445,7 +445,7 @@ twodee.SceneNode.prototype.getCollisionType = function()
 /**
  * Sets the collision bit mask of the node.
  *
- * @param {Number} collisionMask
+ * @param {number} collisionMask
  *            The collision bit mask to set.
  */
 
@@ -458,7 +458,7 @@ twodee.SceneNode.prototype.setCollisionMask = function(collisionMask)
 /**
  * Returns the collisiton bit mask of the node.
  *
- * @return {Number} The collision bit mask
+ * @return {number} The collision bit mask
  */
 
 twodee.SceneNode.prototype.getCollisionMask = function()
@@ -471,7 +471,7 @@ twodee.SceneNode.prototype.getCollisionMask = function()
  * Checks if the node is collidable. It is only collidable when it has
  * a collision type and bounds set.
  * 
- * @return {Boolean} True if node is collidable, false if not
+ * @return {boolean} True if node is collidable, false if not
  */
 
 twodee.SceneNode.prototype.isCollidable = function()
@@ -485,7 +485,7 @@ twodee.SceneNode.prototype.isCollidable = function()
  * 
  * @param {twodee.SceneNode} other
  *            The other scene node
- * @return {Boolean} True if nodes collide, false if not
+ * @return {boolean} True if nodes collide, false if not
  * 
  * @private Called from Scene class
  */
@@ -589,7 +589,7 @@ twodee.SceneNode.prototype.getPhysics = function()
  * Updates the node with the specified time delta. Default implementation is
  * processing the physics model if present.
  * 
- * @param {Number} delta
+ * @param {number} delta
  *            The time elapsed since the last scene update (in milliseconds)
  */
 
@@ -642,7 +642,7 @@ twodee.SceneNode.prototype.disable = function()
 /**
  * Enables or disables the node.
  * 
- * @param {Boolean} enabled
+ * @param {boolean} enabled
  *            True to enable the node, false to disable it
  */
 
@@ -655,7 +655,7 @@ twodee.SceneNode.prototype.setEnabled = function(enabled)
 /**
  * Checks if node is enabled or not.
  * 
- * @return {Boolean} True if node is enabled, false if not
+ * @return {boolean} True if node is enabled, false if not
  */
 
 twodee.SceneNode.prototype.isEnabled = function()
@@ -667,7 +667,7 @@ twodee.SceneNode.prototype.isEnabled = function()
 /**
  * Sets the opacity of the node.
  * 
- * @param {Number} opacity
+ * @param {number} opacity
  *            The opacity to set. 1.0 = Fully solid, 0.0 = fully transparent
  */
 
@@ -680,7 +680,7 @@ twodee.SceneNode.prototype.setOpacity = function(opacity)
 /**
  * Returns the current opacity of the node.
  * 
- * @return {Number}
+ * @return {number}
  *             The node opacity. 1.0 = Fully solid, 0.0 = fully transparent
  */
 

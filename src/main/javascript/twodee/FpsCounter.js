@@ -17,13 +17,13 @@ twodee.FpsCounter = function()
     // Empty
 };
 
-/** The last time a result was calculated. @private @type {Number} */
+/** The last time a result was calculated. @private @type {number} */
 twodee.FpsCounter.prototype.lastResult = 0;
 
-/** The last calculated FPS value. @private @type {Number} */
+/** The last calculated FPS value. @private @type {number} */
 twodee.FpsCounter.prototype.fps = 0;
 
-/** The current FPS counter. @private @type {Number} */
+/** The current FPS counter. @private @type {number} */
 twodee.FpsCounter.prototype.counter = 0;
 
 
@@ -53,7 +53,7 @@ twodee.FpsCounter.prototype.frame = function()
 /**
  * Returns the number of frames per second.
  * 
- * @return {Number} The number of frames per second
+ * @return {number} The number of frames per second
  */
 
 twodee.FpsCounter.prototype.getFps = function()

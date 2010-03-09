@@ -17,19 +17,19 @@ twodee.BoundingBox = function()
     twodee.BoundingBox.counter++;
 };
 
-/** Instance counter. @private @type {Number} */
+/** Instance counter. @private @type {number} */
 twodee.BoundingBox.counter = 0;
 
-/** The top bound. @private @type {Number} */
+/** The top bound. @private @type {number} */
 twodee.BoundingBox.prototype.top = Number.POSITIVE_INFINITY;
 
-/** The right bound. @private @type {Number} */
+/** The right bound. @private @type {number} */
 twodee.BoundingBox.prototype.right = Number.NEGATIVE_INFINITY;
 
-/** The bottom bound. @private @type {Number} */
+/** The bottom bound. @private @type {number} */
 twodee.BoundingBox.prototype.bottom = Number.NEGATIVE_INFINITY;
 
-/** The left bound. @private @type {Number} */
+/** The left bound. @private @type {number} */
 twodee.BoundingBox.prototype.left = Number.POSITIVE_INFINITY;
 
 
@@ -72,7 +72,7 @@ twodee.BoundingBox.prototype.update = function(v)
  * 
  * @param {twodee.BoundingBox} other
  *            The other bounding box
- * @return {Boolean} True if bounding boxes collide, false if not
+ * @return {boolean} True if bounding boxes collide, false if not
  */
 
 twodee.BoundingBox.prototype.collidesWith = function(other)
@@ -87,7 +87,7 @@ twodee.BoundingBox.prototype.collidesWith = function(other)
 /**
  * Returns the width of the bounding box.
  * 
- * @return {Number} The bounding box width
+ * @return {number} The bounding box width
  */
 
 twodee.BoundingBox.prototype.getWidth = function()
@@ -99,7 +99,7 @@ twodee.BoundingBox.prototype.getWidth = function()
 /**
  * Returns the height of the bounding box.
  * 
- * @return {Number} The bounding box height
+ * @return {number} The bounding box height
  */
 
 twodee.BoundingBox.prototype.getHeight = function()

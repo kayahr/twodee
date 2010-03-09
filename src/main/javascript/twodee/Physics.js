@@ -19,7 +19,7 @@ twodee.Physics = function()
     twodee.Physics.counter++;
 };
 
-/** Instance counter. @private @type {Number} */
+/** Instance counter. @private @type {number} */
 twodee.Physics.counter = 0;
 
 /** A static temporary vector for speed optimization. @private @type {twodee.Vector} */
@@ -28,31 +28,31 @@ twodee.Physics.V = new twodee.Vector();
 /** The velocity vector. Length is units per second. @private @type {twodee.Vector} */
 twodee.Physics.prototype.velocity = null;
 
-/** The minimum velocity in units per second. @private @type {Number} */
+/** The minimum velocity in units per second. @private @type {number} */
 twodee.Physics.prototype.minVelocity = Number.NEGATIVE_INFINITY;
 
-/** The maximum velocity in units per second. @private @type {Number} */
+/** The maximum velocity in units per second. @private @type {number} */
 twodee.Physics.prototype.maxVelocity = Number.POSITIVE_INFINITY;
 
 /** The acceleration vector.Length is units per square second. @private @type {twodee.Vector} */
 twodee.Physics.prototype.acceleration = null;
 
-/** The spin in anti-clockwise RAD per second. @private @type {Number} */
+/** The spin in anti-clockwise RAD per second. @private @type {number} */
 twodee.Physics.prototype.spin = 0;
 
-/** The spin acceleration in anti-clockwise RAD per square second. @private @type {Number} */
+/** The spin acceleration in anti-clockwise RAD per square second. @private @type {number} */
 twodee.Physics.prototype.spinAcceleration = 0;
 
-/** The minimum spin acceleration. @private @type {Number} */
+/** The minimum spin acceleration. @private @type {number} */
 twodee.Physics.prototype.minSpin = Number.NEGATIVE_INFINITY;
 
-/** The maximum spin acceleration. @private @type {Number} */
+/** The maximum spin acceleration. @private @type {number} */
 twodee.Physics.prototype.maxSpin = Number.POSITIVE_INFINITY;
 
-/** The lifetime in seconds. @private @type {Number} */
+/** The lifetime in seconds. @private @type {number} */
 twodee.Physics.prototype.lifetime = Number.POSITIVE_INFINITY;
 
-/** The decay time in seconds. @private @type {Number} */
+/** The decay time in seconds. @private @type {number} */
 twodee.Physics.prototype.decay = 1;
 
 
@@ -72,7 +72,7 @@ twodee.Physics.prototype.getVelocity = function()
 /**
  * Sets the minimum velocity in units per second.
  * 
- * @param {Number} minVelocity
+ * @param {number} minVelocity
  *            The minimum velocity to set
  */
 
@@ -85,7 +85,7 @@ twodee.Physics.prototype.setMinVelocity = function(minVelocity)
 /**
  * Returns the minimum velocity in units per second.
  * 
- * @return {Number} The minimum velocity
+ * @return {number} The minimum velocity
  */
 
 twodee.Physics.prototype.getMinVelocity = function()
@@ -97,7 +97,7 @@ twodee.Physics.prototype.getMinVelocity = function()
 /**
  * Sets the maximum velocity in units per second.
  * 
- * @param {Number} maxVelocity
+ * @param {number} maxVelocity
  *            The maximum velocity to set
  */
 
@@ -110,7 +110,7 @@ twodee.Physics.prototype.setMaxVelocity = function(maxVelocity)
 /**
  * Returns the maximum velocity in units per second.
  * 
- * @return {Number} The maximum velocity
+ * @return {number} The maximum velocity
  */
 
 twodee.Physics.prototype.getMaxVelocity = function()
@@ -135,7 +135,7 @@ twodee.Physics.prototype.getAcceleration= function()
 /**
  * Returns the spin in anti-clockwise RAD per second.
  * 
- * @return {Number} The current spin
+ * @return {number} The current spin
  */
 
 twodee.Physics.prototype.getSpin = function()
@@ -147,7 +147,7 @@ twodee.Physics.prototype.getSpin = function()
 /**
  * Sets the spin in anti-clockwise RAD per second.
  * 
- * @param {Number} spin
+ * @param {number} spin
  *            The spin to set
  */
 
@@ -160,7 +160,7 @@ twodee.Physics.prototype.setSpin = function(spin)
 /**
  * Returns the spin acceleration in anti-clockwise RAD per square second.
  * 
- * @return {Number} The current spin acceleration
+ * @return {number} The current spin acceleration
  */
 
 twodee.Physics.prototype.getSpinAcceleration = function()
@@ -172,7 +172,7 @@ twodee.Physics.prototype.getSpinAcceleration = function()
 /**
  * Sets the spin acceleration in anti-clockwise RAD per square second.
  * 
- * @param {Number} spinAcceleration
+ * @param {number} spinAcceleration
  *            The spin acceleration to set
  */
 
@@ -185,7 +185,7 @@ twodee.Physics.prototype.setSpinAcceleration = function(spinAcceleration)
 /**
  * Returns the minimum spin in anti-clockwise RAD per second.
  * 
- * @return {Number} The minimum spin
+ * @return {number} The minimum spin
  */
 
 twodee.Physics.prototype.getMinSpin = function()
@@ -197,7 +197,7 @@ twodee.Physics.prototype.getMinSpin = function()
 /**
  * Sets the minimum spin in anti-clockwise RAD per second.
  * 
- * @param {Number} minSpin
+ * @param {number} minSpin
  *            The minimum spin to set
  */
 
@@ -210,7 +210,7 @@ twodee.Physics.prototype.setMinSpin = function(minSpin)
 /**
  * Returns the maximum spin in anti-clockwise RAD per second.
  * 
- * @return {Number} The maximum spin
+ * @return {number} The maximum spin
  */
 
 twodee.Physics.prototype.getMaxSpin = function()
@@ -222,7 +222,7 @@ twodee.Physics.prototype.getMaxSpin = function()
 /**
  * Sets the maximum spin in anti-clockwise RAD per second.
  * 
- * @param {Number} maxSpin
+ * @param {number} maxSpin
  *            The maximum spin to set
  */
 
@@ -235,7 +235,7 @@ twodee.Physics.prototype.setMaxSpin = function(maxSpin)
 /**
  * Returns the lifetime in seconds. May return Infinity.
  * 
- * @return {Number} The lifetime
+ * @return {number} The lifetime
  */
 
 twodee.Physics.prototype.getLifetime = function()
@@ -247,7 +247,7 @@ twodee.Physics.prototype.getLifetime = function()
 /**
  * Sets the lifetime in seconds. Default value is Infinity.
  * 
- * @param {Number} lifetime
+ * @param {number} lifetime
  *            The lifetime to set
  */
 
@@ -264,7 +264,7 @@ twodee.Physics.prototype.setLifetime = function(lifetime)
  * (Decreasing the opacity) at 8 seconds and will be invisible and then
  * removed at 10 seconds.
  * 
- * @param {Number} decay
+ * @param {number} decay
  *            The decay time in seconds
  */
 
@@ -277,7 +277,7 @@ twodee.Physics.prototype.setDecay = function(decay)
 /**
  * Returns the decay time in seconds.
  * 
- * @return {Number} The decay time in seconds
+ * @return {number} The decay time in seconds
  */
 
 twodee.Physics.prototype.getDecay = function()
@@ -291,7 +291,7 @@ twodee.Physics.prototype.getDecay = function()
  * 
  * @param {twodee.SceneNode} node
  *            The scene node to update
- * @param {Number} delta
+ * @param {number} delta
  *            The time delta 
  */
 

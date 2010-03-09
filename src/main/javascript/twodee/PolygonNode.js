@@ -11,10 +11,10 @@
  * @param {twodee.Polygon} polygon
  *            Optional polygon. If not set then it must be set with the
  *            setPolygon() method.
- * @param {String} fillStyle
+ * @param {string} fillStyle
  *            Optional fill style. null means no filling. Default is a white
  *            color.
- * @param {String} strokeStyle
+ * @param {string} strokeStyle
  *            Optional stroke style. null means no stroking and this is the
  *            default.            
  *            
@@ -33,16 +33,16 @@ twodee.PolygonNode = function(polygon, fillStyle, strokeStyle)
 };
 twodee.inherit(twodee.PolygonNode, twodee.SceneNode);
 
-/** Instance counter. @private @type {Number} */
+/** Instance counter. @private @type {number} */
 twodee.PolygonNode.counter = 0; 
 
 /** The polygon. @private @type {twodee.Polygon} */
 twodee.PolygonNode.prototype.polygon = null;
 
-/** The fill style. @private @type {String} */
+/** The fill style. @private @type {?string} */
 twodee.PolygonNode.prototype.fillStyle = "#fff";
 
-/** The stroke style. @private @type {String} */
+/** The stroke style. @private @type {?string} */
 twodee.PolygonNode.prototype.strokeStyle = null;
 
 
@@ -75,7 +75,7 @@ twodee.PolygonNode.prototype.getPolygon = function()
 /**
  * Sets the fill style. null means no filling.
  * 
- * @param {String} fillStyle
+ * @param {?string} fillStyle
  *            The fill style to set
  */
 
@@ -88,19 +88,19 @@ twodee.PolygonNode.prototype.setFillStyle = function(fillStyle)
 /**
  * Returns the fill style.
  * 
- * @return {String} The fill style
+ * @return {?string} The fill style
  */
 
-twodee.PolygonNode.prototype.getStrokeStyle = function()
+twodee.PolygonNode.prototype.getFillStyle = function()
 {
-    return this.strokeStyle;
+    return this.fillStyle;
 };
 
 
 /**
  * Sets the stroke style. null means no stroking.
  * 
- * @param {String} strokeStyle
+ * @param {?string} strokeStyle
  *            The stroke style to set
  */
 
@@ -113,7 +113,7 @@ twodee.PolygonNode.prototype.setStrokeStyle = function(strokeStyle)
 /**
  * Returns the stroke style.
  * 
- * @return {String} The stroke style
+ * @return {?string} The stroke style
  */
 
 twodee.PolygonNode.prototype.getStrokeStyle = function()
