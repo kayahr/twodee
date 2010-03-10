@@ -36,7 +36,6 @@ twodee.inherit(twodee.PolygonNode, twodee.SceneNode);
 /**
  * Instance counter.
  * 
- * @private 
  * @type {number} 
  */
 twodee.PolygonNode.counter = 0; 

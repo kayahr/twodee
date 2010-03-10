@@ -27,7 +27,6 @@ twodee.Polygon = function(vertices)
 /**
  * Instance counter.
  * 
- * @private
  * @type {number}
  */
 twodee.Polygon.counter = 0;
@@ -67,7 +66,7 @@ twodee.Polygon.prototype.vertices = null;
 /** 
  * The bounding box.
  * 
- * @private 
+ * @private
  * @type {twodee.BoundingBox}
  */
 twodee.Polygon.prototype.boundingBox = null;
@@ -105,12 +104,13 @@ twodee.Polygon.prototype.reset = function()
 
 twodee.Polygon.prototype.copy = function()
 {
-    var vertices, i;
-
-    vertices = this.vertices.slice(0); // TODO Loosing type here
-    for (i = vertices.length - 1; i >= 0; i--)
-        vertices[i] = vertices[i].copy();
-    return new twodee.Polygon(vertices);
+    var newVertices, vertices, i, max;
+    
+    vertices = this.vertices;
+    newVertices = [];
+    for (i = 0, max = vertices.length; i < max; i++)
+        newVertices.push(vertices[i].copy());
+    return new twodee.Polygon(newVertices);
 };
 
 

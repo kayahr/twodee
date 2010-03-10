@@ -20,7 +20,6 @@ twodee.BoundingBox = function()
 /** 
  * Instance counter.
  * 
- * @private
  * @type {number}
  */
 twodee.BoundingBox.counter = 0;

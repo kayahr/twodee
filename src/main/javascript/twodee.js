@@ -5,7 +5,7 @@ var twodee = {};
  * Debug info counter map.
  * 
  * @private
- * @type {Object.<string, number>}
+ * @type {?Object.<string, number>}
  */ 
 twodee.debugInfo = null;
 
@@ -33,7 +33,6 @@ twodee.inherit = function(subClass, superClass)
  * @return {string} The debugging info
  */
 
-/*
 twodee.getDebugInfo = function()
 {
     var boundingBox, matrix, physics, polygon, polygonNode,
@@ -49,23 +48,22 @@ twodee.getDebugInfo = function()
     vector = twodee.Vector.counter;
     
     info = "Objects (since last call):\n" +
-        "  BoundingBox: " + boundingBox + " (" + (boundingBox - (d ? d.boundingBox : 0)) + ")\n" +
-        "  Matrix: " + matrix + " (" + (matrix - (d ? d.matrix : 0)) + ")\n" +
-        "  Physics: " + physics + " (" + (physics - (d ? d.physics : 0)) + ")\n" +
-        "  Polygon: " + polygon + " (" + (polygon - (d ? d.polygon : 0)) + ")\n" +
-        "  PolygonNode: " + polygonNode + " (" + (polygonNode - (d ? d.polygonNode : 0)) + ")\n" +
-        "  SceneNode: " + sceneNode + " (" + (sceneNode - (d ? d.sceneNode : 0)) + ")\n" +
-        "  Vector: " + vector + " (" + (vector - (d ? d.vector : 0)) + ")\n";
+        "  BoundingBox: " + boundingBox + " (" + (boundingBox - (d ? d["boundingBox"] : 0)) + ")\n" +
+        "  Matrix: " + matrix + " (" + (matrix - (d ? d["matrix"] : 0)) + ")\n" +
+        "  Physics: " + physics + " (" + (physics - (d ? d["physics"] : 0)) + ")\n" +
+        "  Polygon: " + polygon + " (" + (polygon - (d ? d["polygon"] : 0)) + ")\n" +
+        "  PolygonNode: " + polygonNode + " (" + (polygonNode - (d ? d["polygonNode"] : 0)) + ")\n" +
+        "  SceneNode: " + sceneNode + " (" + (sceneNode - (d ? d["sceneNode"] : 0)) + ")\n" +
+        "  Vector: " + vector + " (" + (vector - (d ? d["vector"] : 0)) + ")\n";
 
-    if (!d) d = twodee.debugInfo = {};
-    d.boundingBox = boundingBox;
-    d.matrix = matrix;
-    d.physics = physics;
-    d.polygon = polygon;
-    d.polygonNode = polygonNode;
-    d.sceneNode = sceneNode;
-    d.vector = vector;
+    if (!d) d = twodee.debugInfo = null;
+    d["boundingBox"] = boundingBox;
+    d["matrix"] = matrix;
+    d["physics"] = physics;
+    d["polygon"] = polygon;
+    d["polygonNode"] = polygonNode;
+    d["sceneNode"] = sceneNode;
+    d["vector"] = vector;
     
     return info;
 };
-*/

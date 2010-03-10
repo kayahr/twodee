@@ -29,7 +29,6 @@ twodee.inherit(twodee.SceneNode, twodee.Object);
 /**
  * Instance counter.
  * 
- * @private 
  * @type {number}
  */
 twodee.SceneNode.counter = 0; 

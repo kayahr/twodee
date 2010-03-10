@@ -22,7 +22,6 @@ twodee.Physics = function()
 /**
  * Instance counter.
  * 
- * @private
  * @type {number}
  */
 twodee.Physics.counter = 0;

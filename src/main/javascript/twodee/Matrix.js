@@ -21,7 +21,6 @@ twodee.Matrix = function()
 /**
  * Instance counter.
  * 
- * @private
  * @type {number}
  */
 twodee.Matrix.counter = 0;

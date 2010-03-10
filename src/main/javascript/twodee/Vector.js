@@ -28,7 +28,6 @@ twodee.Vector = function(x, y)
 /**
  * Instance counter.
  * 
- * @private
  * @type {number}
  */
 twodee.Vector.counter = 0;
