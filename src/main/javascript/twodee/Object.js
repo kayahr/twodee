@@ -102,11 +102,11 @@ twodee.Object.prototype.disconnect = function(signal, func, context)
  * 
  * @param {string} signal
  *            The signal to send
- * @param {...} args___
+ * @param {...} varargs
  *            Variable number of optional arguments passed to the slots
  */
 
-twodee.Object.prototype.sendSignal = function(signal, args___)
+twodee.Object.prototype.sendSignal = function(signal, varargs)
 {
     var slots, i, args, slot;
     

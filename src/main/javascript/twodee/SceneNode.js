@@ -606,7 +606,7 @@ twodee.SceneNode.prototype.collide = function(other)
  * Finishes the collision detection. This must be called after rendering of
  * the scene is complete. It checks which collisions are new or obsolete and
  * sends the required signals.
- * 
+ *
  * Don't call this method yourself, it is done by the Scene.
  */
 

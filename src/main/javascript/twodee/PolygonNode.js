@@ -146,6 +146,7 @@ twodee.PolygonNode.prototype.getStrokeStyle = function()
  * 
  * @param {CanvasRenderingContext2D} g
  *            The graphics context
+ * @override
  */
 
 twodee.PolygonNode.prototype.render = function(g)

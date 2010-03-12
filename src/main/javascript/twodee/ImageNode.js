@@ -96,6 +96,7 @@ twodee.ImageNode.prototype.setShowBounds = function(showBounds)
  *            The graphics context
  * @param {twodee.Matrix} transform
  *            The transformation
+ * @override
  */
 
 twodee.ImageNode.prototype.render = function(g, transform)
