@@ -45,6 +45,7 @@ twodee.Object.prototype.getSlots = function(signal)
     return slots;
 };
 
+
 /**
  * Connects a slot to a signal.
  * 

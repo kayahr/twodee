@@ -1,5 +1,6 @@
 /** The twodee namespace */
 var twodee = {};
+window["twodee"] = twodee;
 
 /**
  * Debug info counter map.
@@ -8,6 +9,7 @@ var twodee = {};
  * @type {?Object.<string, number>}
  */ 
 twodee.debugInfo = null;
+
 
 /**
  * Derives subClass from superClass.
@@ -26,6 +28,7 @@ twodee.inherit = function(subClass, superClass)
     subClass.prototype = new superClass();
     subClass.prototype.constructor = subClass;
 };
+
 
 /**
  * Returns debugging info.
