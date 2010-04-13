@@ -96,7 +96,7 @@ twodee.Scene.prototype.update = function(delta)
     
     if (this.paused || !(node = this.rootNode)) return;
     
-    if (delta <= 0)
+    if (!delta || delta < 0)
     {
         if (delta < 0)
             maxDelta = -delta;
@@ -107,7 +107,7 @@ twodee.Scene.prototype.update = function(delta)
         delta = Math.max(0, Math.min(maxDelta, now - this.lastUpdate));
         this.lastUpdate = now;
     }
-    
+
     // Update the root node
     this.updateNode(node, delta);  
 };
@@ -211,11 +211,14 @@ twodee.Scene.prototype.renderNode = function(node, g)
         collidables.push(node);
     }
     
-    // Render the node
+    // Remember current context configuration
     g.save();
-    g.globalAlpha = node.getOpacity();
+    
+    // Calculate the global alpha for this node and its child nodes
+    g.globalAlpha = g.globalAlpha * node.getOpacity();
+    
+    // Render the node itself
     node.render(g, transform);
-    g.restore();
     
     // Process all the child nodes (recursively)
     child = node.getFirstChild();
@@ -225,6 +228,9 @@ twodee.Scene.prototype.renderNode = function(node, g)
         this.renderNode(child, g);
         child = next;
     }
+    
+    // Restore old context configuration
+    g.restore();
 };
 
 

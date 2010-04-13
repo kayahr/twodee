@@ -59,7 +59,7 @@ twodee.getDebugInfo = function()
         "  SceneNode: " + sceneNode + " (" + (sceneNode - (d ? d["sceneNode"] : 0)) + ")\n" +
         "  Vector: " + vector + " (" + (vector - (d ? d["vector"] : 0)) + ")\n";
 
-    if (!d) d = twodee.debugInfo = null;
+    if (!d) d = twodee.debugInfo = {};
     d["boundingBox"] = boundingBox;
     d["matrix"] = matrix;
     d["physics"] = physics;
