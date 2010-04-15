@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
                              http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
+
   <groupId>de.ailis.twodee</groupId>
   <artifactId>twodee</artifactId>
   <packaging>jar</packaging>
@@ -50,15 +50,25 @@
       </resource>
       <resource>
         <directory>src/main/resources</directory>
-        <targetPath>script-resources</targetPath>        
+        <targetPath>script-resources</targetPath>
       </resource>
       <resource>
         <directory>src/main/demos</directory>
-        <targetPath>script-demos</targetPath>        
+        <targetPath>script-demos</targetPath>
       </resource>
     </resources>
-            
+
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>de.ailis.maven</groupId>
         <artifactId>maven-closurecompiler-plugin</artifactId>
@@ -86,7 +96,7 @@
                 <file>twodee/FpsCounter.js</file>
               </order>
               <outputDirectory>target/classes/scripts-compiled</outputDirectory>
-              <compilationLevel>ADVANCED_OPTIMIZATIONS</compilationLevel>            
+              <compilationLevel>ADVANCED_OPTIMIZATIONS</compilationLevel>
               <warningLevels>
                 <accessControls>ERROR</accessControls>
                 <checkVars>ERROR</checkVars>
@@ -232,7 +242,7 @@
       <snapshots />
     </repository>
   </repositories>
-  
+
   <pluginRepositories>
     <pluginRepository>
       <id>ailis-releases</id>
