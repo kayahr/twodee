@@ -1,3 +1,6 @@
-
 syntax: regexp
 ^target$
+^\.settings$
+^\.classpath$
+^\.project$
+\.project$
