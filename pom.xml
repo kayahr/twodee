@@ -49,6 +49,10 @@
         </includes>
       </resource>
       <resource>
+        <directory>src/main/externs</directory>
+        <targetPath>script-externs</targetPath>
+      </resource>
+      <resource>
         <directory>src/main/resources</directory>
         <targetPath>script-resources</targetPath>
       </resource>
@@ -72,7 +76,7 @@
       <plugin>
         <groupId>de.ailis.maven</groupId>
         <artifactId>maven-closurecompiler-plugin</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.3-SNAPSHOT</version>
         <executions>
           <execution>
             <id>jscomp</id>
