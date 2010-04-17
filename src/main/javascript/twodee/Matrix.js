@@ -236,7 +236,7 @@ twodee.Matrix.prototype.getRotationAngle = function()
  * 
  * @param {number} fx
  *            The X scale factor
- * @param {number} fy
+ * @param {number=} fy
  *            The Y scale factor. Optional. Defaults to fx.
  * @return {twodee.Matrix}
  *            This matrix

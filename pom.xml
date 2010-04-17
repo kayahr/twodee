@@ -76,7 +76,7 @@
       <plugin>
         <groupId>de.ailis.maven</groupId>
         <artifactId>maven-closurecompiler-plugin</artifactId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.4-SNAPSHOT</version>
         <executions>
           <execution>
             <id>jscomp</id>

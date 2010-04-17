@@ -11,10 +11,10 @@
  * @param {twodee.Polygon} polygon
  *            Optional polygon. If not set then it must be set with the
  *            setPolygon() method.
- * @param {string} fillStyle
+ * @param {string=} fillStyle
  *            Optional fill style. null means no filling. Default is a white
  *            color.
- * @param {string} strokeStyle
+ * @param {string=} strokeStyle
  *            Optional stroke style. null means no stroking and this is the
  *            default.            
  *            
