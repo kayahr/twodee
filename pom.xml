@@ -3,6 +3,12 @@
                              http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <artifactId>maven-javascript</artifactId>
+    <groupId>de.ailis.maven</groupId>
+    <version>1-SNAPSHOT</version>
+  </parent> 
+
   <groupId>de.ailis.twodee</groupId>
   <artifactId>twodee</artifactId>
   <packaging>jar</packaging>
@@ -11,16 +17,6 @@
   <url>http://www.ailis.de/~k/projects/twodee/</url>
   <description>JavaScript 2D scene graph</description>
   <inceptionYear>2010</inceptionYear>
-  <organization>
-    <name>Klaus Reimer</name>
-    <url>http://www.ailis.de/~k/</url>
-  </organization>
-
-  <scm>
-    <url>https://scm.ailis.de/viewvc/svn/javascript/twodee/trunk/</url>
-    <connection>scm:svn:http://scm.ailis.de/svn/javascript/twodee/trunk/</connection>
-    <developerConnection>scm:svn:https://scm.ailis.de/svn/javascript/twodee/trunk</developerConnection>
-  </scm>
 
   <licenses>
     <license>
@@ -29,210 +25,32 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
-  <ciManagement>
-    <system>Hudson</system>
-    <url>https://www.ailis.de/hudson/</url>
-  </ciManagement>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
+  
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/javascript</directory>
-        <targetPath>scripts</targetPath>
-        <includes>
-          <include>**/*.js</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>src/main/externs</directory>
-        <targetPath>script-externs</targetPath>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
-        <targetPath>script-resources</targetPath>
-      </resource>
-      <resource>
-        <directory>src/main/demos</directory>
-        <targetPath>script-demos</targetPath>
-      </resource>
-    </resources>
-
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-          <encoding>${project.build.sourceEncoding}</encoding>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>de.ailis.maven</groupId>
         <artifactId>maven-closurecompiler-plugin</artifactId>
-        <version>1.0.5-SNAPSHOT</version>
-        <executions>
-          <execution>
-            <id>jscomp</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>process-resources</goal>
-            </goals>
-            <configuration>
-              <order>
-                <file>twodee.js</file>
-                <file>twodee/Object.js</file>
-                <file>twodee/Matrix.js</file>
-                <file>twodee/Vector.js</file>
-                <file>twodee/BoundingBox.js</file>
-                <file>twodee/Polygon.js</file>
-                <file>twodee/Physics.js</file>
-                <file>twodee/SceneNode.js</file>
-                <file>twodee/PolygonNode.js</file>
-                <file>twodee/ImageNode.js</file>
-                <file>twodee/Scene.js</file>
-                <file>twodee/FpsCounter.js</file>
-              </order>
-              <outputDirectory>target/classes/scripts-compiled</outputDirectory>
-              <compilationLevel>ADVANCED_OPTIMIZATIONS</compilationLevel>
-              <warningLevels>
-                <accessControls>ERROR</accessControls>
-                <checkVars>ERROR</checkVars>
-                <checkTypes>ERROR</checkTypes>
-                <deprecated>ERROR</deprecated>
-                <fileoverviewTags>ERROR</fileoverviewTags>
-                <invalidCasts>ERROR</invalidCasts>
-                <missingProperties>ERROR</missingProperties>
-                <nonStandardJsDocs>OFF</nonStandardJsDocs>
-                <strictModuleDepCheck>ERROR</strictModuleDepCheck>
-                <undefinedVars>ERROR</undefinedVars>
-                <unknownDefines>ERROR</unknownDefines>
-                <visibility>ERROR</visibility>
-              </warningLevels>
-              <checkShadowVars>ERROR</checkShadowVars>
-              <aggressiveVarCheck>ERROR</aggressiveVarCheck>
-              <checkFunctions>ERROR</checkFunctions>
-              <checkMethods>ERROR</checkMethods>
-              <checkUndefinedProperties>ERROR</checkUndefinedProperties>
-              <reportMissingOverride>ERROR</reportMissingOverride>
-              <reportUnknownTypes>ERROR</reportUnknownTypes>
-              <checkRequires>OFF</checkRequires>
-              <checkProvides>OFF</checkProvides>
-              <checkGlobalNamesLevel>ERROR</checkGlobalNamesLevel>
-              <brokenClosureRequiresLevel>ERROR</brokenClosureRequiresLevel>
-              <checkGlobalThisLevel>ERROR</checkGlobalThisLevel>
-              <checkMissingGetCssNameLevel>OFF</checkMissingGetCssNameLevel>
-              <checkUnreachableCode>ERROR</checkUnreachableCode>
-              <checkMissingReturn>ERROR</checkMissingReturn>
-              <checkSymbols>true</checkSymbols>
-              <checkDuplicateMessages>true</checkDuplicateMessages>
-              <allowLegacyJsMessages>false</allowLegacyJsMessages>
-              <strictMessageReplacement>true</strictMessageReplacement>
-              <checkSuspiciousCode>true</checkSuspiciousCode>
-              <checkControlStructures>true</checkControlStructures>
-              <checkUnusedPropertiesEarly>false</checkUnusedPropertiesEarly>
-              <checkTypes>true</checkTypes>
-              <tightenTypes>true</tightenTypes>
-              <inferTypesInGlobalScope>true</inferTypesInGlobalScope>
-              <checkTypedPropertyCalls>true</checkTypedPropertyCalls>
-              <checkEs5Strict>true</checkEs5Strict>
-              <checkCaja>false</checkCaja>
-              <inlineGetters>true</inlineGetters>
-              <inlineConstantVars>true</inlineConstantVars>
-              <inlineFunctions>true</inlineFunctions>
-              <decomposeExpressions>true</decomposeExpressions>
-              <inlineAnonymousFunctionExpressions>true</inlineAnonymousFunctionExpressions>
-              <inlineLocalFunctions>true</inlineLocalFunctions>
-              <crossModuleCodeMotion>true</crossModuleCodeMotion>
-              <coalesceVariableNames>true</coalesceVariableNames>
-              <crossModuleMethodMotion>true</crossModuleMethodMotion>
-              <inlineVariables>false</inlineVariables>
-              <flowSensitiveInlineVariables>true</flowSensitiveInlineVariables>
-              <smartNameRemoval>false</smartNameRemoval>
-              <removeEmptyFunctions>true</removeEmptyFunctions>
-              <removeUnusedPrototypeProperties>false</removeUnusedPrototypeProperties>
-              <removeUnusedPrototypePropertiesInExterns>false</removeUnusedPrototypePropertiesInExterns>
-              <removeUnusedVarsInGlobalScope>false</removeUnusedVarsInGlobalScope>
-              <aliasExternals>false</aliasExternals>
-              <collapseAnonymousFunctions>true</collapseAnonymousFunctions>
-              <aliasAllStrings>true</aliasAllStrings>
-              <rewriteFunctionExpressions>true</rewriteFunctionExpressions>
-              <optimizeParameters>true</optimizeParameters>
-              <variableRenaming>ALL</variableRenaming>
-              <propertyRenaming>OFF</propertyRenaming>
-              <labelRenaming>true</labelRenaming>
-              <reserveRawExports>true</reserveRawExports>
-              <generatePseudoNames>false</generatePseudoNames>
-              <aliasKeywords>true</aliasKeywords>
-              <collapseProperties>false</collapseProperties>
-              <collapsePropertiesOnExternTypes>true</collapsePropertiesOnExternTypes>
-              <devirtualizePrototypeMethods>false</devirtualizePrototypeMethods>
-              <computeFunctionSideEffects>true</computeFunctionSideEffects>
-              <disambiguateProperties>false</disambiguateProperties>
-              <ambiguateProperties>true</ambiguateProperties>
-              <anonymousFunctionNaming>OFF</anonymousFunctionNaming>
-              <runtimeTypeCheck>false</runtimeTypeCheck>
-              <extractPrototypeMemberDeclarations>false</extractPrototypeMemberDeclarations>
-              <prettyPrint>true</prettyPrint>
-              <lineBreak>true</lineBreak>
-              <outputHeader>(function(){</outputHeader>
-              <outputFooter>})()</outputFooter>
-            </configuration>
-          </execution>
-        </executions>
+        <configuration>
+          <order>
+            <file>twodee.js</file>
+            <file>twodee/Object.js</file>
+            <file>twodee/Matrix.js</file>
+            <file>twodee/Vector.js</file>
+            <file>twodee/BoundingBox.js</file>
+            <file>twodee/Polygon.js</file>
+            <file>twodee/Physics.js</file>
+            <file>twodee/SceneNode.js</file>
+            <file>twodee/PolygonNode.js</file>
+            <file>twodee/ImageNode.js</file>
+            <file>twodee/Scene.js</file>
+            <file>twodee/FpsCounter.js</file>
+          </order>
+        </configuration>      
       </plugin>
     </plugins>
   </build>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.1.2</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>index</report>
-              <report>dependencies</report>
-              <report>project-team</report>
-              <report>license</report>
-              <report>scm</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>taglist-maven-plugin</artifactId>
-        <version>2.4</version>
-      </plugin>
-    </plugins>
-  </reporting>
-
-  <distributionManagement>
-    <repository>
-      <id>ailis-releases</id>
-      <name>Ailis Maven Releases</name>
-      <url>https://www.ailis.de/nexus/content/repositories/releases</url>
-    </repository>
-    <snapshotRepository>
-      <id>ailis-snapshots</id>
-      <name>Ailis Maven Snapshots</name>
-      <url>https://www.ailis.de/nexus/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <site>
-      <id>k-website</id>
-      <url>scpexe://k@ailis.de/home/k/public_html/projects/wlandsuite</url>
-    </site>
-  </distributionManagement>
-
+  
   <repositories>
     <repository>
       <id>ailis-releases</id>
@@ -245,20 +63,6 @@
       <url>http://www.ailis.de/nexus/content/groups/public-snapshots/</url>
       <snapshots />
     </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>ailis-releases</id>
-      <name>Ailis Maven Releases</name>
-      <url>http://www.ailis.de/nexus/content/groups/public/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>ailis-snapshots</id>
-      <name>Ailis Maven Snapshots</name>
-      <url>http://www.ailis.de/nexus/content/groups/public-snapshots/</url>
-      <snapshots />
-    </pluginRepository>
-  </pluginRepositories>
+  </repositories>  
 
 </project>
