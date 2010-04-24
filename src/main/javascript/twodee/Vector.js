@@ -235,15 +235,17 @@ twodee.Vector.prototype.toUnit = function()
  * returned number is positive. If it's counter-clock-wise then the angle is
  * negative. So the return value of this method is always between -PI and +PI.
  * 
- * @param {twodee.Vector} v
- *            The second vector
+ * @param {twodee.Vector=} v
+ *            The second vector. Optional. If not specified then the angle
+ *            to the vector 0;1 is returned.
  * @return {number}
  *            The angle between the two vectors, in radians
  */
 
 twodee.Vector.prototype.getAngle = function(v)
 {
-    var angle = Math.atan2(this.y, this.x) - Math.atan2(v.y, v.x);
+    var angle = Math.atan2(this.x, this.y);
+    if (v) angle -= Math.atan2(v.x, v.y);
     if (angle > Math.PI) angle -= Math.PI * 2;
     return angle;
 };

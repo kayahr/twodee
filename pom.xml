@@ -35,8 +35,8 @@
           <order>
             <file>twodee.js</file>
             <file>twodee/Object.js</file>
-            <file>twodee/Matrix.js</file>
             <file>twodee/Vector.js</file>
+            <file>twodee/Matrix.js</file>
             <file>twodee/BoundingBox.js</file>
             <file>twodee/Polygon.js</file>
             <file>twodee/Physics.js</file>

@@ -185,6 +185,21 @@ twodee.Matrix.prototype.setTranslateX = function(d) {};
 twodee.Matrix.prototype.setTranslateY = function(d) {};
 
 /**
+ * @return {number}
+ */
+twodee.Matrix.prototype.getTranslationX = function() {};
+
+/**
+ * @return {number}
+ */
+twodee.Matrix.prototype.getTranslationY = function() {};
+
+/**
+ * @return {twodee.Vector}
+ */
+twodee.Matrix.prototype.getTranslation = function() {};
+
+/**
  * @param {twodee.Matrix} m
  * @return {twodee.Matrix}
  */
@@ -347,7 +362,7 @@ twodee.Vector.prototype.getLength = function() {};
 twodee.Vector.prototype.toUnit = function() {};
 
 /**
- * @param {twodee.Vector} v
+ * @param {twodee.Vector=} v
  * @return {number}
  */
 twodee.Vector.prototype.getAngle = function(v) {};

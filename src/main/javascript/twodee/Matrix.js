@@ -16,6 +16,7 @@
 twodee.Matrix = function()
 {
     twodee.Matrix.counter++;
+    this.translation = new twodee.Vector();
 };
 
 /**
@@ -32,6 +33,13 @@ twodee.Matrix.counter = 0;
  * @type {twodee.Matrix}
  */
 twodee.Matrix.TMP = new twodee.Matrix();
+
+/**
+ * Cached translation vector.
+ * @private
+ * @type {twodee.Vector}
+ */
+twodee.Matrix.prototype.translation;
 
 /**
  * The matrix entry 0;0.
@@ -304,6 +312,45 @@ twodee.Matrix.prototype.setTranslate = function(dx, dy)
         1, 0, dx,
         0, 1, dy,
         0, 0,  1);
+};
+
+
+/**
+ * Returns the X translation of the matrix.
+ * 
+ * @return {number} The X translation
+ */
+
+twodee.Matrix.prototype.getTranslationX = function()
+{
+    return this.m02;
+};
+
+
+/**
+ * Returns the Y translation of the matrix.
+ * 
+ * @return {number} The Y translation
+ */
+
+twodee.Matrix.prototype.getTranslationY = function()
+{
+    return this.m12;
+};
+
+
+/**
+ * Returns The translation vector of the current matrix. Attention! This
+ * vector is reused and updated to the current translation whenever this
+ * method is called. So you may want to clone the vector if you need it for
+ * a longer time.
+ * 
+ * @return {twodee.Vector} The translation vector of the matrix
+ */
+
+twodee.Matrix.prototype.getTranslation = function()
+{
+    return this.translation.set(this.m02, this.m12);
 };
 
 
