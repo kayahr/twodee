@@ -517,7 +517,7 @@ twodee.Matrix.prototype.translateY = function(d)
  * 
  * @param {number} fx
  *            The X factor
- * @param {number} fy
+ * @param {number=} fy
  *            The Y factor. Optional. Defaults to fx.
  * @return {twodee.Matrix}
  *            This matrix

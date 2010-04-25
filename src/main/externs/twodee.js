@@ -559,6 +559,16 @@ twodee.Physics.prototype.getMaxSpin = function() {};
 twodee.Physics.prototype.setMaxSpin = function(maxSpin) {};
 
 /**
+ * @return {number}
+ */
+twodee.Physics.prototype.getScaling = function() {};
+
+/**
+ * @param {number} spin
+ */
+twodee.Physics.prototype.setScaling = function(spin) {};
+
+/**
  * @return {number} The lifetime
  */
 twodee.Physics.prototype.getLifetime = function() {};

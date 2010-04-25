@@ -98,6 +98,14 @@ twodee.Physics.prototype.minSpin = Number.NEGATIVE_INFINITY;
  */
 twodee.Physics.prototype.maxSpin = Number.POSITIVE_INFINITY;
 
+/**
+ * The scaling in multitudes per second.
+ * 
+ * @private
+ * @type {number}
+ */
+twodee.Physics.prototype.scaling = 1;
+
 /** 
  * The lifetime in seconds. 
  * 
@@ -292,6 +300,31 @@ twodee.Physics.prototype.setMaxSpin = function(maxSpin)
 
 
 /**
+ * Returns the scaling in multitudes per second.
+ * 
+ * @return {number} The current scaling
+ */
+
+twodee.Physics.prototype.getScaling = function()
+{
+    return this.scaling;
+};
+
+
+/**
+ * Sets the scaling in multitudes per second.
+ * 
+ * @param {number} scaling
+ *            The scaling to set
+ */
+
+twodee.Physics.prototype.setScaling = function(scaling)
+{
+    this.scaling = scaling;
+};
+
+
+/**
  * Returns the lifetime in seconds. May return Infinity.
  * 
  * @return {number} The lifetime
@@ -358,7 +391,7 @@ twodee.Physics.prototype.process = function(node, delta)
 {
     var spin, transform, velocity, factor, angle, v, acceleration,
         spinAcceleration, curVelocity, maxVelocity, minVelocity, lifetime,
-        decay;
+        decay, scaling;
     
     factor = delta / 1000;
 
@@ -404,6 +437,10 @@ twodee.Physics.prototype.process = function(node, delta)
     // Process the spinning
     spin = this.spin;
     if (spin) transform.rotate(spin * factor);
+    
+    // Process the scaling
+    scaling = this.scaling;
+    if (scaling != 1) transform.scale(Math.pow(scaling, factor));
 
     // Process the spin acceleration
     spinAcceleration = this.spinAcceleration;
