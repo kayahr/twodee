@@ -6,7 +6,7 @@
   <parent>
     <artifactId>maven-javascript</artifactId>
     <groupId>de.ailis.maven</groupId>
-    <version>1-SNAPSHOT</version>
+    <version>1</version>
   </parent> 
 
   <groupId>de.ailis.twodee</groupId>
