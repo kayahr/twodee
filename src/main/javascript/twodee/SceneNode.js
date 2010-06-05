@@ -577,13 +577,13 @@ twodee.SceneNode.prototype.isCollidable = function()
 
 twodee.SceneNode.prototype.collidesWith = function(other)
 {    
-    // Can't collide if not in scene
+    // Can't collide if one of the nodes is not in scene
     if (!this.parentNode) return false;
+    if (!other.getParentNode()) return false;    
         
     // Check if nodes can collide according to the collision type and
     // the collision mask.
-    if (!(this.collisionMask & other.collisionType) &&
-        !(other.collisionMask & this.collisionType)) return false;
+    if (!(this.collisionMask & other.collisionType)) return false;
 
     // Check if bounds collide
     return this.bounds.collidesWith(other.bounds);
@@ -622,11 +622,18 @@ twodee.SceneNode.prototype.processCollisions = function()
     previousCollisions = this.previousCollisions;
     
     // Check for new collisions
-    for (id in collisions)
+    if (this.parentNode)
     {
-        if (!(id in previousCollisions))
+        for (id in collisions)
         {
-            this.sendSignal("collisionStarted", this, collisions[id]);
+            if (!(id in previousCollisions))
+            {
+                if (collisions[id].parentNode)
+                    this.sendSignal("collisionStarted", this, collisions[id]);
+                
+                // Process no more collisions if we were removed from the scene
+                if (!this.parentNode) break;
+            }
         }
     }
     

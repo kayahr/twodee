@@ -202,11 +202,12 @@ twodee.Scene.prototype.renderNode = function(node, g)
         for (i = collidables.length - 1; i >= 0; i--)
         {
             other = collidables[i];
+            
             if (node.collidesWith(other))
-            {
                 node.collide(other);
+            
+            if (other.collidesWith(node))
                 other.collide(node);
-            }
         }
         collidables.push(node);
     }
