@@ -577,6 +577,9 @@ twodee.SceneNode.prototype.isCollidable = function()
 
 twodee.SceneNode.prototype.collidesWith = function(other)
 {    
+    // Can't collide if not in scene
+    if (!this.parentNode) return false;
+        
     // Check if nodes can collide according to the collision type and
     // the collision mask.
     if (!(this.collisionMask & other.collisionType) &&
