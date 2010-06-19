@@ -26,6 +26,12 @@
     </license>
   </licenses>
   
+  <scm>
+    <url>http://www.ailis.de/~k/hg/javascript/twodee</url>
+    <connection>scm:hg:http://www.ailis.de/~k/hg/javascript/twodee</connection>
+    <developerConnection>scm:hg:ssh://k@ailis.de/hg/javascript/twodee</developerConnection>
+  </scm>
+  
   <build>
     <plugins>
       <plugin>
