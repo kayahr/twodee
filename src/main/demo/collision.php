@@ -1,8 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<? require_once "resolver.php" ?>
+<!DOCTYPE html>
+<html>
   <head>
     <title>ThreeDee demo: Box</title>
-    <script src="../scripts/twodee.js" type="text/javascript"></script>
+    <? $resolver->includeScript("twodee/Polygon.js") ?>
+    <? $resolver->includeScript("twodee/SceneNode.js") ?>
+    <? $resolver->includeScript("twodee/Scene.js") ?>
     <script type="text/javascript">
     /* <![CDATA[ */
 
@@ -18,7 +21,7 @@
     {
         console.log(node1.name + " started to collide with " + node2.name);
         console.log(node1.getParentNode());
-        node1.remove();
+        //node1.remove();
     } 
 
     function handleCollisionStop(node1, node2)

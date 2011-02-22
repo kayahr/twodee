@@ -1,7 +1,8 @@
-/**
- * $Id$
- * Copyright (C) 2009 Klaus Reimer <k@ailis.de>
- * See LICENSE.txt for licensing information
+/*
+ * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
+ * See LICENSE.txt for licensing information.
+ * 
+ * @require twodee.js
  */
 
 

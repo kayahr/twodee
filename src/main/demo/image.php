@@ -1,8 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<? require_once "resolver.php" ?>
+<!DOCTYPE html>
+<html>
   <head>
     <title>ThreeDee demo: Box</title>
-    <script src="../scripts/twodee.js" type="text/javascript"></script>
+    <? $resolver->includeScript("twodee/Polygon.js") ?>
+    <? $resolver->includeScript("twodee/SceneNode.js") ?>
+    <? $resolver->includeScript("twodee/ImageNode.js") ?>
+    <? $resolver->includeScript("twodee/Physics.js") ?>
+    <? $resolver->includeScript("twodee/Scene.js") ?>
+    <? $resolver->includeScript("twodee/FpsCounter.js") ?>
     <script type="text/javascript">
     /* <![CDATA[ */
 
@@ -17,38 +23,16 @@
     // Creates the root node
     var rootNode = new twodee.SceneNode();
 
-    var innerNode = new twodee.SceneNode();
-    rootNode.appendChild(innerNode);
+    // Create the img node
+    var img = new Image();
+    img.src = "asteroid.png";
+    var imgNode = new twodee.ImageNode(img);
+    rootNode.appendChild(imgNode);
 
-    // Create the box node
-    var boxNode = new twodee.PolygonNode(box);
-    //boxNode.setCollidable(true);
-    innerNode.appendChild(boxNode);
-
-    
-
-    // Apply physics
     var physics = new twodee.Physics();
-    
-    physics.setSpin(0.1 * Math.PI / 180);
-    physics.getVelocity().set(0, 0);
-    physics.getAcceleration().set(0.1, 0.1);
-    physics.setMaxVelocity(50);
-    physics.setMaxSpin(360 * Math.PI / 180);
-    physics.setSpinAcceleration(0.1);
-    physics.setLifetime(5);
-    physics.setDecay(2);
-    innerNode.setPhysics(physics);
-
-    var boxNode2 = new twodee.PolygonNode(box);
-    //boxNode2.setCollidable(true);
-    boxNode2.setFillStyle("#f00");
-    boxNode2.getTransform().translate(110, 0);
-    innerNode.appendChild(boxNode2);
-
-    // Watch collisions
-    boxNode2.connect("collisionStarted", function(a, b) { console.log("Collision started"); });
-    boxNode2.connect("collisionStopped", function(a, b) { console.log("Collision stopped"); });
+    physics.setSpin(20 * Math.PI / 180);
+    physics.getVelocity().set(20, 10);
+    imgNode.setPhysics(physics);
 
     // Create the scene
     var scene = new twodee.Scene();    

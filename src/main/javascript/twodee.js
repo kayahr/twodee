@@ -1,3 +1,39 @@
+/*
+ * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
+ * See LICENSE.txt for licensing information.
+ * 
+ * @use twodee/PolygonNode.js
+ * @use twodee/BoundingBox.js
+ * @use twodee/Matrix.js
+ * @use twodee/Physics.js
+ * @use twodee/Polygon.js
+ * @use twodee/SceneNode.js
+ * @use twodee/Vector.js
+ */
+
+/** 
+ * @preserve 
+ * ${project.name} ${project.version}
+ * ${project.url}
+ * 
+ * Copyright (C) ${project.inceptionYear} Klaus Reimer <k@ailis.de>
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ * 
+ */
+
+
 /** The twodee namespace */
 var twodee = {};
 window["twodee"] = twodee;

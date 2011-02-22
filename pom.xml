@@ -4,7 +4,7 @@
   <parent>
     <artifactId>maven-javascript</artifactId>
     <groupId>de.ailis.maven</groupId>
-    <version>2</version>
+    <version>4</version>
   </parent> 
 
   <groupId>de.ailis.twodee</groupId>
@@ -34,7 +34,7 @@
     <plugins>
       <plugin>
         <groupId>de.ailis.maven</groupId>
-        <artifactId>maven-closurecompiler-plugin</artifactId>
+        <artifactId>maven-javascript-plugin</artifactId>
         <configuration>
           <order>
             <file>twodee.js</file>
