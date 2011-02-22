@@ -11,7 +11,7 @@
   <artifactId>twodee</artifactId>
   <packaging>jar</packaging>
   <name>TwoDee</name>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
   <url>http://www.ailis.de/~k/projects/twodee/</url>
   <description>JavaScript 2D scene graph</description>
   <inceptionYear>2010</inceptionYear>
