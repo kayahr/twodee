@@ -2,7 +2,9 @@
  * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * See LICENSE.txt for licensing information.
  * 
+ * @require prototype.js
  * @require twodee.js
+ * @use jquery.js
  */
 
 

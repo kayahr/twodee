@@ -4,7 +4,7 @@
   <parent>
     <artifactId>maven-javascript</artifactId>
     <groupId>de.ailis.maven</groupId>
-    <version>4</version>
+    <version>7</version>
   </parent> 
 
   <groupId>de.ailis.twodee</groupId>
@@ -35,22 +35,6 @@
       <plugin>
         <groupId>de.ailis.maven</groupId>
         <artifactId>maven-javascript-plugin</artifactId>
-        <configuration>
-          <order>
-            <file>twodee.js</file>
-            <file>twodee/Object.js</file>
-            <file>twodee/Vector.js</file>
-            <file>twodee/Matrix.js</file>
-            <file>twodee/BoundingBox.js</file>
-            <file>twodee/Polygon.js</file>
-            <file>twodee/Physics.js</file>
-            <file>twodee/SceneNode.js</file>
-            <file>twodee/PolygonNode.js</file>
-            <file>twodee/ImageNode.js</file>
-            <file>twodee/Scene.js</file>
-            <file>twodee/FpsCounter.js</file>
-          </order>
-        </configuration>      
       </plugin>
     </plugins>
   </build>
