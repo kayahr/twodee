@@ -1,14 +1,11 @@
-<? require_once "resolver.php" ?>
+<?php require("../../target/demo/resolver.php"); ?>
 <!DOCTYPE html>
 <html>
   <head>
     <title>ThreeDee demo: Box</title>
     <? $resolver->includeScript("twodee/Polygon.js") ?>
     <? $resolver->includeScript("twodee/SceneNode.js") ?>
-    <? $resolver->includeScript("twodee/ImageNode.js") ?>
-    <? $resolver->includeScript("twodee/Physics.js") ?>
     <? $resolver->includeScript("twodee/Scene.js") ?>
-    <? $resolver->includeScript("twodee/FpsCounter.js") ?>
     <script type="text/javascript">
     /* <![CDATA[ */
 
@@ -18,21 +15,52 @@
         new twodee.Vector(50, -50),
         new twodee.Vector(50, 50),
         new twodee.Vector(-50, 50)
-    ]); 
+    ]);
+
+    function handleCollisionStart(node1, node2)
+    {
+        console.log(node1.name + " started to collide with " + node2.name);
+        console.log(node1.getParentNode());
+        //node1.remove();
+    } 
+
+    function handleCollisionStop(node1, node2)
+    {
+        console.log(node1.name + " stopped to collide with " + node2.name);
+    } 
 
     // Creates the root node
     var rootNode = new twodee.SceneNode();
 
-    // Create the img node
-    var img = new Image();
-    img.src = "asteroid.png";
-    var imgNode = new twodee.ImageNode(img);
-    rootNode.appendChild(imgNode);
+    var innerNode = new twodee.SceneNode();
+    rootNode.appendChild(innerNode);
 
-    var physics = new twodee.Physics();
-    physics.setSpin(20 * Math.PI / 180);
-    physics.getVelocity().set(20, 10);
-    imgNode.setPhysics(physics);
+    // Create the box node
+    var boxNode1 = new twodee.PolygonNode(box);
+    boxNode1.connect("collisionStarted", handleCollisionStart);
+    boxNode1.connect("collisionStopped", handleCollisionStop);
+    boxNode1.name = "white";
+    innerNode.appendChild(boxNode1);
+    boxNode1.getTransform().translate(-75, -75);
+    boxNode1.setCollisionType(1);
+    
+    var boxNode2 = new twodee.PolygonNode(box);
+    boxNode2.connect("collisionStarted", handleCollisionStart);
+    boxNode2.connect("collisionStopped", handleCollisionStop);
+    boxNode2.name = "red";
+    innerNode.appendChild(boxNode2);
+    boxNode2.setFillStyle("#f00");
+    boxNode2.getTransform().translate(75, 75);
+    boxNode2.setCollisionType(1);
+
+    var boxNode3 = new twodee.PolygonNode(box);
+    boxNode3.connect("collisionStarted", handleCollisionStart);
+    boxNode3.connect("collisionStopped", handleCollisionStop);
+    boxNode3.name = "green";
+    innerNode.appendChild(boxNode3);
+    boxNode3.setFillStyle("#0f0");
+    boxNode3.setCollisionType(1);
+    boxNode3.setCollisionMask(1);    
 
     // Create the scene
     var scene = new twodee.Scene();    
@@ -40,8 +68,6 @@
     
     // The graphics context and the elements canvas
     var g;
-
-    var fps = new twodee.FpsCounter();
 
     function init()
     {
@@ -64,11 +90,6 @@
 
         scene.update(); 
         scene.render(g, width, height);
-
-        fps.frame();
-        
-        
-        document.getElementById("debugInfo").innerHTML = fps.getFps() + "\n\n" + twodee.getDebugInfo();
     }
     
     /* ]]> */
