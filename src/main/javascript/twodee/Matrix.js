@@ -4,7 +4,6 @@
  * 
  * @require twodee.js
  * @require twodee/Vector.js
- * @use jquery.js
  */
 
 /**

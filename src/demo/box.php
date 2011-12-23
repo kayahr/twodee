@@ -1,8 +1,8 @@
-<? require_once "resolver.php" ?>
+<?php require("../../target/demo/resolver.php"); ?>
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ThreeDee demo: Box</title>
+    <title>TwoDee demo: Square</title>
     <? $resolver->includeScript("twodee/Polygon.js") ?>
     <? $resolver->includeScript("twodee/SceneNode.js") ?>
     <? $resolver->includeScript("twodee/Physics.js") ?>
@@ -29,8 +29,6 @@
     var boxNode = new twodee.PolygonNode(box);
     //boxNode.setCollidable(true);
     innerNode.appendChild(boxNode);
-
-    
 
     // Apply physics
     var physics = new twodee.Physics();
@@ -107,7 +105,7 @@
     </div>
     <hr />
     <p>
-      Copyright (C) 2009 Klaus Reimer
+      Copyright (C) 2009-2011 Klaus Reimer
     </p>
   </body>
 </html>
