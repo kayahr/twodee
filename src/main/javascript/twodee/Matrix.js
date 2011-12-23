@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * See LICENSE.txt for licensing information.
  * 
@@ -7,7 +7,6 @@
  * @use jquery.js
  */
 
-
 /**
  * @constructor
  * Constructs a new matrix initialized as an identity matrix.
@@ -15,7 +14,6 @@
  * @class
  * A matrix with 3x3 entries
  */
-
 twodee.Matrix = function()
 {
     twodee.Matrix.counter++;
@@ -107,7 +105,6 @@ twodee.Matrix.prototype.m21 = 0;
  */
 twodee.Matrix.prototype.m22 = 1;
 
-
 /**
  * Returns a copy of this matrix. If a target matrix is specified then the
  * matrix is copied into this target matrix. If not specified then a new
@@ -117,7 +114,6 @@ twodee.Matrix.prototype.m22 = 1;
  *            Optional target matrix
  * @return {twodee.Matrix} A copy of this matrix
  */
-
 twodee.Matrix.prototype.copy = function(target)
 {
     return (target ? target : new twodee.Matrix()).set(
@@ -125,7 +121,6 @@ twodee.Matrix.prototype.copy = function(target)
         this.m10, this.m11, this.m12,
         this.m20, this.m21, this.m22);
 };
-
 
 /**
  * Sets the matrix entries.
@@ -151,7 +146,6 @@ twodee.Matrix.prototype.copy = function(target)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.set = function(m00, m01, m02, m10, m11, m12,
     m20, m21, m22)
 {
@@ -167,7 +161,6 @@ twodee.Matrix.prototype.set = function(m00, m01, m02, m10, m11, m12,
     return this;
 };
 
-
 /**
  * Sets the matrix entries.
  * 
@@ -176,7 +169,6 @@ twodee.Matrix.prototype.set = function(m00, m01, m02, m10, m11, m12,
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.setTransform = function(transform)
 {
     this.m00 = transform.m00;
@@ -191,14 +183,12 @@ twodee.Matrix.prototype.setTransform = function(transform)
     return this;    
 };
 
-
 /**
  * Sets the entries of this matrix to an identity matrix.
  * 
  * @return {twodee.Matrix}
  *             The matrix
  */
-
 twodee.Matrix.prototype.setIdentity = function()
 {
     return this.set(
@@ -206,7 +196,6 @@ twodee.Matrix.prototype.setIdentity = function()
         0, 1, 0,
         0, 0, 1);
 };
-
 
 /**
  * Sets the entries of this matrix to a rotation matrix.
@@ -216,7 +205,6 @@ twodee.Matrix.prototype.setIdentity = function()
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.setRotate = function(angle)
 {
     var s, c;
@@ -229,18 +217,15 @@ twodee.Matrix.prototype.setRotate = function(angle)
         0,  0, 1);
 };
 
-
 /**
  * Returns the rotation angle in anti-clockwise RAD.
  * 
  * @return {number} The rotation angle in anti-clockwise RAD
  */
-
 twodee.Matrix.prototype.getRotationAngle = function()
 {
     return Math.atan2(this.m10, this.m00);
 };
-
 
 /**
  * Sets the entries of this matrix to a scaling matrix.
@@ -252,7 +237,6 @@ twodee.Matrix.prototype.getRotationAngle = function()
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.setScale = function(fx, fy)
 {
     return this.set(
@@ -260,7 +244,6 @@ twodee.Matrix.prototype.setScale = function(fx, fy)
         0, fy === undefined ? fx : fy, 0,
         0, 0, 1);
 };
-
 
 /**
  * Sets the entries of this matrix to a X scaling matrix.
@@ -270,7 +253,6 @@ twodee.Matrix.prototype.setScale = function(fx, fy)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.setScaleX = function(f)
 {
     return this.set(
@@ -278,7 +260,6 @@ twodee.Matrix.prototype.setScaleX = function(f)
         0, 1, 0,
         0, 0, 1);
 };
-
 
 /**
  * Sets the entries of this matrix to a Y scaling matrix.
@@ -288,7 +269,6 @@ twodee.Matrix.prototype.setScaleX = function(f)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.setScaleY = function(f)
 {
     return this.set(
@@ -296,7 +276,6 @@ twodee.Matrix.prototype.setScaleY = function(f)
         0, f, 0,
         0, 0, 1);
 };
-
 
 /**
  * Sets the entries of this matrix to a translation matrix.
@@ -308,7 +287,6 @@ twodee.Matrix.prototype.setScaleY = function(f)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.setTranslate = function(dx, dy)
 {
     return this.set(
@@ -317,30 +295,25 @@ twodee.Matrix.prototype.setTranslate = function(dx, dy)
         0, 0,  1);
 };
 
-
 /**
  * Returns the X translation of the matrix.
  * 
  * @return {number} The X translation
  */
-
 twodee.Matrix.prototype.getTranslationX = function()
 {
     return this.m02;
 };
-
 
 /**
  * Returns the Y translation of the matrix.
  * 
  * @return {number} The Y translation
  */
-
 twodee.Matrix.prototype.getTranslationY = function()
 {
     return this.m12;
 };
-
 
 /**
  * Returns The translation vector of the current matrix. Attention! This
@@ -350,12 +323,10 @@ twodee.Matrix.prototype.getTranslationY = function()
  * 
  * @return {twodee.Vector} The translation vector of the matrix
  */
-
 twodee.Matrix.prototype.getTranslation = function()
 {
     return this.translation.set(this.m02, this.m12);
 };
-
 
 /**
  * Sets the entries of this matrix to a X translation matrix.
@@ -365,7 +336,6 @@ twodee.Matrix.prototype.getTranslation = function()
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.setTranslateX = function(d)
 {
     return this.set(
@@ -373,7 +343,6 @@ twodee.Matrix.prototype.setTranslateX = function(d)
         0, 1, 0,
         0, 0, 1);
 };
-
 
 /**
  * Sets the entries of this matrix to a Y translation matrix.
@@ -383,7 +352,6 @@ twodee.Matrix.prototype.setTranslateX = function(d)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.setTranslateY = function(d)
 {
     return this.set(
@@ -391,7 +359,6 @@ twodee.Matrix.prototype.setTranslateY = function(d)
         0, 1, d,
         0, 0, 1);
 };
-
 
 /**
  * Multiplies this matrix with the specified matrix. The result is written
@@ -402,7 +369,6 @@ twodee.Matrix.prototype.setTranslateY = function(d)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.transform = function(m)
 {
     return this.set(
@@ -419,7 +385,6 @@ twodee.Matrix.prototype.transform = function(m)
         this.m20 * m.m02 + this.m21 * m.m12 + this.m22 * m.m22);
 };
 
-
 /**
  * Multiplies this matrix with the specified factor.
  * 
@@ -428,7 +393,6 @@ twodee.Matrix.prototype.transform = function(m)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.multiply = function(f)
 {
     this.m00 *= f;
@@ -443,7 +407,6 @@ twodee.Matrix.prototype.multiply = function(f)
     return this;
 };
 
-
 /**
  * Divides this matrix by the specified factor.
  * 
@@ -452,7 +415,6 @@ twodee.Matrix.prototype.multiply = function(f)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.divide = function(f)
 {
     this.m00 /= f;
@@ -467,7 +429,6 @@ twodee.Matrix.prototype.divide = function(f)
     return this;
 };
 
-
 /**
  * Translates this matrix by the specified deltas
  * 
@@ -478,12 +439,10 @@ twodee.Matrix.prototype.divide = function(f)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.translate = function(dx, dy)
 {
     return this.transform(twodee.Matrix.TMP.setTranslate(dx, dy));
 };
-
 
 /**
  * X-Translates this matrix by the specified delta
@@ -493,12 +452,10 @@ twodee.Matrix.prototype.translate = function(dx, dy)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.translateX = function(d)
 {
     return this.transform(twodee.Matrix.TMP.setTranslateX(d));
 };
-
 
 /**
  * Y-Translates this matrix by the specified delta
@@ -508,12 +465,10 @@ twodee.Matrix.prototype.translateX = function(d)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.translateY = function(d)
 {
     return this.transform(twodee.Matrix.TMP.setTranslateY(d));
 };
-
 
 /**
  * Scales this matrix by the specified factors
@@ -525,13 +480,11 @@ twodee.Matrix.prototype.translateY = function(d)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.scale = function(fx, fy)
 {
     return this.transform(twodee.Matrix.TMP.setScale(fx,
         fy === undefined ? fx : fy));
 };
-
 
 /**
  * X-Scales this matrix by the specified factor
@@ -541,12 +494,10 @@ twodee.Matrix.prototype.scale = function(fx, fy)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.scaleX = function(f)
 {
     return this.transform(twodee.Matrix.TMP.setScaleX(f));
 };
-
 
 /**
  * Y-Scales this matrix by the specified factor
@@ -556,12 +507,10 @@ twodee.Matrix.prototype.scaleX = function(f)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.scaleY = function(f)
 {
     return this.transform(twodee.Matrix.TMP.setScaleY(f));
 };
-
 
 /**
  * Rotates this matrix by the specified angle
@@ -571,19 +520,16 @@ twodee.Matrix.prototype.scaleY = function(f)
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.rotate = function(r)
 {
     return this.transform(twodee.Matrix.TMP.setRotate(r));
 };
-
 
 /**
  * Returns the determinant of the matrix.
  * 
  * @return {number} The determinant of the matrix
  */
-
 twodee.Matrix.prototype.getDeterminant = function()
 {
     return this.m00 * this.m11 * this.m22 + this.m01 * this.m12 * this.m20 +
@@ -591,14 +537,12 @@ twodee.Matrix.prototype.getDeterminant = function()
            this.m01 * this.m10 * this.m22 - this.m02 * this.m11 * this.m20;
 };
 
-
 /**
  * Inverts this matrix.
  * 
  * @return {twodee.Matrix}
  *            This matrix
  */
-
 twodee.Matrix.prototype.invert = function()
 {
     var d;

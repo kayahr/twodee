@@ -1,11 +1,10 @@
-/*
+/**
  * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * See LICENSE.txt for licensing information.
  * 
  * @require twodee.js
  * @require twodee/SceneNode.js
  */
-
 
 /**
  * Constructs a new image node.
@@ -18,7 +17,6 @@
  * @extends twodee.SceneNode
  * @class A node which draws an image.
  */
-
 twodee.ImageNode = function(image)
 {
     twodee.SceneNode.call(this);
@@ -51,31 +49,26 @@ twodee.ImageNode.prototype.image = null;
  */
 twodee.ImageNode.prototype.showBounds = false;
 
-
 /**
  * Sets the image
  * 
  * @param {HTMLImageElement|Image} image
  *            The image to set
  */
-
 twodee.ImageNode.prototype.setImage = function(image)
 {
     this.image = image;
 };
-
 
 /**
  * Returns the image.
  * 
  * @return {HTMLImageElement|Image} The image
  */
-
 twodee.ImageNode.prototype.getImage = function()
 {
     return this.image;
 };
-
 
 /**
  * Enables or disables the display of node bounds. This is for debugging
@@ -84,12 +77,10 @@ twodee.ImageNode.prototype.getImage = function()
  * @param {boolean} showBounds
  *            True to show the bounds, false to hide them
  */
-
 twodee.ImageNode.prototype.setShowBounds = function(showBounds)
 {
     this.showBounds = showBounds;
 };
-
 
 /**
  * @see twodee.SceneNode#render
@@ -100,7 +91,6 @@ twodee.ImageNode.prototype.setShowBounds = function(showBounds)
  *            The transformation
  * @override
  */
-
 twodee.ImageNode.prototype.render = function(g, transform)
 {   
     var width, height, img;

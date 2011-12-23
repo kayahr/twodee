@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * See LICENSE.txt for licensing information.
  * 
@@ -7,14 +7,12 @@
  * @use jquery.js
  */
 
-
 /**
  * Constructs a new twodee object.
  * 
  * @constructor
  * @class The base class for other twodee objects
  */
-
 twodee.Object = function()
 {
     this.slots = [];
@@ -28,7 +26,6 @@ twodee.Object = function()
  */
 twodee.Object.prototype.slots = null;
 
-
 /**
  * Returns the array with slots connected to the specified signal. If it
  * does not exist then a new empty array is created for this signal.
@@ -38,7 +35,6 @@ twodee.Object.prototype.slots = null;
  * @return {Array.<{func:function(...),context:Object}>} The array with connected slots.
  * @private
  */
-
 twodee.Object.prototype.getSlots = function(signal)
 {	
     var slots; 
@@ -47,7 +43,6 @@ twodee.Object.prototype.getSlots = function(signal)
     if (!slots) slots = this.slots[signal] = [];
     return slots;
 };
-
 
 /**
  * Connects a slot to a signal.
@@ -59,12 +54,10 @@ twodee.Object.prototype.getSlots = function(signal)
  * @param {Object} context
  *            The function context (Optional, defaults to "window")
  */
-
 twodee.Object.prototype.connect = function(signal, func, context)
 {
     this.getSlots(signal).push({ func: func, context: context ? context : window});
 };
-
 
 /**
  * Disconnects a slot from a signal.
@@ -77,7 +70,6 @@ twodee.Object.prototype.connect = function(signal, func, context)
  * @param {Object} context
  *            The function context (Optional, defaults to "window")
  */
-
 twodee.Object.prototype.disconnect = function(signal, func, context)
 {
     var slots, i, slot;
@@ -100,7 +92,6 @@ twodee.Object.prototype.disconnect = function(signal, func, context)
     }
 };
 
-
 /**
  * Sends a signal.
  * 
@@ -109,7 +100,6 @@ twodee.Object.prototype.disconnect = function(signal, func, context)
  * @param {...} varargs
  *            Variable number of optional arguments passed to the slots
  */
-
 twodee.Object.prototype.sendSignal = function(signal, varargs)
 {
     var slots, i, args, slot;

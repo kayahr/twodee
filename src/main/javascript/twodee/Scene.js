@@ -1,10 +1,9 @@
-/*
+/**
  * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * See LICENSE.txt for licensing information.
  * 
  * @require twodee.js
  */
-
 
 /**
  * @constructor
@@ -13,12 +12,10 @@
  * @class
  * A scene
  */
-
 twodee.Scene = function()
 {
     this.collidables = [];
 };
-
 
 /** 
  * The root node of the scene. 
@@ -51,19 +48,16 @@ twodee.Scene.prototype.collidables = null;
  */
 twodee.Scene.prototype.paused = false;
 
-
 /**
  * Sets the root node.
  * 
  * @param {twodee.SceneNode} rootNode
  *            The root node to set
  */
-
 twodee.Scene.prototype.setRootNode = function(rootNode)
 {
     this.rootNode = rootNode;
 };
-
 
 /**
  * Returns the current root node.
@@ -71,12 +65,10 @@ twodee.Scene.prototype.setRootNode = function(rootNode)
  * @return {twodee.SceneNode}
  *            The current root node
  */
-
 twodee.Scene.prototype.getRootNode = function()
 {
     return this.rootNode;
 };
-
 
 /**
  * Updates the scene with the specified time delta (milliseconds);
@@ -90,7 +82,6 @@ twodee.Scene.prototype.getRootNode = function()
  *            this maximum value is trimmed down to the maximum time delta.
  *            The default maximum value is 1000.
  */
-
 twodee.Scene.prototype.update = function(delta)
 {
     var now, node, maxDelta;
@@ -113,7 +104,6 @@ twodee.Scene.prototype.update = function(delta)
     this.updateNode(node, delta);  
 };
 
-
 /**
  * Updates the specified node and its children (recursively).
  * 
@@ -124,7 +114,6 @@ twodee.Scene.prototype.update = function(delta)
  *            in milliseconds.
  * @private
  */
-
 twodee.Scene.prototype.updateNode = function(node, delta)
 {
     var child, next;
@@ -139,7 +128,6 @@ twodee.Scene.prototype.updateNode = function(node, delta)
     }
 };
 
-
 /**
  * Renders the scene.
  * 
@@ -150,7 +138,6 @@ twodee.Scene.prototype.updateNode = function(node, delta)
  * @param {number} height
  *            The output height in pixels
  */
-
 twodee.Scene.prototype.render = function(g, width, height)
 {
     var node, i, collidables;
@@ -175,7 +162,6 @@ twodee.Scene.prototype.render = function(g, width, height)
     collidables.length = 0;
 };
 
-
 /**
  * Renders the specified node and its children (recursively).
  * 
@@ -185,7 +171,6 @@ twodee.Scene.prototype.render = function(g, width, height)
  *            The graphics context
  * @private
  */
-
 twodee.Scene.prototype.renderNode = function(node, g)
 {
     var transform, child, i, other, collidables, next;
@@ -235,22 +220,18 @@ twodee.Scene.prototype.renderNode = function(node, g)
     g.restore();
 };
 
-
 /**
  * Pause the scene. No more updates are done, but rendering continues.
  */
-
 twodee.Scene.prototype.pause = function()
 {
     this.paused = true;
     this.lastUpdate = 0;
 };
 
-
 /**
  * Resumes the scene.
  */
-
 twodee.Scene.prototype.resume = function()
 {
     this.paused = false;
