@@ -1,11 +1,10 @@
-/*
+/**
  * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * See LICENSE.txt for licensing information.
  * 
  * @require twodee.js
  * @require twodee/SceneNode.js
  */
-
 
 /**
  * Constructs a new polygon node.
@@ -24,7 +23,6 @@
  * @extends twodee.SceneNode
  * @class A node which draws a polygon.
  */
-
 twodee.PolygonNode = function(polygon, fillStyle, strokeStyle)
 {
     twodee.SceneNode.call(this);
@@ -66,32 +64,27 @@ twodee.PolygonNode.prototype.fillStyle = "#fff";
  */
 twodee.PolygonNode.prototype.strokeStyle = null;
 
-
 /**
  * Sets the polygon.
  * 
  * @param {twodee.Polygon} polygon
  *            The polygon to set
  */
-
 twodee.PolygonNode.prototype.setPolygon = function(polygon)
 {
     this.setBounds(polygon);
     this.polygon = this.getBounds();
 };
 
-
 /**
  * Returns the polygon.
  * 
  * @return {twodee.Polygon} The polygon
  */
-
 twodee.PolygonNode.prototype.getPolygon = function()
 {
     return this.polygon;
 };
-
 
 /**
  * Sets the fill style. null means no filling.
@@ -99,24 +92,20 @@ twodee.PolygonNode.prototype.getPolygon = function()
  * @param {?string} fillStyle
  *            The fill style to set
  */
-
 twodee.PolygonNode.prototype.setFillStyle = function(fillStyle)
 {
     this.fillStyle =  fillStyle;
 };
-
 
 /**
  * Returns the fill style.
  * 
  * @return {?string} The fill style
  */
-
 twodee.PolygonNode.prototype.getFillStyle = function()
 {
     return this.fillStyle;
 };
-
 
 /**
  * Sets the stroke style. null means no stroking.
@@ -124,12 +113,10 @@ twodee.PolygonNode.prototype.getFillStyle = function()
  * @param {?string} strokeStyle
  *            The stroke style to set
  */
-
 twodee.PolygonNode.prototype.setStrokeStyle = function(strokeStyle)
 {
     this.strokeStyle = strokeStyle;
 };
-
 
 /**
  * Returns the stroke style.
@@ -142,7 +129,6 @@ twodee.PolygonNode.prototype.getStrokeStyle = function()
     return this.strokeStyle;
 };
 
-
 /**
  * @see twodee.SceneNode#render
  * 
@@ -150,7 +136,6 @@ twodee.PolygonNode.prototype.getStrokeStyle = function()
  *            The graphics context
  * @override
  */
-
 twodee.PolygonNode.prototype.render = function(g)
 {   
     var polygon, fillStyle, strokeStyle;

@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * See LICENSE.txt for licensing information.
  * 
@@ -11,7 +11,6 @@
  * @constructor
  * @class A bounding box
  */
-
 twodee.BoundingBox = function()
 {
     twodee.BoundingBox.counter++;
@@ -56,11 +55,9 @@ twodee.BoundingBox.prototype.bottom = Number.NEGATIVE_INFINITY;
  */
 twodee.BoundingBox.prototype.left = Number.POSITIVE_INFINITY;
 
-
 /**
  * Resets the bounding box to no bounds.
  */
-
 twodee.BoundingBox.prototype.reset = function()
 {
     this.top = Number.POSITIVE_INFINITY;
@@ -69,14 +66,12 @@ twodee.BoundingBox.prototype.reset = function()
     this.left = Number.POSITIVE_INFINITY;
 };
 
-
 /**
  * Updates the bounding box with the specified vector
  * 
  * @param {twodee.Vector} v
  *            The vector
  */
-
 twodee.BoundingBox.prototype.update = function(v)
 {
     var x, y;
@@ -89,7 +84,6 @@ twodee.BoundingBox.prototype.update = function(v)
     this.left = Math.min(this.left, x);
 };
 
-
 /**
  * Checks if this bounding box collides with the specified other bounding
  * box.
@@ -98,7 +92,6 @@ twodee.BoundingBox.prototype.update = function(v)
  *            The other bounding box
  * @return {boolean} True if bounding boxes collide, false if not
  */
-
 twodee.BoundingBox.prototype.collidesWith = function(other)
 {
     return this.top <= other.bottom &&
@@ -107,25 +100,21 @@ twodee.BoundingBox.prototype.collidesWith = function(other)
            this.right >= other.left;
 };
 
-
 /**
  * Returns the width of the bounding box.
  * 
  * @return {number} The bounding box width
  */
-
 twodee.BoundingBox.prototype.getWidth = function()
 {
     return this.right - this.left;
 };
-
 
 /**
  * Returns the height of the bounding box.
  * 
  * @return {number} The bounding box height
  */
-
 twodee.BoundingBox.prototype.getHeight = function()
 {
     return this.bottom - this.top;

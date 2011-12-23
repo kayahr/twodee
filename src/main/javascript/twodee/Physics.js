@@ -1,10 +1,9 @@
-/*
+/**
  * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * See LICENSE.txt for licensing information.
  * 
  * @require twodee.js
  */
-
 
 /**
  * Constructs a new physics model.
@@ -12,7 +11,6 @@
  * @constructor
  * @class A physics model
  */
-
 twodee.Physics = function()
 {
     this.velocity = new twodee.Vector();
@@ -123,19 +121,16 @@ twodee.Physics.prototype.lifetime = Number.POSITIVE_INFINITY;
  */
 twodee.Physics.prototype.decay = 1;
 
-
 /**
  * Returns the velocity vector. The length is units per second. There is no setter
  * because you should modify the returned vector instead.
  * 
  * @return {twodee.Vector} The velocity vector. Never null
  */
-
 twodee.Physics.prototype.getVelocity = function()
 {
     return this.velocity;
 };
-
 
 /**
  * Sets the minimum velocity in units per second.
@@ -143,24 +138,20 @@ twodee.Physics.prototype.getVelocity = function()
  * @param {number} minVelocity
  *            The minimum velocity to set
  */
-
 twodee.Physics.prototype.setMinVelocity = function(minVelocity)
 {
     this.minVelocity = minVelocity;
 };
-
 
 /**
  * Returns the minimum velocity in units per second.
  * 
  * @return {number} The minimum velocity
  */
-
 twodee.Physics.prototype.getMinVelocity = function()
 {
     return this.minVelocity;
 };
-
 
 /**
  * Sets the maximum velocity in units per second.
@@ -168,24 +159,20 @@ twodee.Physics.prototype.getMinVelocity = function()
  * @param {number} maxVelocity
  *            The maximum velocity to set
  */
-
 twodee.Physics.prototype.setMaxVelocity = function(maxVelocity)
 {
     this.maxVelocity = maxVelocity;
 };
-
 
 /**
  * Returns the maximum velocity in units per second.
  * 
  * @return {number} The maximum velocity
  */
-
 twodee.Physics.prototype.getMaxVelocity = function()
 {
     return this.maxVelocity;
 };
-
 
 /**
  * Returns the acceleration vector. The length is units per square second.
@@ -193,24 +180,20 @@ twodee.Physics.prototype.getMaxVelocity = function()
  * 
  * @return {twodee.Vector} The acceleration vector. Never null
  */
-
 twodee.Physics.prototype.getAcceleration= function()
 {
     return this.acceleration;
 };
-
 
 /**
  * Returns the spin in anti-clockwise RAD per second.
  * 
  * @return {number} The current spin
  */
-
 twodee.Physics.prototype.getSpin = function()
 {
     return this.spin;
 };
-
 
 /**
  * Sets the spin in anti-clockwise RAD per second.
@@ -218,24 +201,20 @@ twodee.Physics.prototype.getSpin = function()
  * @param {number} spin
  *            The spin to set
  */
-
 twodee.Physics.prototype.setSpin = function(spin)
 {
     this.spin = spin;
 };
-
 
 /**
  * Returns the spin acceleration in anti-clockwise RAD per square second.
  * 
  * @return {number} The current spin acceleration
  */
-
 twodee.Physics.prototype.getSpinAcceleration = function()
 {
     return this.spinAcceleration;
 };
-
 
 /**
  * Sets the spin acceleration in anti-clockwise RAD per square second.
@@ -243,24 +222,20 @@ twodee.Physics.prototype.getSpinAcceleration = function()
  * @param {number} spinAcceleration
  *            The spin acceleration to set
  */
-
 twodee.Physics.prototype.setSpinAcceleration = function(spinAcceleration)
 {
     this.spinAcceleration = spinAcceleration;
 };
-
 
 /**
  * Returns the minimum spin in anti-clockwise RAD per second.
  * 
  * @return {number} The minimum spin
  */
-
 twodee.Physics.prototype.getMinSpin = function()
 {
     return this.minSpin;
 };
-
 
 /**
  * Sets the minimum spin in anti-clockwise RAD per second.
@@ -268,24 +243,20 @@ twodee.Physics.prototype.getMinSpin = function()
  * @param {number} minSpin
  *            The minimum spin to set
  */
-
 twodee.Physics.prototype.setMinSpin = function(minSpin)
 {
     this.minSpin = minSpin;
 };
-
 
 /**
  * Returns the maximum spin in anti-clockwise RAD per second.
  * 
  * @return {number} The maximum spin
  */
-
 twodee.Physics.prototype.getMaxSpin = function()
 {
     return this.maxSpin;
 };
-
 
 /**
  * Sets the maximum spin in anti-clockwise RAD per second.
@@ -293,24 +264,20 @@ twodee.Physics.prototype.getMaxSpin = function()
  * @param {number} maxSpin
  *            The maximum spin to set
  */
-
 twodee.Physics.prototype.setMaxSpin = function(maxSpin)
 {
     this.maxSpin = maxSpin;
 };
-
 
 /**
  * Returns the scaling in multitudes per second.
  * 
  * @return {number} The current scaling
  */
-
 twodee.Physics.prototype.getScaling = function()
 {
     return this.scaling;
 };
-
 
 /**
  * Sets the scaling in multitudes per second.
@@ -318,24 +285,20 @@ twodee.Physics.prototype.getScaling = function()
  * @param {number} scaling
  *            The scaling to set
  */
-
 twodee.Physics.prototype.setScaling = function(scaling)
 {
     this.scaling = scaling;
 };
-
 
 /**
  * Returns the lifetime in seconds. May return Infinity.
  * 
  * @return {number} The lifetime
  */
-
 twodee.Physics.prototype.getLifetime = function()
 {
     return this.lifetime;
 };
-
 
 /**
  * Sets the lifetime in seconds. Default value is Infinity.
@@ -343,12 +306,10 @@ twodee.Physics.prototype.getLifetime = function()
  * @param {number} lifetime
  *            The lifetime to set
  */
-
 twodee.Physics.prototype.setLifetime = function(lifetime)
 {
     this.lifetime = lifetime;
 };
-
 
 /**
  * Sets the decay time in seconds. Default value is 1 second. Decay only
@@ -360,24 +321,20 @@ twodee.Physics.prototype.setLifetime = function(lifetime)
  * @param {number} decay
  *            The decay time in seconds
  */
-
 twodee.Physics.prototype.setDecay = function(decay)
 {
     this.decay = decay;
 };
-
 
 /**
  * Returns the decay time in seconds.
  * 
  * @return {number} The decay time in seconds
  */
-
 twodee.Physics.prototype.getDecay = function()
 {
     return this.decay;
 };
-
 
 /**
  * Processes the physics model for the specified node and time delta.
@@ -387,7 +344,6 @@ twodee.Physics.prototype.getDecay = function()
  * @param {number} delta
  *            The time delta 
  */
-
 twodee.Physics.prototype.process = function(node, delta)
 {
     var spin, transform, velocity, factor, angle, v, acceleration,

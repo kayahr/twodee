@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * See LICENSE.txt for licensing information.
  * 
@@ -12,11 +12,11 @@
  */
 
 /** 
- * @preserve
- * ${project.name} ${project.version}
- * ${project.url}
+ * @license
+ * TwoDee - JavaScript 2D scene graph engine
+ * http://kayahr.github.com/twodee
  * 
- * Copyright (C) ${project.inceptionYear} Klaus Reimer <k@ailis.de>
+ * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -33,7 +33,6 @@
  * 
  */
 
-
 /** 
  * The twodee namespace
  * @type {Object} 
@@ -48,7 +47,6 @@ var twodee = {};
  */ 
 twodee.debugInfo = null;
 
-
 /**
  * Derives subClass from superClass.
  * 
@@ -57,7 +55,6 @@ twodee.debugInfo = null;
  * @param {Function} superClass
  *            The super class
  */
-
 twodee.inherit = function(subClass, superClass)
 {
     var tmp = superClass.prototype;

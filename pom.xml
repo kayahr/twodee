@@ -1,20 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <artifactId>maven-javascript</artifactId>
-    <groupId>de.ailis.maven</groupId>
-    <version>7</version>
-  </parent> 
-
   <groupId>de.ailis.twodee</groupId>
   <artifactId>twodee</artifactId>
-  <packaging>jar</packaging>
+  <packaging>javascript</packaging>
   <name>TwoDee</name>
   <version>1.0.2-SNAPSHOT</version>
-  <url>http://www.ailis.de/~k/projects/twodee/</url>
-  <description>JavaScript 2D scene graph</description>
-  <inceptionYear>2010</inceptionYear>
+  <url>http://kayahr.github.com/${project.artifactId}</url>
+  <description>JavaScript 2D scene graph engine</description>
+  <inceptionYear>2009</inceptionYear>
+  <organization>
+    <name>Klaus Reimer</name>
+    <url>http://www.ailis.de/~k/</url>
+  </organization>
 
   <licenses>
     <license>
@@ -24,17 +22,80 @@
     </license>
   </licenses>
   
+  <developers>
+    <developer>
+      <id>k</id>
+      <name>Klaus Reimer</name>
+      <email>k@ailis.de</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+      <url>http://www.ailis.de/~k/</url>
+    </developer>        
+  </developers>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <releasesUrl>http://nexus.ailis.de/content/repositories/releases/de/ailis/${project.artifactId}/${project.artifactId}/${project.version}</releasesUrl>
+    <snapshotsUrl>http://nexus.ailis.de/content/repositories/snapshots/de/ailis/${project.artifactId}/${project.artifactId}</snapshotsUrl>
+  </properties>
+
   <scm>
-    <url>http://www.ailis.de/~k/hg/javascript/twodee</url>
-    <connection>scm:hg:http://www.ailis.de/~k/hg/javascript/twodee</connection>
-    <developerConnection>scm:hg:ssh://k@ailis.de/hg/javascript/twodee</developerConnection>
+    <connection>scm:git:git://github.com/kayahr/${project.artifactId}.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/kayahr/${project.artifactId}.git</developerConnection>
+    <url>http://github.com/kayahr/${project.artifactId}</url>
   </scm>
   
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/kayahr/${project.artifactId}/issues</url>
+  </issueManagement>
+  
   <build>
+    <sourceDirectory>src/main/javascript</sourceDirectory>
+    <outputDirectory>target/files</outputDirectory>
+    
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>de.ailis.maven.plugins</groupId>
+                    <artifactId>maven-javascript-plugin</artifactId>
+                    <versionRange>[1.0.0,)</versionRange>
+                    <goals>
+                      <goal>compile</goal>
+                      <goal>resources</goal>
+                      <goal>demo</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <execute />
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    
     <plugins>
       <plugin>
-        <groupId>de.ailis.maven</groupId>
+        <groupId>de.ailis.maven.plugins</groupId>
         <artifactId>maven-javascript-plugin</artifactId>
+        <version>1.0.2</version>
+        <extensions>true</extensions>
+        <configuration>
+          <incremental>true</incremental>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -43,14 +104,34 @@
     <repository>
       <id>ailis-releases</id>
       <name>Ailis Maven Releases</name>
-      <url>http://www.ailis.de/nexus/content/groups/public/</url>
+      <url>http://nexus.ailis.de/content/groups/public/</url>
+      <releases><enabled>true</enabled></releases>
+      <snapshots><enabled>false</enabled></snapshots>
     </repository>
-    <repository>
+    <repository> 
       <id>ailis-snapshots</id>
       <name>Ailis Maven Snapshots</name>
-      <url>http://www.ailis.de/nexus/content/groups/public-snapshots/</url>
-      <snapshots />
+      <url>http://nexus.ailis.de/content/groups/public-snapshots/</url>
+      <releases><enabled>false</enabled></releases>
+      <snapshots><enabled>true</enabled></snapshots>
     </repository>
-  </repositories>  
+  </repositories>
 
+  <distributionManagement>
+    <site>
+      <id>project-website</id>
+      <url>file://${project.basedir}/../${project.artifactId}-site/</url>
+    </site>
+    <repository>
+      <id>ailis-releases</id>
+      <name>Ailis Maven Releases</name>
+      <url>http://nexus.ailis.de/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>ailis-snapshots</id>
+      <name>Ailis Maven Snapshots</name>
+      <url>http://nexus.ailis.de/content/repositories/snapshots</url>
+    </snapshotRepository>    
+  </distributionManagement>
+  
 </project>

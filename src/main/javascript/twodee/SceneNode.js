@@ -1,11 +1,10 @@
-/*
+/**
  * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * See LICENSE.txt for licensing information.
  * 
  * @require twodee.js
  * @require twodee/Object.js
  */
-
 
 /**
  * Constructs a new scene node.
@@ -16,7 +15,6 @@
  * A scene node. Can be used directly to create invisible group nodes or can be
  * extended to implement other node types.
  */
-
 twodee.SceneNode = function()
 {
     twodee.Object.call(this);
@@ -127,17 +125,17 @@ twodee.SceneNode.prototype.collisionMask = 0;
  * Map with nodes which collided with this one.
  * 
  * @private 
- * @type {?Object.<string, twodee.SceneNode>}
+ * @type {!Object.<string, twodee.SceneNode>}
  */
-twodee.SceneNode.prototype.collisions = null;
+twodee.SceneNode.prototype.collisions;
 
 /**
  * Map with nodes which collided previously with this one.
  * 
  * @private 
- * @type {?Object.<string, twodee.SceneNode>}
+ * @type {!Object.<string, twodee.SceneNode>}
  */
-twodee.SceneNode.prototype.previousCollisions = null;
+twodee.SceneNode.prototype.previousCollisions;
 
 /**
  * The physics model. 
@@ -163,18 +161,15 @@ twodee.SceneNode.prototype.enabled = true;
  */
 twodee.SceneNode.prototype.opacity = 1;
 
-
 /**
  * Returns the node id.
  * 
  * @return {number} The node id
  */
-
 twodee.SceneNode.prototype.getId = function()
 {
     return this.id;
 };
-
 
 /**
  * Returns the first child node of this node. If the node has no child nodes
@@ -183,12 +178,10 @@ twodee.SceneNode.prototype.getId = function()
  * @return {twodee.SceneNode}
  *            The first child node or null if there are no child nodes
  */
-
 twodee.SceneNode.prototype.getFirstChild = function()
 {
     return this.firstChild;
 };
-
 
 /**
  * Returns the last child node of this node. If the node has no child nodes
@@ -197,12 +190,10 @@ twodee.SceneNode.prototype.getFirstChild = function()
  * @return {twodee.SceneNode}
  *             The last child node or null if there are no child nodes
  */
-
 twodee.SceneNode.prototype.getLastChild = function()
 {
     return this.lastChild;
 };
-
 
 /**
  * Returns the next sibling of this node. If the node is the last child node
@@ -212,12 +203,10 @@ twodee.SceneNode.prototype.getLastChild = function()
  * @return {twodee.SceneNode}
  *            The next sibling of this node or null if there is no next sibling
  */
-
 twodee.SceneNode.prototype.getNextSibling = function()
 {
     return this.nextSibling;
 };
-
 
 /**
  * Returns the parent node. If the node has no root node yet then null is
@@ -226,12 +215,10 @@ twodee.SceneNode.prototype.getNextSibling = function()
  * @return {twodee.SceneNode}
  *            The parent node or null if there is none
  */
-
 twodee.SceneNode.prototype.getParentNode = function()
 {
     return this.parentNode;
 };
-
 
 /**
  * Returns the previous sibling of this node. If the node is the first child
@@ -242,12 +229,10 @@ twodee.SceneNode.prototype.getParentNode = function()
  *            The previous sibling of this node or null if there is no previous
  *            sibling
  */
-
 twodee.SceneNode.prototype.getPreviousSibling = function()
 {
     return this.previousSibling;
 };
-
 
 /**
  * Inserts a new child node before the specified reference node. If the new
@@ -259,7 +244,6 @@ twodee.SceneNode.prototype.getPreviousSibling = function()
  * @param {twodee.SceneNode} referenceNode
  *            The reference node
  */
-
 twodee.SceneNode.prototype.insertBefore = function(insertNode, referenceNode)
 {
     var oldParent, oldPrevious;
@@ -289,24 +273,20 @@ twodee.SceneNode.prototype.insertBefore = function(insertNode, referenceNode)
     insertNode.parentNode = this;
 };
 
-
 /**
  * Checks if this node has child nodes.
  * 
  * @return {boolean}
  *            True if this node has child nodes, false if not
  */
-
 twodee.SceneNode.prototype.hasChildNodes = function()
 {
     return !!this.firstChild;
 };
 
-
 /**
  * Removes this node from its parent.
  */
-
 twodee.SceneNode.prototype.remove = function()
 {
     var parentNode;
@@ -315,16 +295,13 @@ twodee.SceneNode.prototype.remove = function()
     if (parentNode) parentNode.removeChild(this);
 };
 
-
 /**
  * Removes all child nodes.
  */
-
 twodee.SceneNode.prototype.removeChildren = function()
 {
     while (this.firstChild) this.removeChild(this.firstChild);
 };
-
 
 /**
  * Removes the specified child node from this node.
@@ -332,7 +309,6 @@ twodee.SceneNode.prototype.removeChildren = function()
  * @param {twodee.SceneNode} node
  *            The node to remove
  */
-
 twodee.SceneNode.prototype.removeChild = function(node)
 {
     var next, prev;
@@ -358,7 +334,6 @@ twodee.SceneNode.prototype.removeChild = function(node)
     node.previousSibling = null;
 };
 
-
 /**
  * Appends the specified node as a child node to this node. If the node was
  * previously connected to a different parent node then it is first
@@ -367,7 +342,6 @@ twodee.SceneNode.prototype.removeChild = function(node)
  * @param {twodee.SceneNode} node
  *            The node to append to this node
  */
-
 twodee.SceneNode.prototype.appendChild = function(node)
 {    
     var oldParent, previousSibling;
@@ -387,7 +361,6 @@ twodee.SceneNode.prototype.appendChild = function(node)
     node.parentNode = this;
 };
 
-
 /**
  * Replaces the specified old node with the specified new node. If the new
  * node was already connected to a parent then it is disconnected from this
@@ -398,7 +371,6 @@ twodee.SceneNode.prototype.appendChild = function(node)
  * @param {twodee.SceneNode} newNode
  *            The new node to replace the old one
  */
-
 twodee.SceneNode.prototype.replaceChild = function(oldNode, newNode)
 {
     var next;
@@ -424,7 +396,6 @@ twodee.SceneNode.prototype.replaceChild = function(oldNode, newNode)
     }
 };
 
-
 /**
  * Transforms the node according to its effective transformation (Calculated
  * from its local transformation and the effective transformation of its
@@ -434,7 +405,6 @@ twodee.SceneNode.prototype.replaceChild = function(oldNode, newNode)
  * 
  * @return {twodee.Matrix} The calculated effetive transformation of this node
  */
-
 twodee.SceneNode.prototype.updateTransformation = function()
 {
     var parentNode, transform, bounds;
@@ -463,19 +433,16 @@ twodee.SceneNode.prototype.updateTransformation = function()
     return transform;
 };
 
-
 /**
  * Returns the current transformation matrix.
  * 
  * @return {twodee.Matrix}
  *             The current transformation matrix
  */
-
 twodee.SceneNode.prototype.getTransform = function()
 {
     return this.transform;
 };
-
 
 /**
  * Sets the bounds of this node. Specify null to use no bounds.
@@ -483,24 +450,20 @@ twodee.SceneNode.prototype.getTransform = function()
  * @param {twodee.Polygon} bounds
  *            The node bounds to set
  */
-
 twodee.SceneNode.prototype.setBounds = function(bounds)
 {
     this.bounds = bounds.copy();
 };
-
 
 /**
  * Returns the bounds of this node.
  * 
  * @return {twodee.Polygon} The node bounds
  */
-
 twodee.SceneNode.prototype.getBounds = function()
 {
     return this.bounds;
 };
-
 
 /**
  * Sets the collision type of the node.
@@ -509,12 +472,10 @@ twodee.SceneNode.prototype.getBounds = function()
  *            The collision type to set. 0 means that the node is not
  *            collidable at all.
  */
-
 twodee.SceneNode.prototype.setCollisionType = function(collisionType)
 {
     this.collisionType = collisionType;
 };
-
 
 /**
  * Returns the collisiton type of the node. May return 0 of node is
@@ -522,12 +483,10 @@ twodee.SceneNode.prototype.setCollisionType = function(collisionType)
  * 
  * @return {number} The collision type of the node
  */
-
 twodee.SceneNode.prototype.getCollisionType = function()
 {
     return this.collisionType;
 };
-
 
 /**
  * Sets the collision bit mask of the node.
@@ -535,24 +494,20 @@ twodee.SceneNode.prototype.getCollisionType = function()
  * @param {number} collisionMask
  *            The collision bit mask to set.
  */
-
 twodee.SceneNode.prototype.setCollisionMask = function(collisionMask)
 {
     this.collisionMask = collisionMask;
 };
-
 
 /**
  * Returns the collisiton bit mask of the node.
  *
  * @return {number} The collision bit mask
  */
-
 twodee.SceneNode.prototype.getCollisionMask = function()
 {
     return this.collisionMask;
 };
-
 
 /**
  * Checks if the node is collidable. It is only collidable when it has
@@ -560,12 +515,10 @@ twodee.SceneNode.prototype.getCollisionMask = function()
  * 
  * @return {boolean} True if node is collidable, false if not
  */
-
 twodee.SceneNode.prototype.isCollidable = function()
 {
     return !!this.collisionType && !!this.bounds;
 };
-
 
 /**
  * Checks if this node collides with the specified node.
@@ -576,7 +529,6 @@ twodee.SceneNode.prototype.isCollidable = function()
  *            The other scene node
  * @return {boolean} True if nodes collide, false if not
  */
-
 twodee.SceneNode.prototype.collidesWith = function(other)
 {    
     // Can't collide if one of the nodes is not in scene
@@ -591,7 +543,6 @@ twodee.SceneNode.prototype.collidesWith = function(other)
     return this.bounds.collidesWith(other.bounds);
 };
 
-
 /**
  * Informs the node that it has collided with the specified node.
  * 
@@ -600,12 +551,10 @@ twodee.SceneNode.prototype.collidesWith = function(other)
  * @param {twodee.SceneNode} other
  *            The node this one has collided with
  */
-
 twodee.SceneNode.prototype.collide = function(other)
 {
-    this.collisions[other.getId()] = other;
+    this.collisions["" + other.getId()] = other;
 };
-
 
 /**
  * Finishes the collision detection. This must be called after rendering of
@@ -614,7 +563,6 @@ twodee.SceneNode.prototype.collide = function(other)
  *
  * Don't call this method yourself, it is done by the Scene.
  */
-
 twodee.SceneNode.prototype.processCollisions = function()
 {
     var /** @type {string} */ id, collisions, previousCollisions;
@@ -657,31 +605,26 @@ twodee.SceneNode.prototype.processCollisions = function()
     }
 };
 
-
 /**
  * Sets the physics model. Specify null to remove the existing physics model.
  * 
  * @param {twodee.Physics} physics
  *            The physics model to set
  */
-
 twodee.SceneNode.prototype.setPhysics = function(physics)
 {
     this.physics = physics;
 };
-
 
 /**
  * Returns the physics model. May return null if node has no physics model.
  * 
  * @return {twodee.Physics} The physics model or null if not present
  */
-
 twodee.SceneNode.prototype.getPhysics = function()
 {
     return this.physics;
 };
-
 
 /**
  * Updates the node with the specified time delta. Default implementation is
@@ -690,7 +633,6 @@ twodee.SceneNode.prototype.getPhysics = function()
  * @param {number} delta
  *            The time elapsed since the last scene update (in milliseconds)
  */
-
 twodee.SceneNode.prototype.update = function(delta)
 {
     var physics;
@@ -699,7 +641,6 @@ twodee.SceneNode.prototype.update = function(delta)
     physics = this.physics;
     if (physics) physics.process(this, delta);
 };
-
 
 /**
  * Renders the node. Default implementation does nothing.
@@ -710,32 +651,26 @@ twodee.SceneNode.prototype.update = function(delta)
  *            The effective transformation. This is already applied to the
  *            node bounds.
  */
-
 twodee.SceneNode.prototype.render = function(g, transform)
 {
     // Empty
 };
 
-
 /**
  * Enables the node.
  */
-
 twodee.SceneNode.prototype.enable = function()
 {
     this.setEnabled(true);
 };
 
-
 /**
  * Disables the node.
  */
-
 twodee.SceneNode.prototype.disable = function()
 {
     this.setEnabled(false);
 };
-
 
 /**
  * Enables or disables the node.
@@ -743,24 +678,20 @@ twodee.SceneNode.prototype.disable = function()
  * @param {boolean} enabled
  *            True to enable the node, false to disable it
  */
-
 twodee.SceneNode.prototype.setEnabled = function(enabled)
 {
     this.enabled = enabled;
 };
-
 
 /**
  * Checks if node is enabled or not.
  * 
  * @return {boolean} True if node is enabled, false if not
  */
-
 twodee.SceneNode.prototype.isEnabled = function()
 {
     return this.enabled;
 };
-
 
 /**
  * Sets the opacity of the node.
@@ -768,12 +699,10 @@ twodee.SceneNode.prototype.isEnabled = function()
  * @param {number} opacity
  *            The opacity to set. 1.0 = Fully solid, 0.0 = fully transparent
  */
-
 twodee.SceneNode.prototype.setOpacity = function(opacity)
 {
     this.opacity = opacity;
 };
-
 
 /**
  * Returns the current opacity of the node.
@@ -781,7 +710,6 @@ twodee.SceneNode.prototype.setOpacity = function(opacity)
  * @return {number}
  *             The node opacity. 1.0 = Fully solid, 0.0 = fully transparent
  */
-
 twodee.SceneNode.prototype.getOpacity = function()
 {
     return this.opacity;

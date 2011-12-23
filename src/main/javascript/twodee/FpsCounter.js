@@ -1,10 +1,9 @@
-/*
+/**
  * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * See LICENSE.txt for licensing information.
  * 
  * @require twodee.js
  */
-
 
 /**
  * Constructs a new FPS counter.
@@ -12,7 +11,6 @@
  * @constructor
  * @class Counts frames per second.
  */
-
 twodee.FpsCounter = function()
 {
     // Empty
@@ -42,11 +40,9 @@ twodee.FpsCounter.prototype.fps = 0;
  */
 twodee.FpsCounter.prototype.counter = 0;
 
-
 /**
  * This method must be called each time a frame is drawn.
  */
-
 twodee.FpsCounter.prototype.frame = function()
 {
     var now;
@@ -65,13 +61,11 @@ twodee.FpsCounter.prototype.frame = function()
     }
 };
 
-
 /**
  * Returns the number of frames per second.
  * 
  * @return {number} The number of frames per second
  */
-
 twodee.FpsCounter.prototype.getFps = function()
 {
     return this.fps;

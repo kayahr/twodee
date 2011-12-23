@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2009-2011 Klaus Reimer <k@ailis.de>
  * See LICENSE.txt for licensing information.
  * 
@@ -6,7 +6,6 @@
  * @require twodee/Matrix.js
  * @require twodee/BoundingBox.js
  */
-
 
 /**
  * Constructs a new polygon
@@ -17,7 +16,6 @@
  * @constructor
  * @class A polygon
  */
-
 twodee.Polygon = function(vertices)
 {
     this.vertices = vertices;
@@ -74,13 +72,11 @@ twodee.Polygon.prototype.vertices = null;
  */
 twodee.Polygon.prototype.boundingBox = null;
 
-
 /**
-* Resets the transformed state of the polygon.
-* 
-* @private
-*/
-
+ * Resets the transformed state of the polygon.
+ * 
+ * @private
+ */
 twodee.Polygon.prototype.reset = function()
 {
     var i, transformedVertices, vertices, vertex;
@@ -98,13 +94,11 @@ twodee.Polygon.prototype.reset = function()
     }
 };
 
-
 /**
  * Returns a copy of this polygon.
  * 
  * @return {twodee.Polygon} The polygon copy
  */
-
 twodee.Polygon.prototype.copy = function()
 {
     var newVertices, vertices, i, max;
@@ -116,14 +110,12 @@ twodee.Polygon.prototype.copy = function()
     return new twodee.Polygon(newVertices);
 };
 
-
 /**
  * Applies the polygon as a path to the specified canvas 2D context.
  * 
  * @param {CanvasRenderingContext2D} g
  *            The canvas 2D context to apply the polygon to
  */
-
 twodee.Polygon.prototype.apply = function(g)
 {
     var max, vertices, vertex, i;
@@ -141,14 +133,12 @@ twodee.Polygon.prototype.apply = function(g)
     if (max > 2) g.closePath();    
 };
 
-
 /**
  * Transforms the vertices of the polygon with the specified matrix.
  * 
  * @param {twodee.Matrix} m
  *            The matrix to transform this polygon with
  */
-
 twodee.Polygon.prototype.transform = function(m)
 {
     var vertices, i;
@@ -159,7 +149,6 @@ twodee.Polygon.prototype.transform = function(m)
         this.boundingBox.update(vertices[i].transform(m));
 };
 
-
 /**
  * Sets the transformation of the polygon. This method uses the original
  * vertices instead of the already transformed vertices. So using this
@@ -169,7 +158,6 @@ twodee.Polygon.prototype.transform = function(m)
  * @param {twodee.Matrix} m
  *            The matrix to transform this polygon with
  */
-
 twodee.Polygon.prototype.setTransform = function(m)
 {
     var vertices, transformedVertices, i;
@@ -182,18 +170,15 @@ twodee.Polygon.prototype.setTransform = function(m)
             transformedVertices[i]).transform(m));
 };
 
-
 /**
  * Returns the number of polygon vertices.
  * 
  * @return {number} The number of polygon vertices
  */
-
 twodee.Polygon.prototype.countVertices = function()
 {
     return this.vertices.length;
 };
-
 
 /**
  * Returns the vertex with the specified index.
@@ -202,12 +187,10 @@ twodee.Polygon.prototype.countVertices = function()
  *            The vertex index
  * @return {twodee.Vector} The vertex
  */
-
 twodee.Polygon.prototype.getVertex = function(index)
 {
     return this.vertices[index];
 };
-
 
 /**
  * Checks if the this polygon collides with the specified other polygon.
@@ -219,7 +202,6 @@ twodee.Polygon.prototype.getVertex = function(index)
  * @return {boolean}
  *            True if the polygons collide, false if not 
  */
-
 twodee.Polygon.prototype.collidesWith = function(other)
 {
     var i, max;
@@ -241,7 +223,6 @@ twodee.Polygon.prototype.collidesWith = function(other)
     return true;
 };
 
-
 /**
  * Checks if the specified face is the separation axis between this polygon
  * and the specified other polygon. The faceIndex parameter specifies the index
@@ -255,7 +236,6 @@ twodee.Polygon.prototype.collidesWith = function(other)
  *             If the face vector is a separation axis or not
  * @private
  */
-
 twodee.Polygon.prototype.isSeparationAxis = function(other, faceIndex)
 {
     var normal, point, base, dir1, dir2, i, max, faceIndex2, pointIndex,
@@ -296,13 +276,11 @@ twodee.Polygon.prototype.isSeparationAxis = function(other, faceIndex)
     return true;    
 };
 
-
 /**
  * Returns the current bounding box of this polygon.
  * 
  * @return {twodee.BoundingBox} The current bounding box
  */
-
 twodee.Polygon.prototype.getBoundingBox = function()
 {
     return this.boundingBox;
