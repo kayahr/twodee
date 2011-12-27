@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Image Node</title>
+  </properties>
+  <body>
+    <section name="Image Node">
+      <p>
+        An image node works much like a polygon node but it displays an
+        image instead of a polygon. So you simply pass an image object to
+        the constructor of the 
+        <a href="jsdoc/symbols/twodee.ImageNode.html">twodee.ImageNode</a>
+        class to create an image node:
+      </p>
+      <source><![CDATA[
+var image = new Image();
+image.src = "asteroid.png";
+      
+var imageNode = new twodee.ImageNode(image);
+rootNode.appendChild(imageNode);
+]]></source>
+      <p>
+        The output looks like this:
+      </p>
+      <iframe src="examples/image.html" width="480" height="320" frameborder="0"></iframe>
+      <p>
+        If you are just rendering a single frame instead of using a
+        rendering loop then you might notice that the image is not rendered
+        at all. This is because the browser might not have loaded the image
+        yet. When using a rendering loop then this doesn't matter because
+        the image is rendered as soon as it is loaded but when you just
+        render a single frame manually then you must take care of
+        pre-loading the image first.
+      </p>
+      <p>
+        <a href="polygon.html">&lt;&lt;&lt; Previous: Polygon Node</a>
+        |
+        <a href="transformations.html">Next: Transformations &gt;&gt;&gt;</a>
+      </p>
+    </section>
+  </body>
+</document>

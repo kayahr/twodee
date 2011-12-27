@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Polygon Node</title>
+  </properties>
+  <body>
+    <section name="Polygon Node">
+      <p>
+        In the previous step we created and rendered a scene but it didn't
+        display anything. So in this next step we add a simple
+        polygon node to it which looks like this:
+      </p>
+      <iframe src="examples/polygon.html" width="480" height="320" frameborder="0"></iframe>
+      <p>
+        To display a box like the one above we first need to create a
+        polygon. For this we simply create an instance of the class
+        <a href="jsdoc/symbols/twodee.Polygon.html">twodee.Polygon</a>
+        and pass an array with four vectors to it. Each vector defines
+        a point in the polygon:
+      </p>
+      <source><![CDATA[
+var polygon = new twodee.Polygon([
+    new twodee.Vector(-50, -50),
+    new twodee.Vector(50, -50),
+    new twodee.Vector(50, 50),
+    new twodee.Vector(-50, 50)
+]); 
+]]></source>
+      <p>
+        To display this polygon we create an instance of the class 
+        <a href="jsdoc/symbols/twodee.PolygonNode.html">twodee.PolygonNode</a>
+        with the created polygon as argument. Then we set the stroke color
+        and fill color and rotate it by 22.5 degree (Must be specified in
+        radians):
+      </p>
+      <source><![CDATA[
+var polygonNode = new twodee.PolygonNode(polygon);
+polygonNode.setStrokeStyle("#ff0");
+polygonNode.setFillStyle("#f00");    
+polygonNode.getTransform().rotate(Math.PI / 8);
+]]></source>
+      <p>
+        To display this node we have to add it to a scene. In the previous
+        tutorial step we created the scene already together with an
+        invisible root node to which we can now add our new polygon node:
+      </p>
+      <source><![CDATA[
+rootNode.appendChild(polygonNode);
+]]></source>
+      <p>
+        Well, that's it. You'll learn more about transformations later.
+      </p>
+      <p>
+        <a href="scene.html">&lt;&lt;&lt; Previous: Scene</a>
+        |
+        <a href="image.html">Next: Image Node &gt;&gt;&gt;</a>
+      </p>
+    </section>
+  </body>
+</document>

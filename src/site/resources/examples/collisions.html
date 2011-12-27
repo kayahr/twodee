@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>TwoDee Example #5: Collisions</title>
+    <link rel="stylesheet" type="text/css" href="../css/example.css" />
+    <script type="text/javascript" src="../scripts/twodee.js"></script>
+    <script type="text/javascript" src="basescene.js"></script>
+    <script type="text/javascript">
+    /* <![CDATA[ */
+
+    // Create an asteroid node with a fixed position
+    image = new Image();
+    image.src = "asteroid.png";
+    var asteroid = new twodee.ImageNode(image);
+    rootNode.appendChild(asteroid);
+    asteroid.getTransform().translate(-100, 0).scale(0.5);
+    asteroid.setBounds(new twodee.Polygon([
+        new twodee.Vector(-32, -10),
+        new twodee.Vector(-15, -32),
+        new twodee.Vector(8, -32),
+        new twodee.Vector(30, -14),
+        new twodee.Vector(30, 4),
+        new twodee.Vector(12, 30),
+        new twodee.Vector(-10, 30),
+        new twodee.Vector(-24, 22),
+        new twodee.Vector(-32, -4)
+    ]));
+    
+    // Apply a spin to the asteroid (Just because it looks good)
+    var physics = new twodee.Physics();
+    asteroid.setPhysics(physics);
+    physics.setSpin(0.5);
+
+    // Create a rotator node (Which will provide some kind of track on which
+    // the space ship flies)
+    var rotator = new twodee.SceneNode();
+    rootNode.appendChild(rotator);
+    
+    // Create the spaceship and place it somewhere right on the rotator node
+    var image = new Image();
+    image.src = "spaceship.png";
+    var ship = new twodee.ImageNode(image);
+    rotator.appendChild(ship);
+    ship.getTransform().translate(100, 0);
+    ship.setBounds(new twodee.Polygon([
+        new twodee.Vector(-11,  8),
+        new twodee.Vector(  0, -18),
+        new twodee.Vector( 11,  8),
+        new twodee.Vector( 11,  13),
+        new twodee.Vector(  4,  17),
+        new twodee.Vector( -4,  17),
+        new twodee.Vector(-11,  13)
+    ]));
+    
+    // Apply a spin to the rotator node. This also rotates the space ship
+    // which is now flying smoothly in a circle
+    var rotatorPhysics = new twodee.Physics();
+    rotator.setPhysics(rotatorPhysics);
+    rotatorPhysics.setSpin(-1);
+
+    // Define collision type 1 for the asteroid.    
+    asteroid.setCollisionType(1);
+    
+    // Define collision type 2 for the space ship.
+    ship.setCollisionType(2);
+    
+    // Tell the space ship that it can collide with the asteroid
+    ship.setCollisionMask(1);
+    
+    // Connect a handler function to the collisionStarted event.
+    ship.connect("collisionStarted", function(node1, node2)
+    {
+        document.getElementById("collision").style.display = "block";
+    });
+    
+    // Connect a handler function to the collisionStopped event.
+    ship.connect("collisionStopped", function(node1, node2)
+    {
+        document.getElementById("collision").style.display = "none";
+    });
+    
+    /* ]]> */    
+    </script>
+  </head>
+  <body onload="init();start()">
+    <h1>TwoDee Example #5: Collisions</h1>
+    <canvas id="output" width="480" height="320"></canvas>
+    <div id="collision">COLLISION DETECTED!</div>
+    <div id="buttons">
+      <button onclick="asteroid.setShowBounds(true);ship.setShowBounds(true);">Show bounds</button>
+      <button onclick="asteroid.setShowBounds(false);ship.setShowBounds(false);">Hide bounds</button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Download</title>
+  </properties>
+  <body>
+    <section name="Download">
+      <p>
+        TwoDee is available in form of a ZIP file which contains the
+        compressed and the uncompressed JavaScript library. Use the 
+        compressed version in a production environment and the uncompressed
+        version for debugging.
+      </p>
+      <p>
+        <a href="${releasesUrl}/twodee-${project.version}.zip">twodee-${project.version}.zip</a>
+      </p>
+      <subsection name="Use as Maven dependency">
+        <p>
+          When you use my <a href="https://github.com/kayahr/maven-javascript-plugin">maven-javascript-plugin</a>
+          for your JavaScript project then you can use TwoDee by adding my
+          Maven repo to your POM and then simply adding TwoDee as a dependency:
+        </p>
+        <source><![CDATA[
+<repositories>
+  <repository>
+    <id>ailis-releases</id>
+    <name>Ailis Maven Releases</name>
+    <url>http://nexus.ailis.de/content/groups/public/</url>
+  </repository>
+</repositories>
+
+<dependencies>
+  <dependency>
+    <groupId>${project.groupId}</groupId>
+    <artifactId>${project.artifactId}</artifactId>
+    <version>${project.version}</version>
+  </dependency>
+</dependencies>
+]]></source>
+      </subsection>
+    </section>
+  </body>
+</document>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>TwoDee Example #2: Image Node</title>
+    <link rel="stylesheet" type="text/css" href="../css/example.css" />
+    <script type="text/javascript" src="../scripts/twodee.js"></script>
+    <script type="text/javascript" src="basescene.js"></script>
+    <script type="text/javascript">
+    /* <![CDATA[ */
+    
+    // Create the image
+    var image = new Image();
+    image.src = "asteroid.png";
+
+    // Create the image node and add it to the scene
+    var imageNode = new twodee.ImageNode(image);
+    rootNode.appendChild(imageNode);
+
+    /* ]]> */
+    </script>
+  </head>
+  <body onload="init();start()">
+    <h1>TwoDee Example #2: Image node</h1>
+    <canvas id="output" width="480" height="320"></canvas>
+  </body>
+</html>

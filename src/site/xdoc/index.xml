@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>About TwoDee</title>
+  </properties>
+  <body>
+    <section name="About TwoDee">
+      <p>
+        TwoDee is a small, fast and simple 2D scene graph vector engine
+        for JavaScript based on the HTML 5 canvas technology. The engine
+        provides collision detection and some simple physics like velocity,
+        acceleration, spin and spin acceleration.
+      </p>
+      <subsection name="License">
+        <p>
+          This library is free software: you can redistribute it and/or modify
+          it under the terms of the GNU Lesser General Public License as
+          published by the Free Software Foundation, either version 3 of the
+          License, or (at your option) any later version.
+        </p>
+        <p>
+          This library is distributed in the hope that it will be useful,
+          but WITHOUT ANY WARRANTY; without even the implied warranty of
+          MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+          <a href="license.html">GNU Lesser General Public License</a>
+          for more details.
+        </p>
+      </subsection>
+      <subsection name="Getting started">
+        <p>
+          Read the <a href="scene.html">Tutorial</a> for a quick
+          introduction and then <a href="download.html">download</a> the 
+          latest version of TwoDee and start creating cool stuff.
+        </p>
+      </subsection>
+      <subsection name="Report problems">
+        <p>
+          If you have any problems with TwoDee or find bugs in the
+          software or this web site (even if it's just a typo) then please
+          create an <a href="https://github.com/kayahr/twodee/issues">issue</a>.
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>

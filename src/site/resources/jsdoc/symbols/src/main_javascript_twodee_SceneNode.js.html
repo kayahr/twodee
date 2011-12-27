@@ -1,0 +1,724 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * Copyright (C) 2009-2011 Klaus Reimer &lt;k@ailis.de>
+<span class='line'>  3</span>  * See LICENSE.txt for licensing information.
+<span class='line'>  4</span>  * 
+<span class='line'>  5</span>  * @require twodee.js
+<span class='line'>  6</span>  * @require twodee/Object.js
+<span class='line'>  7</span>  */</span><span class="WHIT">
+<span class='line'>  8</span> 
+<span class='line'>  9</span> </span><span class="COMM">/**
+<span class='line'> 10</span>  * Constructs a new scene node.
+<span class='line'> 11</span>  *            
+<span class='line'> 12</span>  * @constructor
+<span class='line'> 13</span>  * @extends {twodee.Object}
+<span class='line'> 14</span>  * @class
+<span class='line'> 15</span>  * A scene node. Can be used directly to create invisible group nodes or can
+<span class='line'> 16</span>  * be extended to implement other node types.
+<span class='line'> 17</span>  */</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="NAME">twodee.SceneNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">    </span><span class="NAME">twodee.Object.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">    </span><span class="NAME">this.transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">twodee.Matrix</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">    </span><span class="NAME">this.collisions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">    </span><span class="NAME">this.previousCollisions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">    
+<span class='line'> 25</span>     </span><span class="NAME">this.id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">twodee.SceneNode.counter</span><span class="PUNC">++</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="NAME">twodee.inherit</span><span class="PUNC">(</span><span class="NAME">twodee.SceneNode</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">twodee.Object</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> 
+<span class='line'> 29</span> </span><span class="COMM">/**
+<span class='line'> 30</span>  * Instance counter.
+<span class='line'> 31</span>  * 
+<span class='line'> 32</span>  * @type {number}
+<span class='line'> 33</span>  */</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="NAME">twodee.SceneNode.counter</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> 
+<span class='line'> 35</span> 
+<span class='line'> 36</span> </span><span class="COMM">/**
+<span class='line'> 37</span>  * The node polygon ID.
+<span class='line'> 38</span>  * 
+<span class='line'> 39</span>  * @private 
+<span class='line'> 40</span>  * @type {number}
+<span class='line'> 41</span>  */</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="NAME">twodee.SceneNode.prototype.id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 43</span> 
+<span class='line'> 44</span> </span><span class="COMM">/**
+<span class='line'> 45</span>  * The parent node. Can be null if there is none.
+<span class='line'> 46</span>  * 
+<span class='line'> 47</span>  * @private 
+<span class='line'> 48</span>  * @type {?twodee.SceneNode}
+<span class='line'> 49</span>  */</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="NAME">twodee.SceneNode.prototype.parentNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 51</span> 
+<span class='line'> 52</span> </span><span class="COMM">/** 
+<span class='line'> 53</span>  * The next sibling node. Can be null if there is none.
+<span class='line'> 54</span>  * 
+<span class='line'> 55</span>  * @private 
+<span class='line'> 56</span>  * @type {?twodee.SceneNode} 
+<span class='line'> 57</span>  */</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="NAME">twodee.SceneNode.prototype.nextSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 59</span> 
+<span class='line'> 60</span> </span><span class="COMM">/** 
+<span class='line'> 61</span>  * The previous sibling node. Can be null if there is none.
+<span class='line'> 62</span>  * 
+<span class='line'> 63</span>  * @private 
+<span class='line'> 64</span>  * @type {?twodee.SceneNode}
+<span class='line'> 65</span>  */</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="NAME">twodee.SceneNode.prototype.previousSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 67</span> 
+<span class='line'> 68</span> </span><span class="COMM">/**
+<span class='line'> 69</span>  * The first child node. Can be null if there is none.
+<span class='line'> 70</span>  * 
+<span class='line'> 71</span>  * @private 
+<span class='line'> 72</span>  * @type {?twodee.SceneNode}
+<span class='line'> 73</span>  */</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="NAME">twodee.SceneNode.prototype.firstChild</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 75</span> 
+<span class='line'> 76</span> </span><span class="COMM">/** 
+<span class='line'> 77</span>  * The last child node. Can be null if there is none.
+<span class='line'> 78</span>  * 
+<span class='line'> 79</span>  * @private 
+<span class='line'> 80</span>  * @type {?twodee.SceneNode}
+<span class='line'> 81</span>  */</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="NAME">twodee.SceneNode.prototype.lastChild</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 83</span> 
+<span class='line'> 84</span> </span><span class="COMM">/**
+<span class='line'> 85</span>  * The transformation of this node.
+<span class='line'> 86</span>  * 
+<span class='line'> 87</span>  * @private
+<span class='line'> 88</span>  * @type {?twodee.Matrix}
+<span class='line'> 89</span>  */</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="NAME">twodee.SceneNode.prototype.transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 91</span> 
+<span class='line'> 92</span> </span><span class="COMM">/**
+<span class='line'> 93</span>  * The effective transformation of this node.
+<span class='line'> 94</span>  * 
+<span class='line'> 95</span>  * @private 
+<span class='line'> 96</span>  * @type {?twodee.Matrix}
+<span class='line'> 97</span>  */</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="NAME">twodee.SceneNode.prototype.effectiveTransform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 99</span> 
+<span class='line'>100</span> </span><span class="COMM">/** 
+<span class='line'>101</span>  * The node bounds.
+<span class='line'>102</span>  * 
+<span class='line'>103</span>  * @private 
+<span class='line'>104</span>  * @type {?twodee.Polygon}
+<span class='line'>105</span>  */</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="NAME">twodee.SceneNode.prototype.bounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>107</span> 
+<span class='line'>108</span> </span><span class="COMM">/**
+<span class='line'>109</span>  * The collision type. 0 = None.
+<span class='line'>110</span>  * 
+<span class='line'>111</span>  * @private 
+<span class='line'>112</span>  * @type {number}
+<span class='line'>113</span>  */</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="NAME">twodee.SceneNode.prototype.collisionType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>115</span> 
+<span class='line'>116</span> </span><span class="COMM">/**
+<span class='line'>117</span>  * The collision mask.
+<span class='line'>118</span>  * 
+<span class='line'>119</span>  * @private 
+<span class='line'>120</span>  * @type {number}
+<span class='line'>121</span>  */</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="NAME">twodee.SceneNode.prototype.collisionMask</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>123</span> 
+<span class='line'>124</span> </span><span class="COMM">/**
+<span class='line'>125</span>  * Map with nodes which collided with this one.
+<span class='line'>126</span>  * 
+<span class='line'>127</span>  * @private 
+<span class='line'>128</span>  * @type {!Object.&lt;string, twodee.SceneNode>}
+<span class='line'>129</span>  */</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="NAME">twodee.SceneNode.prototype.collisions</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> 
+<span class='line'>132</span> </span><span class="COMM">/**
+<span class='line'>133</span>  * Map with nodes which collided previously with this one.
+<span class='line'>134</span>  * 
+<span class='line'>135</span>  * @private 
+<span class='line'>136</span>  * @type {!Object.&lt;string, twodee.SceneNode>}
+<span class='line'>137</span>  */</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="NAME">twodee.SceneNode.prototype.previousCollisions</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>139</span> 
+<span class='line'>140</span> </span><span class="COMM">/**
+<span class='line'>141</span>  * The physics model. 
+<span class='line'>142</span>  * 
+<span class='line'>143</span>  * @private 
+<span class='line'>144</span>  * @type {?twodee.Physics}
+<span class='line'>145</span>  */</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="NAME">twodee.SceneNode.prototype.physics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>147</span> 
+<span class='line'>148</span> </span><span class="COMM">/** 
+<span class='line'>149</span>  * If node is enabled or not. 
+<span class='line'>150</span>  * 
+<span class='line'>151</span>  * @private 
+<span class='line'>152</span>  * @type {boolean} 
+<span class='line'>153</span>  */</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="NAME">twodee.SceneNode.prototype.enabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>155</span> 
+<span class='line'>156</span> </span><span class="COMM">/** 
+<span class='line'>157</span>  * The opacity.
+<span class='line'>158</span>  * 
+<span class='line'>159</span>  * @private 
+<span class='line'>160</span>  * @type {number}
+<span class='line'>161</span>  */</span><span class="WHIT">
+<span class='line'>162</span> </span><span class="NAME">twodee.SceneNode.prototype.opacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>163</span> 
+<span class='line'>164</span> </span><span class="COMM">/**
+<span class='line'>165</span>  * Returns the node id.
+<span class='line'>166</span>  * 
+<span class='line'>167</span>  * @return {number} The node id
+<span class='line'>168</span>  */</span><span class="WHIT">
+<span class='line'>169</span> </span><span class="NAME">twodee.SceneNode.prototype.getId</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>170</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.id</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>172</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>173</span> 
+<span class='line'>174</span> </span><span class="COMM">/**
+<span class='line'>175</span>  * Returns the first child node of this node. If the node has no child nodes
+<span class='line'>176</span>  * then null is returned.
+<span class='line'>177</span>  * 
+<span class='line'>178</span>  * @return {twodee.SceneNode}
+<span class='line'>179</span>  *            The first child node or null if there are no child nodes
+<span class='line'>180</span>  */</span><span class="WHIT">
+<span class='line'>181</span> </span><span class="NAME">twodee.SceneNode.prototype.getFirstChild</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>182</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.firstChild</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>185</span> 
+<span class='line'>186</span> </span><span class="COMM">/**
+<span class='line'>187</span>  * Returns the last child node of this node. If the node has no child nodes
+<span class='line'>188</span>  * then null is returned.
+<span class='line'>189</span>  * 
+<span class='line'>190</span>  * @return {twodee.SceneNode}
+<span class='line'>191</span>  *             The last child node or null if there are no child nodes
+<span class='line'>192</span>  */</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="NAME">twodee.SceneNode.prototype.getLastChild</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>194</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>195</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.lastChild</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>197</span> 
+<span class='line'>198</span> </span><span class="COMM">/**
+<span class='line'>199</span>  * Returns the next sibling of this node. If the node is the last child node
+<span class='line'>200</span>  * of its parent then null is returned because there can't be a next
+<span class='line'>201</span>  * sibling.
+<span class='line'>202</span>  * 
+<span class='line'>203</span>  * @return {twodee.SceneNode}
+<span class='line'>204</span>  *            The next sibling of this node or null if there is no next sibling
+<span class='line'>205</span>  */</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="NAME">twodee.SceneNode.prototype.getNextSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>207</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>208</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.nextSibling</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>210</span> 
+<span class='line'>211</span> </span><span class="COMM">/**
+<span class='line'>212</span>  * Returns the parent node. If the node has no root node yet then null is
+<span class='line'>213</span>  * returned.
+<span class='line'>214</span>  * 
+<span class='line'>215</span>  * @return {twodee.SceneNode}
+<span class='line'>216</span>  *            The parent node or null if there is none
+<span class='line'>217</span>  */</span><span class="WHIT">
+<span class='line'>218</span> </span><span class="NAME">twodee.SceneNode.prototype.getParentNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.parentNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>222</span> 
+<span class='line'>223</span> </span><span class="COMM">/**
+<span class='line'>224</span>  * Returns the previous sibling of this node. If the node is the first child
+<span class='line'>225</span>  * node of its parent then null is returned because there can't be a
+<span class='line'>226</span>  * previous sibling.
+<span class='line'>227</span>  * 
+<span class='line'>228</span>  * @return {twodee.SceneNode}
+<span class='line'>229</span>  *            The previous sibling of this node or null if there is no previous
+<span class='line'>230</span>  *            sibling
+<span class='line'>231</span>  */</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="NAME">twodee.SceneNode.prototype.getPreviousSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>233</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.previousSibling</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>236</span> 
+<span class='line'>237</span> </span><span class="COMM">/**
+<span class='line'>238</span>  * Inserts a new child node before the specified reference node. If the new
+<span class='line'>239</span>  * node was already connected to a parent then it is disconnected from this
+<span class='line'>240</span>  * parent first.
+<span class='line'>241</span>  * 
+<span class='line'>242</span>  * @param {twodee.SceneNode} insertNode
+<span class='line'>243</span>  *            The new node to insert
+<span class='line'>244</span>  * @param {twodee.SceneNode} referenceNode
+<span class='line'>245</span>  *            The reference node
+<span class='line'>246</span>  */</span><span class="WHIT">
+<span class='line'>247</span> </span><span class="NAME">twodee.SceneNode.prototype.insertBefore</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">insertNode</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">referenceNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>248</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>249</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">oldParent</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">oldPrevious</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>250</span> </span><span class="WHIT">    
+<span class='line'>251</span>     </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">insertNode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Error</span><span class="PUNC">(</span><span class="STRN">"newNode must be set"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">referenceNode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Error</span><span class="PUNC">(</span><span class="STRN">"referenceNode must be set"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">insertNode</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="WHIT">        </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Error</span><span class="PUNC">(</span><span class="STRN">"newNode can not be a child of itself"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>255</span> 
+<span class='line'>256</span> </span><span class="WHIT">    </span><span class="COMM">// Verify that reference node is our child</span><span class="WHIT">
+<span class='line'>257</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">referenceNode.parentNode</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>258</span> </span><span class="WHIT">        </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Error</span><span class="PUNC">(</span><span class="STRN">"Reference node is not my child node"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>259</span> 
+<span class='line'>260</span> </span><span class="WHIT">    </span><span class="COMM">// Remove from old parent if there is one</span><span class="WHIT">
+<span class='line'>261</span> </span><span class="WHIT">    </span><span class="NAME">oldParent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">insertNode.parentNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>262</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">oldParent</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">oldParent.removeChild</span><span class="PUNC">(</span><span class="NAME">insertNode</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>263</span> 
+<span class='line'>264</span> </span><span class="WHIT">    </span><span class="COMM">// Insert the node</span><span class="WHIT">
+<span class='line'>265</span> </span><span class="WHIT">    </span><span class="NAME">oldPrevious</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">referenceNode.previousSibling</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>266</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">oldPrevious</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>267</span> </span><span class="WHIT">        </span><span class="NAME">oldPrevious.nextSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">insertNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>268</span> </span><span class="WHIT">    </span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>269</span> </span><span class="WHIT">        </span><span class="NAME">this.firstChild</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">insertNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>270</span> </span><span class="WHIT">    </span><span class="NAME">referenceNode.previousSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">insertNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">    </span><span class="NAME">insertNode.previousSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">oldPrevious</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>272</span> </span><span class="WHIT">    </span><span class="NAME">insertNode.nextSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">referenceNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>273</span> </span><span class="WHIT">    </span><span class="NAME">insertNode.parentNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>275</span> 
+<span class='line'>276</span> </span><span class="COMM">/**
+<span class='line'>277</span>  * Checks if this node has child nodes.
+<span class='line'>278</span>  * 
+<span class='line'>279</span>  * @return {boolean}
+<span class='line'>280</span>  *            True if this node has child nodes, false if not
+<span class='line'>281</span>  */</span><span class="WHIT">
+<span class='line'>282</span> </span><span class="NAME">twodee.SceneNode.prototype.hasChildNodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>283</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>284</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="PUNC">!</span><span class="NAME">this.firstChild</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>285</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>286</span> 
+<span class='line'>287</span> </span><span class="COMM">/**
+<span class='line'>288</span>  * Removes this node from its parent.
+<span class='line'>289</span>  */</span><span class="WHIT">
+<span class='line'>290</span> </span><span class="NAME">twodee.SceneNode.prototype.remove</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>291</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>292</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">parentNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>293</span> </span><span class="WHIT">    
+<span class='line'>294</span>     </span><span class="NAME">parentNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.parentNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>295</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parentNode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">parentNode.removeChild</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>296</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>297</span> 
+<span class='line'>298</span> </span><span class="COMM">/**
+<span class='line'>299</span>  * Removes all child nodes.
+<span class='line'>300</span>  */</span><span class="WHIT">
+<span class='line'>301</span> </span><span class="NAME">twodee.SceneNode.prototype.removeChildren</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>302</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>303</span> </span><span class="WHIT">    </span><span class="KEYW">while</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.firstChild</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">this.removeChild</span><span class="PUNC">(</span><span class="NAME">this.firstChild</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>304</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>305</span> 
+<span class='line'>306</span> </span><span class="COMM">/**
+<span class='line'>307</span>  * Removes the specified child node from this node.
+<span class='line'>308</span>  * 
+<span class='line'>309</span>  * @param {twodee.SceneNode} node
+<span class='line'>310</span>  *            The node to remove
+<span class='line'>311</span>  */</span><span class="WHIT">
+<span class='line'>312</span> </span><span class="NAME">twodee.SceneNode.prototype.removeChild</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">node</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>313</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>314</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">next</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">prev</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>315</span> </span><span class="WHIT">    
+<span class='line'>316</span>     </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">node</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Error</span><span class="PUNC">(</span><span class="STRN">"node must be set"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>317</span> 
+<span class='line'>318</span> </span><span class="WHIT">    </span><span class="COMM">// Verify that node is our child</span><span class="WHIT">
+<span class='line'>319</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">node.parentNode</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Error</span><span class="PUNC">(</span><span class="STRN">"node is not my child node"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>320</span> 
+<span class='line'>321</span> </span><span class="WHIT">    </span><span class="COMM">// Remove node from linked list</span><span class="WHIT">
+<span class='line'>322</span> </span><span class="WHIT">    </span><span class="NAME">next</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">node.nextSibling</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>323</span> </span><span class="WHIT">    </span><span class="NAME">prev</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">node.previousSibling</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>324</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">next</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">next.previousSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">prev</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>325</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">prev</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">prev.nextSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">next</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>326</span> 
+<span class='line'>327</span> </span><span class="WHIT">    </span><span class="COMM">// Correct first/last reference</span><span class="WHIT">
+<span class='line'>328</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">node</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">this.firstChild</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">this.firstChild</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">next</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>329</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">node</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">this.lastChild</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">this.lastChild</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">prev</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>330</span> 
+<span class='line'>331</span> </span><span class="WHIT">    </span><span class="COMM">// Remove all references from node</span><span class="WHIT">
+<span class='line'>332</span> </span><span class="WHIT">    </span><span class="NAME">node.parentNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>333</span> </span><span class="WHIT">    </span><span class="NAME">node.nextSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>334</span> </span><span class="WHIT">    </span><span class="NAME">node.previousSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>335</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>336</span> 
+<span class='line'>337</span> </span><span class="COMM">/**
+<span class='line'>338</span>  * Appends the specified node as a child node to this node. If the node was
+<span class='line'>339</span>  * previously connected to a different parent node then it is first
+<span class='line'>340</span>  * disconnected from this parent.
+<span class='line'>341</span>  * 
+<span class='line'>342</span>  * @param {twodee.SceneNode} node
+<span class='line'>343</span>  *            The node to append to this node
+<span class='line'>344</span>  */</span><span class="WHIT">
+<span class='line'>345</span> </span><span class="NAME">twodee.SceneNode.prototype.appendChild</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">node</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>346</span> </span><span class="PUNC">{</span><span class="WHIT">    
+<span class='line'>347</span>     </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">oldParent</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">previousSibling</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>348</span> </span><span class="WHIT">    
+<span class='line'>349</span>     </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">node</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Error</span><span class="PUNC">(</span><span class="STRN">"node must not be null"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>350</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">node</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Error</span><span class="PUNC">(</span><span class="STRN">"node can not be a child of itself"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>351</span> 
+<span class='line'>352</span> </span><span class="WHIT">    </span><span class="COMM">// Remove from old parent if there is one</span><span class="WHIT">
+<span class='line'>353</span> </span><span class="WHIT">    </span><span class="NAME">oldParent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">node.parentNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>354</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">oldParent</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">oldParent.removeChild</span><span class="PUNC">(</span><span class="NAME">node</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>355</span> 
+<span class='line'>356</span> </span><span class="WHIT">    </span><span class="COMM">// Append the child</span><span class="WHIT">
+<span class='line'>357</span> </span><span class="WHIT">    </span><span class="NAME">previousSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">node.previousSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.lastChild</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>358</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">previousSibling</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">previousSibling.nextSibling</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">node</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>359</span> </span><span class="WHIT">    </span><span class="NAME">this.lastChild</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">node</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>360</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.firstChild</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">this.firstChild</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">node</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>361</span> </span><span class="WHIT">    </span><span class="NAME">node.parentNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>363</span> 
+<span class='line'>364</span> </span><span class="COMM">/**
+<span class='line'>365</span>  * Replaces the specified old node with the specified new node. If the new
+<span class='line'>366</span>  * node was already connected to a parent then it is disconnected from this
+<span class='line'>367</span>  * parent first.
+<span class='line'>368</span>  * 
+<span class='line'>369</span>  * @param {twodee.SceneNode} oldNode
+<span class='line'>370</span>  *            The old node to be replaced by the new one
+<span class='line'>371</span>  * @param {twodee.SceneNode} newNode
+<span class='line'>372</span>  *            The new node to replace the old one
+<span class='line'>373</span>  */</span><span class="WHIT">
+<span class='line'>374</span> </span><span class="NAME">twodee.SceneNode.prototype.replaceChild</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">oldNode</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">newNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>375</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>376</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">next</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>377</span> </span><span class="WHIT">    
+<span class='line'>378</span>     </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">oldNode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Error</span><span class="PUNC">(</span><span class="STRN">"oldNode must be set"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>379</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">newNode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Error</span><span class="PUNC">(</span><span class="STRN">"newNode must be set"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>380</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">newNode</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>381</span> </span><span class="WHIT">        </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Error</span><span class="PUNC">(</span><span class="STRN">"node can not be a child of itself"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>382</span> 
+<span class='line'>383</span> </span><span class="WHIT">    </span><span class="COMM">// Verify that old node is our child</span><span class="WHIT">
+<span class='line'>384</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">oldNode.parentNode</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>385</span> </span><span class="WHIT">        </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Error</span><span class="PUNC">(</span><span class="STRN">"node is not my child node"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>386</span> 
+<span class='line'>387</span> </span><span class="WHIT">    </span><span class="COMM">// New node is the same as the old node then do nothing</span><span class="WHIT">
+<span class='line'>388</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">newNode</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NAME">oldNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>389</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>390</span> </span><span class="WHIT">        </span><span class="NAME">next</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">oldNode.nextSibling</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>391</span> </span><span class="WHIT">        </span><span class="NAME">this.removeChild</span><span class="PUNC">(</span><span class="NAME">oldNode</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>392</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">next</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>393</span> </span><span class="WHIT">            </span><span class="NAME">this.appendChild</span><span class="PUNC">(</span><span class="NAME">newNode</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>394</span> </span><span class="WHIT">        </span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>395</span> </span><span class="WHIT">            </span><span class="NAME">this.insertBefore</span><span class="PUNC">(</span><span class="NAME">newNode</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">next</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>396</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>397</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>398</span> 
+<span class='line'>399</span> </span><span class="COMM">/**
+<span class='line'>400</span>  * Transforms the node according to its effective transformation (Calculated
+<span class='line'>401</span>  * from its local transformation and the effective transformation of its
+<span class='line'>402</span>  * parent).
+<span class='line'>403</span>  * 
+<span class='line'>404</span>  * Do not call this method yourself. It is triggered by the scene.
+<span class='line'>405</span>  * 
+<span class='line'>406</span>  * @return {twodee.Matrix} The calculated effetive transformation of this node
+<span class='line'>407</span>  */</span><span class="WHIT">
+<span class='line'>408</span> </span><span class="NAME">twodee.SceneNode.prototype.updateTransformation</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>409</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>410</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">parentNode</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">transform</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">bounds</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>411</span> </span><span class="WHIT">        
+<span class='line'>412</span>     </span><span class="COMM">// If node has a parent node then apply the effective parent transformation</span><span class="WHIT">
+<span class='line'>413</span> </span><span class="WHIT">    </span><span class="COMM">// to effective node transformation</span><span class="WHIT">
+<span class='line'>414</span> </span><span class="WHIT">    </span><span class="NAME">parentNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.parentNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>415</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parentNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>416</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">        
+<span class='line'>417</span>         </span><span class="NAME">this.effectiveTransform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parentNode.effectiveTransform.copy</span><span class="PUNC">(</span><span class="NAME">this.effectiveTransform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>418</span> </span><span class="WHIT">        </span><span class="NAME">transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.effectiveTransform.transform</span><span class="PUNC">(</span><span class="NAME">this.transform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>419</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>420</span> </span><span class="WHIT">    </span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>421</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>422</span> </span><span class="WHIT">        </span><span class="COMM">// If no parent node is present then effective transform is</span><span class="WHIT">
+<span class='line'>423</span> </span><span class="WHIT">        </span><span class="COMM">// the local transform</span><span class="WHIT">
+<span class='line'>424</span> </span><span class="WHIT">        </span><span class="NAME">transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.effectiveTransform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.transform.copy</span><span class="PUNC">(</span><span class="WHIT">
+<span class='line'>425</span> </span><span class="WHIT">            </span><span class="NAME">this.effectiveTransform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>426</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>427</span> 
+<span class='line'>428</span> </span><span class="WHIT">    </span><span class="COMM">// Transform the bounds if this node has bounds</span><span class="WHIT">
+<span class='line'>429</span> </span><span class="WHIT">    </span><span class="NAME">bounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.bounds</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>430</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">bounds</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">bounds.setTransform</span><span class="PUNC">(</span><span class="NAME">transform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>431</span> </span><span class="WHIT">    
+<span class='line'>432</span>     </span><span class="COMM">// Return the effective transformation</span><span class="WHIT">
+<span class='line'>433</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">transform</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>434</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>435</span> 
+<span class='line'>436</span> </span><span class="COMM">/**
+<span class='line'>437</span>  * Returns the current transformation matrix.
+<span class='line'>438</span>  * 
+<span class='line'>439</span>  * @return {twodee.Matrix}
+<span class='line'>440</span>  *             The current transformation matrix
+<span class='line'>441</span>  */</span><span class="WHIT">
+<span class='line'>442</span> </span><span class="NAME">twodee.SceneNode.prototype.getTransform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>443</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>444</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.transform</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>445</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>446</span> 
+<span class='line'>447</span> </span><span class="COMM">/**
+<span class='line'>448</span>  * Sets the bounds of this node. Specify null to use no bounds.
+<span class='line'>449</span>  * 
+<span class='line'>450</span>  * @param {twodee.Polygon} bounds
+<span class='line'>451</span>  *            The node bounds to set
+<span class='line'>452</span>  */</span><span class="WHIT">
+<span class='line'>453</span> </span><span class="NAME">twodee.SceneNode.prototype.setBounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">bounds</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>454</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>455</span> </span><span class="WHIT">    </span><span class="NAME">this.bounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">bounds.copy</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>456</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>457</span> 
+<span class='line'>458</span> </span><span class="COMM">/**
+<span class='line'>459</span>  * Returns the bounds of this node.
+<span class='line'>460</span>  * 
+<span class='line'>461</span>  * @return {twodee.Polygon} The node bounds
+<span class='line'>462</span>  */</span><span class="WHIT">
+<span class='line'>463</span> </span><span class="NAME">twodee.SceneNode.prototype.getBounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>464</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>465</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.bounds</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>466</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>467</span> 
+<span class='line'>468</span> </span><span class="COMM">/**
+<span class='line'>469</span>  * Sets the collision type of the node.
+<span class='line'>470</span>  * 
+<span class='line'>471</span>  * @param {number} collisionType
+<span class='line'>472</span>  *            The collision type to set. 0 means that the node is not
+<span class='line'>473</span>  *            collidable at all.
+<span class='line'>474</span>  */</span><span class="WHIT">
+<span class='line'>475</span> </span><span class="NAME">twodee.SceneNode.prototype.setCollisionType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">collisionType</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>476</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>477</span> </span><span class="WHIT">    </span><span class="NAME">this.collisionType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">collisionType</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>478</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>479</span> 
+<span class='line'>480</span> </span><span class="COMM">/**
+<span class='line'>481</span>  * Returns the collisiton type of the node. May return 0 of node is
+<span class='line'>482</span>  * not collidable.
+<span class='line'>483</span>  * 
+<span class='line'>484</span>  * @return {number} The collision type of the node
+<span class='line'>485</span>  */</span><span class="WHIT">
+<span class='line'>486</span> </span><span class="NAME">twodee.SceneNode.prototype.getCollisionType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>487</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>488</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.collisionType</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>489</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>490</span> 
+<span class='line'>491</span> </span><span class="COMM">/**
+<span class='line'>492</span>  * Sets the collision bit mask of the node.
+<span class='line'>493</span>  *
+<span class='line'>494</span>  * @param {number} collisionMask
+<span class='line'>495</span>  *            The collision bit mask to set.
+<span class='line'>496</span>  */</span><span class="WHIT">
+<span class='line'>497</span> </span><span class="NAME">twodee.SceneNode.prototype.setCollisionMask</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">collisionMask</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>498</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>499</span> </span><span class="WHIT">    </span><span class="NAME">this.collisionMask</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">collisionMask</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>500</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>501</span> 
+<span class='line'>502</span> </span><span class="COMM">/**
+<span class='line'>503</span>  * Returns the collisiton bit mask of the node.
+<span class='line'>504</span>  *
+<span class='line'>505</span>  * @return {number} The collision bit mask
+<span class='line'>506</span>  */</span><span class="WHIT">
+<span class='line'>507</span> </span><span class="NAME">twodee.SceneNode.prototype.getCollisionMask</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>508</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>509</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.collisionMask</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>510</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>511</span> 
+<span class='line'>512</span> </span><span class="COMM">/**
+<span class='line'>513</span>  * Checks if the node is collidable. It is only collidable when it has
+<span class='line'>514</span>  * a collision type and bounds set.
+<span class='line'>515</span>  * 
+<span class='line'>516</span>  * @return {boolean} True if node is collidable, false if not
+<span class='line'>517</span>  */</span><span class="WHIT">
+<span class='line'>518</span> </span><span class="NAME">twodee.SceneNode.prototype.isCollidable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>519</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>520</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="PUNC">!</span><span class="NAME">this.collisionType</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="PUNC">!</span><span class="NAME">this.bounds</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>521</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>522</span> 
+<span class='line'>523</span> </span><span class="COMM">/**
+<span class='line'>524</span>  * Checks if this node collides with the specified node.
+<span class='line'>525</span>  * 
+<span class='line'>526</span>  * Do not call this method yourself, it's called by the scene.
+<span class='line'>527</span>  * 
+<span class='line'>528</span>  * @param {twodee.SceneNode} other
+<span class='line'>529</span>  *            The other scene node
+<span class='line'>530</span>  * @return {boolean} True if nodes collide, false if not
+<span class='line'>531</span>  */</span><span class="WHIT">
+<span class='line'>532</span> </span><span class="NAME">twodee.SceneNode.prototype.collidesWith</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">other</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>533</span> </span><span class="PUNC">{</span><span class="WHIT">    
+<span class='line'>534</span>     </span><span class="COMM">// Can't collide if one of the nodes is not in scene</span><span class="WHIT">
+<span class='line'>535</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.parentNode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>536</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">other.getParentNode</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">    
+<span class='line'>537</span>         
+<span class='line'>538</span>     </span><span class="COMM">// Check if nodes can collide according to the collision type and</span><span class="WHIT">
+<span class='line'>539</span> </span><span class="WHIT">    </span><span class="COMM">// the collision mask.</span><span class="WHIT">
+<span class='line'>540</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="PUNC">(</span><span class="NAME">this.collisionMask</span><span class="WHIT"> </span><span class="PUNC">&</span><span class="WHIT"> </span><span class="NAME">other.collisionType</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>541</span> 
+<span class='line'>542</span> </span><span class="WHIT">    </span><span class="COMM">// Check if bounds collide</span><span class="WHIT">
+<span class='line'>543</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.bounds.collidesWith</span><span class="PUNC">(</span><span class="NAME">other.bounds</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>544</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>545</span> 
+<span class='line'>546</span> </span><span class="COMM">/**
+<span class='line'>547</span>  * Informs the node that it has collided with the specified node.
+<span class='line'>548</span>  * 
+<span class='line'>549</span>  * Do not call this method yourself, it is called by the scene.
+<span class='line'>550</span>  * 
+<span class='line'>551</span>  * @param {twodee.SceneNode} other
+<span class='line'>552</span>  *            The node this one has collided with
+<span class='line'>553</span>  */</span><span class="WHIT">
+<span class='line'>554</span> </span><span class="NAME">twodee.SceneNode.prototype.collide</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">other</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>555</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>556</span> </span><span class="WHIT">    </span><span class="NAME">this.collisions</span><span class="PUNC">[</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">other.getId</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">other</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>557</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>558</span> 
+<span class='line'>559</span> </span><span class="COMM">/**
+<span class='line'>560</span>  * Finishes the collision detection. This must be called after rendering of
+<span class='line'>561</span>  * the scene is complete. It checks which collisions are new or obsolete and
+<span class='line'>562</span>  * sends the required signals.
+<span class='line'>563</span>  *
+<span class='line'>564</span>  * Don't call this method yourself, it is done by the Scene.
+<span class='line'>565</span>  */</span><span class="WHIT">
+<span class='line'>566</span> </span><span class="NAME">twodee.SceneNode.prototype.processCollisions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>567</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>568</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="COMM">/** @type {string} */</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>569</span> </span><span class="WHIT">    
+<span class='line'>570</span>     </span><span class="COMM">// Create shorthand variables</span><span class="WHIT">
+<span class='line'>571</span> </span><span class="WHIT">    </span><span class="NAME">collisions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.collisions</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>572</span> </span><span class="WHIT">    </span><span class="NAME">previousCollisions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.previousCollisions</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>573</span> </span><span class="WHIT">    
+<span class='line'>574</span>     </span><span class="COMM">// Check for new collisions</span><span class="WHIT">
+<span class='line'>575</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.parentNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>576</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>577</span> </span><span class="WHIT">        </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>578</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>579</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>580</span> </span><span class="WHIT">            </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>581</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">collisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">parentNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>582</span> </span><span class="WHIT">                    </span><span class="NAME">this.sendSignal</span><span class="PUNC">(</span><span class="STRN">"collisionStarted"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>583</span> </span><span class="WHIT">                
+<span class='line'>584</span>                 </span><span class="COMM">// Process no more collisions if we were removed from the scene</span><span class="WHIT">
+<span class='line'>585</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.parentNode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>586</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>587</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>588</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>589</span> </span><span class="WHIT">    
+<span class='line'>590</span>     </span><span class="COMM">// Check for old collisions</span><span class="WHIT">
+<span class='line'>591</span> </span><span class="WHIT">    </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>592</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>593</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>594</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>595</span> </span><span class="WHIT">            </span><span class="NAME">this.sendSignal</span><span class="PUNC">(</span><span class="STRN">"collisionStopped"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">            
+<span class='line'>596</span>         </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>597</span> </span><span class="WHIT">        </span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>598</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>599</span> </span><span class="WHIT">    
+<span class='line'>600</span>     </span><span class="COMM">// Remember current collisions for next run</span><span class="WHIT">
+<span class='line'>601</span> </span><span class="WHIT">    </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>602</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>603</span> </span><span class="WHIT">        </span><span class="NAME">previousCollisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.collisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>604</span> </span><span class="WHIT">        </span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>605</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>606</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>607</span> 
+<span class='line'>608</span> </span><span class="COMM">/**
+<span class='line'>609</span>  * Sets the physics model. Specify null to remove the existing physics model.
+<span class='line'>610</span>  * 
+<span class='line'>611</span>  * @param {twodee.Physics} physics
+<span class='line'>612</span>  *            The physics model to set
+<span class='line'>613</span>  */</span><span class="WHIT">
+<span class='line'>614</span> </span><span class="NAME">twodee.SceneNode.prototype.setPhysics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">physics</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>615</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>616</span> </span><span class="WHIT">    </span><span class="NAME">this.physics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">physics</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>617</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>618</span> 
+<span class='line'>619</span> </span><span class="COMM">/**
+<span class='line'>620</span>  * Returns the physics model. May return null if node has no physics model.
+<span class='line'>621</span>  * 
+<span class='line'>622</span>  * @return {twodee.Physics} The physics model or null if not present
+<span class='line'>623</span>  */</span><span class="WHIT">
+<span class='line'>624</span> </span><span class="NAME">twodee.SceneNode.prototype.getPhysics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>625</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>626</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.physics</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>627</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>628</span> 
+<span class='line'>629</span> </span><span class="COMM">/**
+<span class='line'>630</span>  * Updates the node with the specified time delta. Default implementation is
+<span class='line'>631</span>  * processing the physics model if present.
+<span class='line'>632</span>  * 
+<span class='line'>633</span>  * @param {number} delta
+<span class='line'>634</span>  *            The time elapsed since the last scene update (in milliseconds)
+<span class='line'>635</span>  */</span><span class="WHIT">
+<span class='line'>636</span> </span><span class="NAME">twodee.SceneNode.prototype.update</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">delta</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>637</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>638</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">physics</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>639</span> </span><span class="WHIT">    
+<span class='line'>640</span>     </span><span class="COMM">// Process the physics model if present</span><span class="WHIT">
+<span class='line'>641</span> </span><span class="WHIT">    </span><span class="NAME">physics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.physics</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>642</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">physics</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">physics.process</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">delta</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>643</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>644</span> 
+<span class='line'>645</span> </span><span class="COMM">/**
+<span class='line'>646</span>  * Renders the node. Default implementation does nothing.
+<span class='line'>647</span>  * 
+<span class='line'>648</span>  * @param {CanvasRenderingContext2D} g
+<span class='line'>649</span>  *            The graphics context
+<span class='line'>650</span>  * @param {twodee.Matrix} transform
+<span class='line'>651</span>  *            The effective transformation. This is already applied to the
+<span class='line'>652</span>  *            node bounds.
+<span class='line'>653</span>  */</span><span class="WHIT">
+<span class='line'>654</span> </span><span class="NAME">twodee.SceneNode.prototype.render</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">transform</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>655</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>656</span> </span><span class="WHIT">    </span><span class="COMM">// Empty</span><span class="WHIT">
+<span class='line'>657</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>658</span> 
+<span class='line'>659</span> </span><span class="COMM">/**
+<span class='line'>660</span>  * Enables the node.
+<span class='line'>661</span>  */</span><span class="WHIT">
+<span class='line'>662</span> </span><span class="NAME">twodee.SceneNode.prototype.enable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>663</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>664</span> </span><span class="WHIT">    </span><span class="NAME">this.setEnabled</span><span class="PUNC">(</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>665</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>666</span> 
+<span class='line'>667</span> </span><span class="COMM">/**
+<span class='line'>668</span>  * Disables the node.
+<span class='line'>669</span>  */</span><span class="WHIT">
+<span class='line'>670</span> </span><span class="NAME">twodee.SceneNode.prototype.disable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>671</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>672</span> </span><span class="WHIT">    </span><span class="NAME">this.setEnabled</span><span class="PUNC">(</span><span class="KEYW">false</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>673</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>674</span> 
+<span class='line'>675</span> </span><span class="COMM">/**
+<span class='line'>676</span>  * Enables or disables the node.
+<span class='line'>677</span>  * 
+<span class='line'>678</span>  * @param {boolean} enabled
+<span class='line'>679</span>  *            True to enable the node, false to disable it
+<span class='line'>680</span>  */</span><span class="WHIT">
+<span class='line'>681</span> </span><span class="NAME">twodee.SceneNode.prototype.setEnabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">enabled</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>682</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>683</span> </span><span class="WHIT">    </span><span class="NAME">this.enabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">enabled</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>684</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>685</span> 
+<span class='line'>686</span> </span><span class="COMM">/**
+<span class='line'>687</span>  * Checks if node is enabled or not.
+<span class='line'>688</span>  * 
+<span class='line'>689</span>  * @return {boolean} True if node is enabled, false if not
+<span class='line'>690</span>  */</span><span class="WHIT">
+<span class='line'>691</span> </span><span class="NAME">twodee.SceneNode.prototype.isEnabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>692</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>693</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.enabled</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>694</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>695</span> 
+<span class='line'>696</span> </span><span class="COMM">/**
+<span class='line'>697</span>  * Sets the opacity of the node.
+<span class='line'>698</span>  * 
+<span class='line'>699</span>  * @param {number} opacity
+<span class='line'>700</span>  *            The opacity to set. 1.0 = Fully solid, 0.0 = fully transparent
+<span class='line'>701</span>  */</span><span class="WHIT">
+<span class='line'>702</span> </span><span class="NAME">twodee.SceneNode.prototype.setOpacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">opacity</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>703</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>704</span> </span><span class="WHIT">    </span><span class="NAME">this.opacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">opacity</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>705</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>706</span> 
+<span class='line'>707</span> </span><span class="COMM">/**
+<span class='line'>708</span>  * Returns the current opacity of the node.
+<span class='line'>709</span>  * 
+<span class='line'>710</span>  * @return {number}
+<span class='line'>711</span>  *             The node opacity. 1.0 = Fully solid, 0.0 = fully transparent
+<span class='line'>712</span>  */</span><span class="WHIT">
+<span class='line'>713</span> </span><span class="NAME">twodee.SceneNode.prototype.getOpacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>714</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>715</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.opacity</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>716</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>717</span> </span></pre></body></html>
