@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Physics</title>
+  </properties>
+  <body>
+    <section name="Physics">
+      <p>
+        Changing the transformation matrix manually is pretty clumsy. If
+        you want to setup some constant animation then you can apply
+        physics to a scene node. To do this you create a new instance of
+        the class 
+        <a href="jsdoc/symbols/twodee.Physics.html">twodee.Physics</a>
+        and apply it to the scene node (or multiple nodes) by passing the
+        physics object to the 
+        <a href="jsdoc/symbols/twodee.SceneNode.html#setPhysics">setPhysics()</a>
+        method of the scene node:
+      </p>
+      <source><![CDATA[
+var physics = new twodee.Physics();
+node.setPhysics(physics);     
+]]></source>
+      <p>
+        Now you can call various methods to change the physics of the node
+        (or nodes). Here is a list of the most important methods (See
+        <a href="jsdoc/symbols/twodee.Physics.html">API doc</a>
+        for a full list of methods):
+      </p>
+      <ul>
+        <li>
+          <a href="jsdoc/symbols/twodee.Physics.html#setScaling">getVelocity()</a>:
+          Returns the velocity vector (A 
+          <a href="jsdoc/symbols/twodee.Vector.html">twodee.Vector</a>
+          instance) which can be manipulated to set the X and Y velocity.
+        </li>
+        <li>
+          <a href="jsdoc/symbols/twodee.Physics.html#setScaling">getAcceleration()</a>:
+          Returns the acceleration vector (A 
+          <a href="jsdoc/symbols/twodee.Vector.html">twodee.Vector</a>
+          instance) which can be manipulated to set the X and Y acceleration.
+        </li>
+        <li>
+          <a href="jsdoc/symbols/twodee.Physics.html#setSpin">setSpin()</a>:
+          Rotates the node by the specified number of rad per second.
+        </li>
+        <li>
+          <a href="jsdoc/symbols/twodee.Physics.html#setSpin">setSpinAcceleration()</a>:
+          Sets the spin acceleration in RAD per square second.
+        </li>
+        <li>
+          <a href="jsdoc/symbols/twodee.Physics.html#setScaling">setScaling()</a>:
+          Scales the node by the specified multitudes per second.
+        </li>
+      </ul>
+      <p>
+        This small example shows an asteroid with an applied spin:
+      </p>
+      <iframe src="examples/physics.html" width="480" height="320" frameborder="0"></iframe>
+      <p>
+        <a href="transformations.html">&lt;&lt;&lt; Previous: Transformations</a>
+        |
+        <a href="collisions.html">Next: Collisions &gt;&gt;&gt;</a>
+      </p>
+    </section>
+  </body>
+</document>
