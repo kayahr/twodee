@@ -22,6 +22,7 @@
     <menu name="${project.name}">
       <item name="About" href="./index.html" />
       <item name="Download" href="./download.html" />
+      <item name="API Documentation" href="./jsdoc/" />
     </menu>
     
     <menu name="Tutorial">
