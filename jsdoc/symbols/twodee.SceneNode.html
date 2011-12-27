@@ -1,0 +1,1916 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<title>JsDoc Reference - twodee.SceneNode</title>
+
+		<style type="text/css">
+			/* default.css */
+body
+{
+	font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+	width: 800px;
+}
+
+.header
+{
+	clear: both;
+	background-color: #ccc;
+	padding: 8px;
+}
+
+h1
+{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 1em 0 0 .3em;
+}
+
+hr
+{
+	border: none 0;
+	border-top: 1px solid #7F8FB1;
+	height: 1px;
+}
+
+pre.code
+{
+	display: block;
+	padding: 8px;
+	border: 1px dashed #ccc;
+}
+
+#index
+{
+	margin-top: 24px;
+	float: left;
+	width: 160px;
+	position: absolute;
+	left: 8px;
+	background-color: #F3F3F3;
+	padding: 8px;
+}
+
+#content
+{
+	margin-left: 190px;
+	width: 600px;
+}
+
+.classList
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 0 8px;
+	font-family: arial, sans-serif;
+	font-size: 1em;
+	overflow: auto;
+}
+
+.classList li
+{
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+
+.summaryTable { width: 100%; }
+
+h1.classTitle
+{
+	font-size:170%;
+	line-height:130%;
+}
+
+h2 { font-size: 110%; }
+caption, div.sectionTitle
+{
+	background-color: #7F8FB1;
+	color: #fff;
+	font-size:130%;
+	text-align: left;
+	padding: 2px 6px 2px 6px;
+	border: 1px #7F8FB1 solid;
+}
+
+div.sectionTitle { margin-bottom: 8px; }
+.summaryTable thead { display: none; }
+
+.summaryTable td
+{
+	vertical-align: top;
+	padding: 4px;
+	border-bottom: 1px #7F8FB1 solid;
+	border-right: 1px #7F8FB1 solid;
+}
+
+/*col#summaryAttributes {}*/
+.summaryTable td.attributes
+{
+	border-left: 1px #7F8FB1 solid;
+	width: 140px;
+	text-align: right;
+}
+
+td.attributes, .fixedFont
+{
+	line-height: 15px;
+	color: #002EBE;
+	font-family: "Courier New",Courier,monospace;
+	font-size: 13px;
+}
+
+.summaryTable td.nameDescription
+{
+	text-align: left;
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.summaryTable td.nameDescription, .description
+{
+	line-height: 15px;
+	padding: 4px;
+	padding-left: 4px;
+}
+
+.summaryTable { margin-bottom: 8px; }
+
+ul.inheritsList
+{
+	list-style: square;
+	margin-left: 20px;
+	padding-left: 0;
+}
+
+.detailList {
+	margin-left: 20px; 
+	line-height: 15px;
+}
+.detailList dt { margin-left: 20px; }
+
+.detailList .heading
+{
+	font-weight: bold;
+	padding-bottom: 6px;
+	margin-left: 0;
+}
+
+.light, td.attributes, .light a:link, .light a:visited
+{
+	color: #777;
+	font-style: italic;
+}
+
+.fineprint
+{
+	text-align: right;
+	font-size: 10px;
+}
+		</style>
+	</head>
+
+	<body>
+<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<div id="header">
+</div>
+		<!-- end static/header.html -->
+
+<!-- ============================== classes index ============================ -->
+		<div id="index">
+			<!-- begin publish.classesIndex -->
+			<div align="center"><a href="../index.html">Class Index</a>
+| <a href="../files.html">File Index</a></div>
+<hr />
+<h2>Classes</h2>
+<ul class="classList">
+	
+	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
+	
+	<li><a href="../symbols/twodee.BoundingBox.html">twodee.BoundingBox</a></li>
+	
+	<li><a href="../symbols/twodee.FpsCounter.html">twodee.FpsCounter</a></li>
+	
+	<li><a href="../symbols/twodee.ImageNode.html">twodee.ImageNode</a></li>
+	
+	<li><a href="../symbols/twodee.Matrix.html">twodee.Matrix</a></li>
+	
+	<li><a href="../symbols/twodee.Object.html">twodee.Object</a></li>
+	
+	<li><a href="../symbols/twodee.Physics.html">twodee.Physics</a></li>
+	
+	<li><a href="../symbols/twodee.Polygon.html">twodee.Polygon</a></li>
+	
+	<li><a href="../symbols/twodee.PolygonNode.html">twodee.PolygonNode</a></li>
+	
+	<li><a href="../symbols/twodee.Scene.html">twodee.Scene</a></li>
+	
+	<li><a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a></li>
+	
+	<li><a href="../symbols/twodee.Vector.html">twodee.Vector</a></li>
+	
+</ul>
+<hr />
+			<!-- end publish.classesIndex -->
+		</div>
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h1 class="classTitle">
+				
+				Class twodee.SceneNode
+			</h1>
+
+<!-- ============================== class summary ========================== -->			
+			<p class="description">
+				
+				<br />Extends
+					.<br />
+				
+			
+				A scene node. Can be used directly to create invisible group nodes or can
+be extended to implement other node types.
+				
+				
+					<br /><i>Defined in: </i> <a href="../symbols/src/twodee_SceneNode.js.html">SceneNode.js</a>.
+				
+			</p>
+
+<!-- ============================== constructor summary ==================== -->			
+			
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class twodee.SceneNode.">
+				<caption>Class Summary</caption>
+				<thead>
+					<tr>
+						<th scope="col">Constructor Attributes</th>
+						<th scope="col">Constructor Name and Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="attributes">&nbsp;</td>
+						<td class="nameDescription" >
+							<div class="fixedFont">
+								<b><a href="../symbols/twodee.SceneNode.html#constructor">twodee.SceneNode</a></b>()
+							</div>
+							<div class="description">Constructs a new scene node.</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+<!-- ============================== properties summary ===================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class twodee.SceneNode.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								twodee.SceneNode.<b><a href="../symbols/twodee.SceneNode.html#.counter">counter</a></b>
+								</div>
+								<div class="description">Instance counter.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+
+<!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class twodee.SceneNode.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#appendChild">appendChild</a></b>(node)
+								</div>
+								<div class="description">Appends the specified node as a child node to this node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#collide">collide</a></b>(other)
+								</div>
+								<div class="description">Informs the node that it has collided with the specified node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#collidesWith">collidesWith</a></b>(other)
+								</div>
+								<div class="description">Checks if this node collides with the specified node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#disable">disable</a></b>()
+								</div>
+								<div class="description">Disables the node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#enable">enable</a></b>()
+								</div>
+								<div class="description">Enables the node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#getBounds">getBounds</a></b>()
+								</div>
+								<div class="description">Returns the bounds of this node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#getCollisionMask">getCollisionMask</a></b>()
+								</div>
+								<div class="description">Returns the collisiton bit mask of the node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#getCollisionType">getCollisionType</a></b>()
+								</div>
+								<div class="description">Returns the collisiton type of the node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#getFirstChild">getFirstChild</a></b>()
+								</div>
+								<div class="description">Returns the first child node of this node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#getId">getId</a></b>()
+								</div>
+								<div class="description">Returns the node id.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#getLastChild">getLastChild</a></b>()
+								</div>
+								<div class="description">Returns the last child node of this node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#getNextSibling">getNextSibling</a></b>()
+								</div>
+								<div class="description">Returns the next sibling of this node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#getOpacity">getOpacity</a></b>()
+								</div>
+								<div class="description">Returns the current opacity of the node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#getParentNode">getParentNode</a></b>()
+								</div>
+								<div class="description">Returns the parent node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#getPhysics">getPhysics</a></b>()
+								</div>
+								<div class="description">Returns the physics model.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#getPreviousSibling">getPreviousSibling</a></b>()
+								</div>
+								<div class="description">Returns the previous sibling of this node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#getTransform">getTransform</a></b>()
+								</div>
+								<div class="description">Returns the current transformation matrix.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#hasChildNodes">hasChildNodes</a></b>()
+								</div>
+								<div class="description">Checks if this node has child nodes.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#insertBefore">insertBefore</a></b>(insertNode, referenceNode)
+								</div>
+								<div class="description">Inserts a new child node before the specified reference node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#isCollidable">isCollidable</a></b>()
+								</div>
+								<div class="description">Checks if the node is collidable.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#isEnabled">isEnabled</a></b>()
+								</div>
+								<div class="description">Checks if node is enabled or not.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#processCollisions">processCollisions</a></b>()
+								</div>
+								<div class="description">Finishes the collision detection.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#remove">remove</a></b>()
+								</div>
+								<div class="description">Removes this node from its parent.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#removeChild">removeChild</a></b>(node)
+								</div>
+								<div class="description">Removes the specified child node from this node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#removeChildren">removeChildren</a></b>()
+								</div>
+								<div class="description">Removes all child nodes.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#render">render</a></b>(g, transform)
+								</div>
+								<div class="description">Renders the node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#replaceChild">replaceChild</a></b>(oldNode, newNode)
+								</div>
+								<div class="description">Replaces the specified old node with the specified new node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#setBounds">setBounds</a></b>(bounds)
+								</div>
+								<div class="description">Sets the bounds of this node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#setCollisionMask">setCollisionMask</a></b>(collisionMask)
+								</div>
+								<div class="description">Sets the collision bit mask of the node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#setCollisionType">setCollisionType</a></b>(collisionType)
+								</div>
+								<div class="description">Sets the collision type of the node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#setEnabled">setEnabled</a></b>(enabled)
+								</div>
+								<div class="description">Enables or disables the node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#setOpacity">setOpacity</a></b>(opacity)
+								</div>
+								<div class="description">Sets the opacity of the node.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#setPhysics">setPhysics</a></b>(physics)
+								</div>
+								<div class="description">Sets the physics model.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#update">update</a></b>(delta)
+								</div>
+								<div class="description">Updates the node with the specified time delta.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/twodee.SceneNode.html#updateTransformation">updateTransformation</a></b>()
+								</div>
+								<div class="description">Transforms the node according to its effective transformation (Calculated
+from its local transformation and the effective transformation of its
+parent).</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+<!-- ============================== events summary ======================== -->
+			
+
+<!-- ============================== constructor details ==================== -->		
+			
+			<div class="details"><a name="constructor"> </a>
+				<div class="sectionTitle">
+					Class Detail
+				</div>
+				
+				<div class="fixedFont">
+						<b>twodee.SceneNode</b>()
+				</div>
+				
+				<div class="description">
+					Constructs a new scene node.
+					
+				</div>
+				
+				
+				
+				
+					
+					
+					
+					
+					
+					
+					
+
+			</div>
+			
+
+<!-- ============================== field details ========================== -->		
+			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name=".counter"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">twodee.SceneNode.</span><b>counter</b>
+					
+					</div>
+					<div class="description">
+						Instance counter.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
+
+<!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="appendChild"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>appendChild</b>(node)
+					
+					</div>
+					<div class="description">
+						Appends the specified node as a child node to this node. If the node was
+previously connected to a different parent node then it is first
+disconnected from this parent.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> <b>node</b>
+									
+								</dt>
+								<dd>The node to append to this node</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="collide"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>collide</b>(other)
+					
+					</div>
+					<div class="description">
+						Informs the node that it has collided with the specified node.
+
+Do not call this method yourself, it is called by the scene.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> <b>other</b>
+									
+								</dt>
+								<dd>The node this one has collided with</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="collidesWith"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{boolean}</span>
+					<b>collidesWith</b>(other)
+					
+					</div>
+					<div class="description">
+						Checks if this node collides with the specified node.
+
+Do not call this method yourself, it's called by the scene.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> <b>other</b>
+									
+								</dt>
+								<dd>The other scene node</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{boolean}</span> True if nodes collide, false if not</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="disable"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>disable</b>()
+					
+					</div>
+					<div class="description">
+						Disables the node.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="enable"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>enable</b>()
+					
+					</div>
+					<div class="description">
+						Enables the node.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getBounds"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/twodee.Polygon.html">twodee.Polygon</a>}</span>
+					<b>getBounds</b>()
+					
+					</div>
+					<div class="description">
+						Returns the bounds of this node.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/twodee.Polygon.html">twodee.Polygon</a>}</span> The node bounds</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getCollisionMask"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{number}</span>
+					<b>getCollisionMask</b>()
+					
+					</div>
+					<div class="description">
+						Returns the collisiton bit mask of the node.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{number}</span> The collision bit mask</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getCollisionType"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{number}</span>
+					<b>getCollisionType</b>()
+					
+					</div>
+					<div class="description">
+						Returns the collisiton type of the node. May return 0 of node is
+not collidable.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{number}</span> The collision type of the node</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getFirstChild"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span>
+					<b>getFirstChild</b>()
+					
+					</div>
+					<div class="description">
+						Returns the first child node of this node. If the node has no child nodes
+then null is returned.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> The first child node or null if there are no child nodes</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getId"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{number}</span>
+					<b>getId</b>()
+					
+					</div>
+					<div class="description">
+						Returns the node id.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{number}</span> The node id</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getLastChild"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span>
+					<b>getLastChild</b>()
+					
+					</div>
+					<div class="description">
+						Returns the last child node of this node. If the node has no child nodes
+then null is returned.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> The last child node or null if there are no child nodes</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getNextSibling"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span>
+					<b>getNextSibling</b>()
+					
+					</div>
+					<div class="description">
+						Returns the next sibling of this node. If the node is the last child node
+of its parent then null is returned because there can't be a next
+sibling.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> The next sibling of this node or null if there is no next sibling</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getOpacity"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{number}</span>
+					<b>getOpacity</b>()
+					
+					</div>
+					<div class="description">
+						Returns the current opacity of the node.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{number}</span> The node opacity. 1.0 = Fully solid, 0.0 = fully transparent</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getParentNode"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span>
+					<b>getParentNode</b>()
+					
+					</div>
+					<div class="description">
+						Returns the parent node. If the node has no root node yet then null is
+returned.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> The parent node or null if there is none</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getPhysics"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/twodee.Physics.html">twodee.Physics</a>}</span>
+					<b>getPhysics</b>()
+					
+					</div>
+					<div class="description">
+						Returns the physics model. May return null if node has no physics model.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/twodee.Physics.html">twodee.Physics</a>}</span> The physics model or null if not present</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getPreviousSibling"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span>
+					<b>getPreviousSibling</b>()
+					
+					</div>
+					<div class="description">
+						Returns the previous sibling of this node. If the node is the first child
+node of its parent then null is returned because there can't be a
+previous sibling.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> The previous sibling of this node or null if there is no previous
+           sibling</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getTransform"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/twodee.Matrix.html">twodee.Matrix</a>}</span>
+					<b>getTransform</b>()
+					
+					</div>
+					<div class="description">
+						Returns the current transformation matrix.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/twodee.Matrix.html">twodee.Matrix</a>}</span> The current transformation matrix</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="hasChildNodes"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{boolean}</span>
+					<b>hasChildNodes</b>()
+					
+					</div>
+					<div class="description">
+						Checks if this node has child nodes.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{boolean}</span> True if this node has child nodes, false if not</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="insertBefore"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>insertBefore</b>(insertNode, referenceNode)
+					
+					</div>
+					<div class="description">
+						Inserts a new child node before the specified reference node. If the new
+node was already connected to a parent then it is disconnected from this
+parent first.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> <b>insertNode</b>
+									
+								</dt>
+								<dd>The new node to insert</dd>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> <b>referenceNode</b>
+									
+								</dt>
+								<dd>The reference node</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="isCollidable"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{boolean}</span>
+					<b>isCollidable</b>()
+					
+					</div>
+					<div class="description">
+						Checks if the node is collidable. It is only collidable when it has
+a collision type and bounds set.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{boolean}</span> True if node is collidable, false if not</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="isEnabled"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{boolean}</span>
+					<b>isEnabled</b>()
+					
+					</div>
+					<div class="description">
+						Checks if node is enabled or not.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{boolean}</span> True if node is enabled, false if not</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="processCollisions"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>processCollisions</b>()
+					
+					</div>
+					<div class="description">
+						Finishes the collision detection. This must be called after rendering of
+the scene is complete. It checks which collisions are new or obsolete and
+sends the required signals.
+
+Don't call this method yourself, it is done by the Scene.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="remove"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>remove</b>()
+					
+					</div>
+					<div class="description">
+						Removes this node from its parent.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="removeChild"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>removeChild</b>(node)
+					
+					</div>
+					<div class="description">
+						Removes the specified child node from this node.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> <b>node</b>
+									
+								</dt>
+								<dd>The node to remove</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="removeChildren"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>removeChildren</b>()
+					
+					</div>
+					<div class="description">
+						Removes all child nodes.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="render"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>render</b>(g, transform)
+					
+					</div>
+					<div class="description">
+						Renders the node. Default implementation does nothing.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{CanvasRenderingContext2D}</span> <b>g</b>
+									
+								</dt>
+								<dd>The graphics context</dd>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/twodee.Matrix.html">twodee.Matrix</a>}</span> <b>transform</b>
+									
+								</dt>
+								<dd>The effective transformation. This is already applied to the
+           node bounds.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="replaceChild"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>replaceChild</b>(oldNode, newNode)
+					
+					</div>
+					<div class="description">
+						Replaces the specified old node with the specified new node. If the new
+node was already connected to a parent then it is disconnected from this
+parent first.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> <b>oldNode</b>
+									
+								</dt>
+								<dd>The old node to be replaced by the new one</dd>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/twodee.SceneNode.html">twodee.SceneNode</a>}</span> <b>newNode</b>
+									
+								</dt>
+								<dd>The new node to replace the old one</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setBounds"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setBounds</b>(bounds)
+					
+					</div>
+					<div class="description">
+						Sets the bounds of this node. Specify null to use no bounds.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/twodee.Polygon.html">twodee.Polygon</a>}</span> <b>bounds</b>
+									
+								</dt>
+								<dd>The node bounds to set</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setCollisionMask"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setCollisionMask</b>(collisionMask)
+					
+					</div>
+					<div class="description">
+						Sets the collision bit mask of the node.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{number}</span> <b>collisionMask</b>
+									
+								</dt>
+								<dd>The collision bit mask to set.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setCollisionType"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setCollisionType</b>(collisionType)
+					
+					</div>
+					<div class="description">
+						Sets the collision type of the node.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{number}</span> <b>collisionType</b>
+									
+								</dt>
+								<dd>The collision type to set. 0 means that the node is not
+           collidable at all.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setEnabled"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setEnabled</b>(enabled)
+					
+					</div>
+					<div class="description">
+						Enables or disables the node.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{boolean}</span> <b>enabled</b>
+									
+								</dt>
+								<dd>True to enable the node, false to disable it</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setOpacity"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setOpacity</b>(opacity)
+					
+					</div>
+					<div class="description">
+						Sets the opacity of the node.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{number}</span> <b>opacity</b>
+									
+								</dt>
+								<dd>The opacity to set. 1.0 = Fully solid, 0.0 = fully transparent</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setPhysics"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setPhysics</b>(physics)
+					
+					</div>
+					<div class="description">
+						Sets the physics model. Specify null to remove the existing physics model.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/twodee.Physics.html">twodee.Physics</a>}</span> <b>physics</b>
+									
+								</dt>
+								<dd>The physics model to set</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="update"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>update</b>(delta)
+					
+					</div>
+					<div class="description">
+						Updates the node with the specified time delta. Default implementation is
+processing the physics model if present.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{number}</span> <b>delta</b>
+									
+								</dt>
+								<dd>The time elapsed since the last scene update (in milliseconds)</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="updateTransformation"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/twodee.Matrix.html">twodee.Matrix</a>}</span>
+					<b>updateTransformation</b>()
+					
+					</div>
+					<div class="description">
+						Transforms the node according to its effective transformation (Calculated
+from its local transformation and the effective transformation of its
+parent).
+
+Do not call this method yourself. It is triggered by the scene.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/twodee.Matrix.html">twodee.Matrix</a>}</span> The calculated effetive transformation of this node</dd>
+							
+							</dl>
+						
+						
+						
+
+					
+				
+			
+			
+<!-- ============================== event details ========================= -->		
+			
+			
+			<hr />
+		</div>
+
+		
+<!-- ============================== footer ================================= -->
+		<div class="fineprint" style="clear:both">
+			
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Tue Dec 27 2011 23:46:44 GMT+0100 (CET)
+		</div>
+	</body>
+</html>

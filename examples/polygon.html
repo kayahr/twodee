@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>TwoDee Example #1: Polygon Node</title>
+    <link rel="stylesheet" type="text/css" href="../css/example.css" />
+    <script type="text/javascript" src="../scripts/twodee.js"></script>
+    <script type="text/javascript" src="basescene.js"></script>
+    <script type="text/javascript">
+    /* <![CDATA[ */
+
+    // The polygon
+    var polygon = new twodee.Polygon([
+        new twodee.Vector(-50, -50),
+        new twodee.Vector(50, -50),
+        new twodee.Vector(50, 50),
+        new twodee.Vector(-50, 50)
+    ]); 
+
+    // Create the polygon node
+    var polygonNode = new twodee.PolygonNode(polygon);
+    polygonNode.setStrokeStyle("#ff0");
+    polygonNode.setFillStyle("#f00");    
+    polygonNode.getTransform().rotate(Math.PI / 8);
+    rootNode.appendChild(polygonNode);
+    
+    /* ]]> */
+    </script>
+  </head>
+  <body onload="init();render()">
+    <h1>TwoDee Example #1: Polygon node</h1>
+    <canvas id="output" width="480" height="320"></canvas>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+http://cooltext.com/
+Font: Lotusflower 
+Glow: #000000
+Shadow: True

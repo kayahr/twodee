@@ -1,0 +1,54 @@
+html, body
+{
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    background: #000;
+    color: #fff;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+canvas
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+h1
+{
+    position: relative;
+    z-index: 2;
+    margin: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#buttons
+{
+    position: absolute;
+    text-align: center;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#collision
+{
+    position: absolute;
+    left: 0;
+    vertical-align: middle;
+    text-align: center;
+    bottom: 0;
+    right: 0;
+    padding-bottom: 2em;
+    font-size: 25px;
+    color: #f00;
+    display: none;
+}
