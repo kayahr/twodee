@@ -6,10 +6,11 @@
  */
 
 /**
- * Constructs a new bounding box
+ * Constructs a new bounding box.
  * 
  * @constructor
- * @class A bounding box
+ * @class
+ * A bounding box.
  */
 twodee.BoundingBox = function()
 {

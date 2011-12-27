@@ -14,8 +14,9 @@
  *            setImage() method.
  *            
  * @constructor
- * @extends twodee.SceneNode
- * @class A node which draws an image.
+ * @extends {twodee.SceneNode}
+ * @class
+ * A node which draws an image.
  */
 twodee.ImageNode = function(image)
 {
@@ -93,7 +94,7 @@ twodee.ImageNode.prototype.setShowBounds = function(showBounds)
  */
 twodee.ImageNode.prototype.render = function(g, transform)
 {   
-    var width, height, img;
+    var width, height, img, bounds;
     
     img = this.image;
     
@@ -110,8 +111,12 @@ twodee.ImageNode.prototype.render = function(g, transform)
 
     if (this.showBounds)
     {
-        this.getBounds().apply(g);
-        g.strokeStyle = "red";
-        g.stroke();
+        bounds = this.getBounds();
+        if (bounds)
+        {
+            bounds.apply(g);
+            g.strokeStyle = "red";
+            g.stroke();
+        }
     }
 };

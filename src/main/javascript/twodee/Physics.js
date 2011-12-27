@@ -9,7 +9,8 @@
  * Constructs a new physics model.
  * 
  * @constructor
- * @class A physics model
+ * @class
+ * A physics model.
  */
 twodee.Physics = function()
 {

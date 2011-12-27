@@ -14,7 +14,8 @@
  *            The vertices as array of vectors.
  *            
  * @constructor
- * @class A polygon
+ * @class 
+ * A polygon.
  */
 twodee.Polygon = function(vertices)
 {
