@@ -1,0 +1,33 @@
+<assembly>
+  <id>dist</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+      <directory>.</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>*.txt</include>
+        <include>*.md</include>
+      </includes>
+      <lineEnding>keep</lineEnding>
+    </fileSet>
+    <fileSet>
+      <directory>target/files/script-source-bundles/</directory>
+      <outputDirectory>/uncompressed/</outputDirectory>
+      <includes>
+        <include>*.js</include>
+      </includes>
+      <lineEnding>keep</lineEnding>
+    </fileSet>
+    <fileSet>
+      <directory>target/files/script-bundles/</directory>
+      <outputDirectory>/compressed/</outputDirectory>
+      <includes>
+        <include>*.js</include>
+      </includes>
+      <lineEnding>keep</lineEnding>
+    </fileSet>
+  </fileSets>
+</assembly>
