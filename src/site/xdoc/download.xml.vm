@@ -12,7 +12,7 @@
         version for debugging.
       </p>
       <p>
-        <a href="${releasesUrl}/twodee-${project.version}.zip">twodee-${project.version}.zip</a>
+        <a href="${releasesUrl}/twodee-${project.version}-dist.zip">twodee-${project.version}-dist.zip</a>
       </p>
       <subsection name="Use as Maven dependency">
         <p>
