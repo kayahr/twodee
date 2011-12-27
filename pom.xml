@@ -89,6 +89,36 @@
     
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId> 
+        <version>3.0</version>
+        <configuration>
+          <chmod>false</chmod>
+          <locales>en</locales>
+          <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
+          <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-project-info-reports-plugin</artifactId>
+              <version>2.4</version>
+              <configuration>
+                <dependencyDetailEnabled>false</dependencyDetailEnabled>
+                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>                
+              </configuration>
+              <reports>
+                <report>summary</report>
+                <report>dependencies</report>
+                <report>project-team</report>
+                <report>issue-tracking</report>
+                <report>license</report>
+                <report>scm</report>
+              </reports>
+            </plugin>
+          </reportPlugins>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>de.ailis.maven.plugins</groupId>
         <artifactId>maven-javascript-plugin</artifactId>
         <version>1.0.2</version>
@@ -116,6 +146,23 @@
       <snapshots><enabled>true</enabled></snapshots>
     </repository>
   </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>ailis-releases</id>
+      <name>Ailis Maven Releases</name>
+      <url>http://nexus.ailis.de/content/groups/public/</url>
+      <releases><enabled>true</enabled></releases>
+      <snapshots><enabled>false</enabled></snapshots>
+    </pluginRepository>
+    <pluginRepository> 
+      <id>ailis-snapshots</id>
+      <name>Ailis Maven Snapshots</name>
+      <url>http://nexus.ailis.de/content/groups/public-snapshots/</url>
+      <releases><enabled>false</enabled></releases>
+      <snapshots><enabled>true</enabled></snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 
   <distributionManagement>
     <site>
