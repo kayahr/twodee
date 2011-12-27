@@ -6,7 +6,6 @@
  */
 
 /**
- * @constructor
  * Constructs a new empty vector.
  * 
  * @param {number=} x
@@ -14,8 +13,9 @@
  * @param {number=} y
  *            The Y coordinate (Optional)
  * 
+ * @constructor
  * @class
- * A vector with two elements
+ * A vector with two elements.
  */
 twodee.Vector = function(x, y)
 {

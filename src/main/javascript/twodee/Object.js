@@ -9,7 +9,8 @@
  * Constructs a new twodee object.
  * 
  * @constructor
- * @class The base class for other twodee objects
+ * @class 
+ * The base class for other twodee objects.
  */
 twodee.Object = function()
 {

@@ -9,7 +9,8 @@
  * Constructs a new FPS counter.
  * 
  * @constructor
- * @class Counts frames per second.
+ * @class 
+ * Counts frames per second.
  */
 twodee.FpsCounter = function()
 {

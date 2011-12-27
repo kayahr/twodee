@@ -10,10 +10,10 @@
  * Constructs a new scene node.
  *            
  * @constructor
+ * @extends {twodee.Object}
  * @class
- * @extends twodee.Object
- * A scene node. Can be used directly to create invisible group nodes or can be
- * extended to implement other node types.
+ * A scene node. Can be used directly to create invisible group nodes or can
+ * be extended to implement other node types.
  */
 twodee.SceneNode = function()
 {

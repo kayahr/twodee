@@ -20,8 +20,9 @@
  *            default.            
  *            
  * @constructor
- * @extends twodee.SceneNode
- * @class A node which draws a polygon.
+ * @extends {twodee.SceneNode}
+ * @class 
+ * A node which draws a polygon.
  */
 twodee.PolygonNode = function(polygon, fillStyle, strokeStyle)
 {

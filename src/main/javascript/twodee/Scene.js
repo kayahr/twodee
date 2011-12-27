@@ -6,11 +6,11 @@
  */
 
 /**
- * @constructor
  * Constructs a new scene.
- *            
+ * 
+ * @constructor
  * @class
- * A scene
+ * A scene.
  */
 twodee.Scene = function()
 {

@@ -7,11 +7,11 @@
  */
 
 /**
- * @constructor
  * Constructs a new matrix initialized as an identity matrix.
- *            
+ * 
+ * @constructor
  * @class
- * A matrix with 3x3 entries
+ * A matrix with 3x3 entries.
  */
 twodee.Matrix = function()
 {
