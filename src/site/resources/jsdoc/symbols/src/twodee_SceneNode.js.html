@@ -410,315 +410,317 @@
 <span class='line'>403</span>  * 
 <span class='line'>404</span>  * Do not call this method yourself. It is triggered by the scene.
 <span class='line'>405</span>  * 
-<span class='line'>406</span>  * @return {twodee.Matrix} The calculated effetive transformation of this node
-<span class='line'>407</span>  */</span><span class="WHIT">
-<span class='line'>408</span> </span><span class="NAME">twodee.SceneNode.prototype.updateTransformation</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>409</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>410</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">parentNode</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">transform</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">bounds</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>411</span> </span><span class="WHIT">        
-<span class='line'>412</span>     </span><span class="COMM">// If node has a parent node then apply the effective parent transformation</span><span class="WHIT">
-<span class='line'>413</span> </span><span class="WHIT">    </span><span class="COMM">// to effective node transformation</span><span class="WHIT">
-<span class='line'>414</span> </span><span class="WHIT">    </span><span class="NAME">parentNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.parentNode</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>415</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parentNode</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>416</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">        
-<span class='line'>417</span>         </span><span class="NAME">this.effectiveTransform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parentNode.effectiveTransform.copy</span><span class="PUNC">(</span><span class="NAME">this.effectiveTransform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>418</span> </span><span class="WHIT">        </span><span class="NAME">transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.effectiveTransform.transform</span><span class="PUNC">(</span><span class="NAME">this.transform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>419</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>420</span> </span><span class="WHIT">    </span><span class="KEYW">else</span><span class="WHIT">
-<span class='line'>421</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>422</span> </span><span class="WHIT">        </span><span class="COMM">// If no parent node is present then effective transform is</span><span class="WHIT">
-<span class='line'>423</span> </span><span class="WHIT">        </span><span class="COMM">// the local transform</span><span class="WHIT">
-<span class='line'>424</span> </span><span class="WHIT">        </span><span class="NAME">transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.effectiveTransform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.transform.copy</span><span class="PUNC">(</span><span class="WHIT">
-<span class='line'>425</span> </span><span class="WHIT">            </span><span class="NAME">this.effectiveTransform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>426</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>427</span> 
-<span class='line'>428</span> </span><span class="WHIT">    </span><span class="COMM">// Transform the bounds if this node has bounds</span><span class="WHIT">
-<span class='line'>429</span> </span><span class="WHIT">    </span><span class="NAME">bounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.bounds</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>430</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">bounds</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">bounds.setTransform</span><span class="PUNC">(</span><span class="NAME">transform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>431</span> </span><span class="WHIT">    
-<span class='line'>432</span>     </span><span class="COMM">// Return the effective transformation</span><span class="WHIT">
-<span class='line'>433</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">transform</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>434</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>435</span> 
-<span class='line'>436</span> </span><span class="COMM">/**
-<span class='line'>437</span>  * Returns the current transformation matrix.
-<span class='line'>438</span>  * 
-<span class='line'>439</span>  * @return {twodee.Matrix}
-<span class='line'>440</span>  *             The current transformation matrix
-<span class='line'>441</span>  */</span><span class="WHIT">
-<span class='line'>442</span> </span><span class="NAME">twodee.SceneNode.prototype.getTransform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>443</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>444</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.transform</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>445</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>446</span> 
-<span class='line'>447</span> </span><span class="COMM">/**
-<span class='line'>448</span>  * Sets the bounds of this node. Specify null to use no bounds.
-<span class='line'>449</span>  * 
-<span class='line'>450</span>  * @param {twodee.Polygon} bounds
-<span class='line'>451</span>  *            The node bounds to set
-<span class='line'>452</span>  */</span><span class="WHIT">
-<span class='line'>453</span> </span><span class="NAME">twodee.SceneNode.prototype.setBounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">bounds</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>454</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>455</span> </span><span class="WHIT">    </span><span class="NAME">this.bounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">bounds.copy</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>456</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>457</span> 
-<span class='line'>458</span> </span><span class="COMM">/**
-<span class='line'>459</span>  * Returns the bounds of this node.
-<span class='line'>460</span>  * 
-<span class='line'>461</span>  * @return {twodee.Polygon} The node bounds
-<span class='line'>462</span>  */</span><span class="WHIT">
-<span class='line'>463</span> </span><span class="NAME">twodee.SceneNode.prototype.getBounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>464</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>465</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.bounds</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>466</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>467</span> 
-<span class='line'>468</span> </span><span class="COMM">/**
-<span class='line'>469</span>  * Sets the collision type of the node.
-<span class='line'>470</span>  * 
-<span class='line'>471</span>  * @param {number} collisionType
-<span class='line'>472</span>  *            The collision type to set. 0 means that the node is not
-<span class='line'>473</span>  *            collidable at all.
-<span class='line'>474</span>  */</span><span class="WHIT">
-<span class='line'>475</span> </span><span class="NAME">twodee.SceneNode.prototype.setCollisionType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">collisionType</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>476</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>477</span> </span><span class="WHIT">    </span><span class="NAME">this.collisionType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">collisionType</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>478</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>479</span> 
-<span class='line'>480</span> </span><span class="COMM">/**
-<span class='line'>481</span>  * Returns the collisiton type of the node. May return 0 of node is
-<span class='line'>482</span>  * not collidable.
-<span class='line'>483</span>  * 
-<span class='line'>484</span>  * @return {number} The collision type of the node
-<span class='line'>485</span>  */</span><span class="WHIT">
-<span class='line'>486</span> </span><span class="NAME">twodee.SceneNode.prototype.getCollisionType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>487</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>488</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.collisionType</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>489</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>490</span> 
-<span class='line'>491</span> </span><span class="COMM">/**
-<span class='line'>492</span>  * Sets the collision bit mask of the node.
-<span class='line'>493</span>  *
-<span class='line'>494</span>  * @param {number} collisionMask
-<span class='line'>495</span>  *            The collision bit mask to set.
-<span class='line'>496</span>  */</span><span class="WHIT">
-<span class='line'>497</span> </span><span class="NAME">twodee.SceneNode.prototype.setCollisionMask</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">collisionMask</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>498</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>499</span> </span><span class="WHIT">    </span><span class="NAME">this.collisionMask</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">collisionMask</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>500</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>501</span> 
-<span class='line'>502</span> </span><span class="COMM">/**
-<span class='line'>503</span>  * Returns the collisiton bit mask of the node.
-<span class='line'>504</span>  *
-<span class='line'>505</span>  * @return {number} The collision bit mask
-<span class='line'>506</span>  */</span><span class="WHIT">
-<span class='line'>507</span> </span><span class="NAME">twodee.SceneNode.prototype.getCollisionMask</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>508</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>509</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.collisionMask</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>510</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>511</span> 
-<span class='line'>512</span> </span><span class="COMM">/**
-<span class='line'>513</span>  * Checks if the node is collidable. It is only collidable when it has
-<span class='line'>514</span>  * a collision type and bounds set.
-<span class='line'>515</span>  * 
-<span class='line'>516</span>  * @return {boolean} True if node is collidable, false if not
-<span class='line'>517</span>  */</span><span class="WHIT">
-<span class='line'>518</span> </span><span class="NAME">twodee.SceneNode.prototype.isCollidable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>519</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>520</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="PUNC">!</span><span class="NAME">this.collisionType</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="PUNC">!</span><span class="NAME">this.bounds</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>521</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>522</span> 
-<span class='line'>523</span> </span><span class="COMM">/**
-<span class='line'>524</span>  * Checks if this node collides with the specified node.
-<span class='line'>525</span>  * 
-<span class='line'>526</span>  * Do not call this method yourself, it's called by the scene.
+<span class='line'>406</span>  * @param {twodee.Matrix} baseTransform
+<span class='line'>407</span>  *            The base transformation to apply to nodes without a parent.
+<span class='line'>408</span>  * @return {twodee.Matrix} The calculated effetive transformation of this node
+<span class='line'>409</span>  */</span><span class="WHIT">
+<span class='line'>410</span> </span><span class="NAME">twodee.SceneNode.prototype.updateTransformation</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">baseTransform</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>411</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>412</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">parentNode</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">transform</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">bounds</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>413</span> </span><span class="WHIT">        
+<span class='line'>414</span>     </span><span class="COMM">// If node has a parent node then apply the effective parent transformation</span><span class="WHIT">
+<span class='line'>415</span> </span><span class="WHIT">    </span><span class="COMM">// to effective node transformation</span><span class="WHIT">
+<span class='line'>416</span> </span><span class="WHIT">    </span><span class="NAME">parentNode</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.parentNode</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>417</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parentNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>418</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">        
+<span class='line'>419</span>         </span><span class="NAME">this.effectiveTransform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parentNode.effectiveTransform.copy</span><span class="PUNC">(</span><span class="NAME">this.effectiveTransform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>420</span> </span><span class="WHIT">        </span><span class="NAME">transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.effectiveTransform.transform</span><span class="PUNC">(</span><span class="NAME">this.transform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>421</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>422</span> </span><span class="WHIT">    </span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>423</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>424</span> </span><span class="WHIT">        </span><span class="COMM">// If no parent node is present then effective transform is</span><span class="WHIT">
+<span class='line'>425</span> </span><span class="WHIT">        </span><span class="COMM">// the local transform</span><span class="WHIT">
+<span class='line'>426</span> </span><span class="WHIT">        </span><span class="NAME">this.effectiveTransform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">baseTransform.copy</span><span class="PUNC">(</span><span class="NAME">this.effectiveTransform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>427</span> </span><span class="WHIT">        </span><span class="NAME">transform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.effectiveTransform.transform</span><span class="PUNC">(</span><span class="NAME">this.transform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>428</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>429</span> 
+<span class='line'>430</span> </span><span class="WHIT">    </span><span class="COMM">// Transform the bounds if this node has bounds</span><span class="WHIT">
+<span class='line'>431</span> </span><span class="WHIT">    </span><span class="NAME">bounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.bounds</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>432</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">bounds</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">bounds.setTransform</span><span class="PUNC">(</span><span class="NAME">transform</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>433</span> </span><span class="WHIT">    
+<span class='line'>434</span>     </span><span class="COMM">// Return the effective transformation</span><span class="WHIT">
+<span class='line'>435</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">transform</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>436</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>437</span> 
+<span class='line'>438</span> </span><span class="COMM">/**
+<span class='line'>439</span>  * Returns the current transformation matrix.
+<span class='line'>440</span>  * 
+<span class='line'>441</span>  * @return {twodee.Matrix}
+<span class='line'>442</span>  *             The current transformation matrix
+<span class='line'>443</span>  */</span><span class="WHIT">
+<span class='line'>444</span> </span><span class="NAME">twodee.SceneNode.prototype.getTransform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>445</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>446</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.transform</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>447</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>448</span> 
+<span class='line'>449</span> </span><span class="COMM">/**
+<span class='line'>450</span>  * Sets the bounds of this node. Specify null to use no bounds.
+<span class='line'>451</span>  * 
+<span class='line'>452</span>  * @param {twodee.Polygon} bounds
+<span class='line'>453</span>  *            The node bounds to set
+<span class='line'>454</span>  */</span><span class="WHIT">
+<span class='line'>455</span> </span><span class="NAME">twodee.SceneNode.prototype.setBounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">bounds</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>456</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>457</span> </span><span class="WHIT">    </span><span class="NAME">this.bounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">bounds.copy</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>458</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>459</span> 
+<span class='line'>460</span> </span><span class="COMM">/**
+<span class='line'>461</span>  * Returns the bounds of this node.
+<span class='line'>462</span>  * 
+<span class='line'>463</span>  * @return {twodee.Polygon} The node bounds
+<span class='line'>464</span>  */</span><span class="WHIT">
+<span class='line'>465</span> </span><span class="NAME">twodee.SceneNode.prototype.getBounds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>466</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>467</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.bounds</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>468</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>469</span> 
+<span class='line'>470</span> </span><span class="COMM">/**
+<span class='line'>471</span>  * Sets the collision type of the node.
+<span class='line'>472</span>  * 
+<span class='line'>473</span>  * @param {number} collisionType
+<span class='line'>474</span>  *            The collision type to set. 0 means that the node is not
+<span class='line'>475</span>  *            collidable at all.
+<span class='line'>476</span>  */</span><span class="WHIT">
+<span class='line'>477</span> </span><span class="NAME">twodee.SceneNode.prototype.setCollisionType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">collisionType</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>478</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>479</span> </span><span class="WHIT">    </span><span class="NAME">this.collisionType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">collisionType</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>480</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>481</span> 
+<span class='line'>482</span> </span><span class="COMM">/**
+<span class='line'>483</span>  * Returns the collisiton type of the node. May return 0 of node is
+<span class='line'>484</span>  * not collidable.
+<span class='line'>485</span>  * 
+<span class='line'>486</span>  * @return {number} The collision type of the node
+<span class='line'>487</span>  */</span><span class="WHIT">
+<span class='line'>488</span> </span><span class="NAME">twodee.SceneNode.prototype.getCollisionType</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>489</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>490</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.collisionType</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>491</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>492</span> 
+<span class='line'>493</span> </span><span class="COMM">/**
+<span class='line'>494</span>  * Sets the collision bit mask of the node.
+<span class='line'>495</span>  *
+<span class='line'>496</span>  * @param {number} collisionMask
+<span class='line'>497</span>  *            The collision bit mask to set.
+<span class='line'>498</span>  */</span><span class="WHIT">
+<span class='line'>499</span> </span><span class="NAME">twodee.SceneNode.prototype.setCollisionMask</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">collisionMask</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>500</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>501</span> </span><span class="WHIT">    </span><span class="NAME">this.collisionMask</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">collisionMask</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>502</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>503</span> 
+<span class='line'>504</span> </span><span class="COMM">/**
+<span class='line'>505</span>  * Returns the collisiton bit mask of the node.
+<span class='line'>506</span>  *
+<span class='line'>507</span>  * @return {number} The collision bit mask
+<span class='line'>508</span>  */</span><span class="WHIT">
+<span class='line'>509</span> </span><span class="NAME">twodee.SceneNode.prototype.getCollisionMask</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>510</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>511</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.collisionMask</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>512</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>513</span> 
+<span class='line'>514</span> </span><span class="COMM">/**
+<span class='line'>515</span>  * Checks if the node is collidable. It is only collidable when it has
+<span class='line'>516</span>  * a collision type and bounds set.
+<span class='line'>517</span>  * 
+<span class='line'>518</span>  * @return {boolean} True if node is collidable, false if not
+<span class='line'>519</span>  */</span><span class="WHIT">
+<span class='line'>520</span> </span><span class="NAME">twodee.SceneNode.prototype.isCollidable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>521</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>522</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="PUNC">!</span><span class="NAME">this.collisionType</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="PUNC">!</span><span class="NAME">this.bounds</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>523</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>524</span> 
+<span class='line'>525</span> </span><span class="COMM">/**
+<span class='line'>526</span>  * Checks if this node collides with the specified node.
 <span class='line'>527</span>  * 
-<span class='line'>528</span>  * @param {twodee.SceneNode} other
-<span class='line'>529</span>  *            The other scene node
-<span class='line'>530</span>  * @return {boolean} True if nodes collide, false if not
-<span class='line'>531</span>  */</span><span class="WHIT">
-<span class='line'>532</span> </span><span class="NAME">twodee.SceneNode.prototype.collidesWith</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">other</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>533</span> </span><span class="PUNC">{</span><span class="WHIT">    
-<span class='line'>534</span>     </span><span class="COMM">// Can't collide if one of the nodes is not in scene</span><span class="WHIT">
-<span class='line'>535</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.parentNode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>536</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">other.getParentNode</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">    
-<span class='line'>537</span>         
-<span class='line'>538</span>     </span><span class="COMM">// Check if nodes can collide according to the collision type and</span><span class="WHIT">
-<span class='line'>539</span> </span><span class="WHIT">    </span><span class="COMM">// the collision mask.</span><span class="WHIT">
-<span class='line'>540</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="PUNC">(</span><span class="NAME">this.collisionMask</span><span class="WHIT"> </span><span class="PUNC">&</span><span class="WHIT"> </span><span class="NAME">other.collisionType</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>541</span> 
-<span class='line'>542</span> </span><span class="WHIT">    </span><span class="COMM">// Check if bounds collide</span><span class="WHIT">
-<span class='line'>543</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.bounds.collidesWith</span><span class="PUNC">(</span><span class="NAME">other.bounds</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>544</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>545</span> 
-<span class='line'>546</span> </span><span class="COMM">/**
-<span class='line'>547</span>  * Informs the node that it has collided with the specified node.
-<span class='line'>548</span>  * 
-<span class='line'>549</span>  * Do not call this method yourself, it is called by the scene.
+<span class='line'>528</span>  * Do not call this method yourself, it's called by the scene.
+<span class='line'>529</span>  * 
+<span class='line'>530</span>  * @param {twodee.SceneNode} other
+<span class='line'>531</span>  *            The other scene node
+<span class='line'>532</span>  * @return {boolean} True if nodes collide, false if not
+<span class='line'>533</span>  */</span><span class="WHIT">
+<span class='line'>534</span> </span><span class="NAME">twodee.SceneNode.prototype.collidesWith</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">other</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>535</span> </span><span class="PUNC">{</span><span class="WHIT">    
+<span class='line'>536</span>     </span><span class="COMM">// Can't collide if one of the nodes is not in scene</span><span class="WHIT">
+<span class='line'>537</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.parentNode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>538</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">other.getParentNode</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">    
+<span class='line'>539</span>         
+<span class='line'>540</span>     </span><span class="COMM">// Check if nodes can collide according to the collision type and</span><span class="WHIT">
+<span class='line'>541</span> </span><span class="WHIT">    </span><span class="COMM">// the collision mask.</span><span class="WHIT">
+<span class='line'>542</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="PUNC">(</span><span class="NAME">this.collisionMask</span><span class="WHIT"> </span><span class="PUNC">&</span><span class="WHIT"> </span><span class="NAME">other.collisionType</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>543</span> 
+<span class='line'>544</span> </span><span class="WHIT">    </span><span class="COMM">// Check if bounds collide</span><span class="WHIT">
+<span class='line'>545</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.bounds.collidesWith</span><span class="PUNC">(</span><span class="NAME">other.bounds</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>546</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>547</span> 
+<span class='line'>548</span> </span><span class="COMM">/**
+<span class='line'>549</span>  * Informs the node that it has collided with the specified node.
 <span class='line'>550</span>  * 
-<span class='line'>551</span>  * @param {twodee.SceneNode} other
-<span class='line'>552</span>  *            The node this one has collided with
-<span class='line'>553</span>  */</span><span class="WHIT">
-<span class='line'>554</span> </span><span class="NAME">twodee.SceneNode.prototype.collide</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">other</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>555</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>556</span> </span><span class="WHIT">    </span><span class="NAME">this.collisions</span><span class="PUNC">[</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">other.getId</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">other</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>557</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>558</span> 
-<span class='line'>559</span> </span><span class="COMM">/**
-<span class='line'>560</span>  * Finishes the collision detection. This must be called after rendering of
-<span class='line'>561</span>  * the scene is complete. It checks which collisions are new or obsolete and
-<span class='line'>562</span>  * sends the required signals.
-<span class='line'>563</span>  *
-<span class='line'>564</span>  * Don't call this method yourself, it is done by the Scene.
-<span class='line'>565</span>  */</span><span class="WHIT">
-<span class='line'>566</span> </span><span class="NAME">twodee.SceneNode.prototype.processCollisions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>567</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>568</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="COMM">/** @type {string} */</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>569</span> </span><span class="WHIT">    
-<span class='line'>570</span>     </span><span class="COMM">// Create shorthand variables</span><span class="WHIT">
-<span class='line'>571</span> </span><span class="WHIT">    </span><span class="NAME">collisions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.collisions</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>572</span> </span><span class="WHIT">    </span><span class="NAME">previousCollisions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.previousCollisions</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>573</span> </span><span class="WHIT">    
-<span class='line'>574</span>     </span><span class="COMM">// Check for new collisions</span><span class="WHIT">
-<span class='line'>575</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.parentNode</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>576</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>577</span> </span><span class="WHIT">        </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>578</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>579</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>580</span> </span><span class="WHIT">            </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>581</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">collisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">parentNode</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>582</span> </span><span class="WHIT">                    </span><span class="NAME">this.sendSignal</span><span class="PUNC">(</span><span class="STRN">"collisionStarted"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>583</span> </span><span class="WHIT">                
-<span class='line'>584</span>                 </span><span class="COMM">// Process no more collisions if we were removed from the scene</span><span class="WHIT">
-<span class='line'>585</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.parentNode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>586</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>587</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>588</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>589</span> </span><span class="WHIT">    
-<span class='line'>590</span>     </span><span class="COMM">// Check for old collisions</span><span class="WHIT">
-<span class='line'>591</span> </span><span class="WHIT">    </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>592</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>593</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>594</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>595</span> </span><span class="WHIT">            </span><span class="NAME">this.sendSignal</span><span class="PUNC">(</span><span class="STRN">"collisionStopped"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">            
-<span class='line'>596</span>         </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>597</span> </span><span class="WHIT">        </span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>598</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>599</span> </span><span class="WHIT">    
-<span class='line'>600</span>     </span><span class="COMM">// Remember current collisions for next run</span><span class="WHIT">
-<span class='line'>601</span> </span><span class="WHIT">    </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>602</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>603</span> </span><span class="WHIT">        </span><span class="NAME">previousCollisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.collisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>604</span> </span><span class="WHIT">        </span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>605</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>606</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>607</span> 
-<span class='line'>608</span> </span><span class="COMM">/**
-<span class='line'>609</span>  * Sets the physics model. Specify null to remove the existing physics model.
-<span class='line'>610</span>  * 
-<span class='line'>611</span>  * @param {twodee.Physics} physics
-<span class='line'>612</span>  *            The physics model to set
-<span class='line'>613</span>  */</span><span class="WHIT">
-<span class='line'>614</span> </span><span class="NAME">twodee.SceneNode.prototype.setPhysics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">physics</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>615</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>616</span> </span><span class="WHIT">    </span><span class="NAME">this.physics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">physics</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>617</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>618</span> 
-<span class='line'>619</span> </span><span class="COMM">/**
-<span class='line'>620</span>  * Returns the physics model. May return null if node has no physics model.
-<span class='line'>621</span>  * 
-<span class='line'>622</span>  * @return {twodee.Physics} The physics model or null if not present
-<span class='line'>623</span>  */</span><span class="WHIT">
-<span class='line'>624</span> </span><span class="NAME">twodee.SceneNode.prototype.getPhysics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>625</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>626</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.physics</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>627</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>628</span> 
-<span class='line'>629</span> </span><span class="COMM">/**
-<span class='line'>630</span>  * Updates the node with the specified time delta. Default implementation is
-<span class='line'>631</span>  * processing the physics model if present.
-<span class='line'>632</span>  * 
-<span class='line'>633</span>  * @param {number} delta
-<span class='line'>634</span>  *            The time elapsed since the last scene update (in milliseconds)
-<span class='line'>635</span>  */</span><span class="WHIT">
-<span class='line'>636</span> </span><span class="NAME">twodee.SceneNode.prototype.update</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">delta</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>637</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>638</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">physics</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>639</span> </span><span class="WHIT">    
-<span class='line'>640</span>     </span><span class="COMM">// Process the physics model if present</span><span class="WHIT">
-<span class='line'>641</span> </span><span class="WHIT">    </span><span class="NAME">physics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.physics</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>642</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">physics</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">physics.process</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">delta</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>643</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>644</span> 
-<span class='line'>645</span> </span><span class="COMM">/**
-<span class='line'>646</span>  * Renders the node. Default implementation does nothing.
-<span class='line'>647</span>  * 
-<span class='line'>648</span>  * @param {CanvasRenderingContext2D} g
-<span class='line'>649</span>  *            The graphics context
-<span class='line'>650</span>  * @param {twodee.Matrix} transform
-<span class='line'>651</span>  *            The effective transformation. This is already applied to the
-<span class='line'>652</span>  *            node bounds.
-<span class='line'>653</span>  */</span><span class="WHIT">
-<span class='line'>654</span> </span><span class="NAME">twodee.SceneNode.prototype.render</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">transform</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>655</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>656</span> </span><span class="WHIT">    </span><span class="COMM">// Empty</span><span class="WHIT">
-<span class='line'>657</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>658</span> 
-<span class='line'>659</span> </span><span class="COMM">/**
-<span class='line'>660</span>  * Enables the node.
-<span class='line'>661</span>  */</span><span class="WHIT">
-<span class='line'>662</span> </span><span class="NAME">twodee.SceneNode.prototype.enable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>663</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>664</span> </span><span class="WHIT">    </span><span class="NAME">this.setEnabled</span><span class="PUNC">(</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>665</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>666</span> 
-<span class='line'>667</span> </span><span class="COMM">/**
-<span class='line'>668</span>  * Disables the node.
-<span class='line'>669</span>  */</span><span class="WHIT">
-<span class='line'>670</span> </span><span class="NAME">twodee.SceneNode.prototype.disable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>671</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>672</span> </span><span class="WHIT">    </span><span class="NAME">this.setEnabled</span><span class="PUNC">(</span><span class="KEYW">false</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>673</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>674</span> 
-<span class='line'>675</span> </span><span class="COMM">/**
-<span class='line'>676</span>  * Enables or disables the node.
-<span class='line'>677</span>  * 
-<span class='line'>678</span>  * @param {boolean} enabled
-<span class='line'>679</span>  *            True to enable the node, false to disable it
-<span class='line'>680</span>  */</span><span class="WHIT">
-<span class='line'>681</span> </span><span class="NAME">twodee.SceneNode.prototype.setEnabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">enabled</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>682</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>683</span> </span><span class="WHIT">    </span><span class="NAME">this.enabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">enabled</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>684</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>685</span> 
-<span class='line'>686</span> </span><span class="COMM">/**
-<span class='line'>687</span>  * Checks if node is enabled or not.
-<span class='line'>688</span>  * 
-<span class='line'>689</span>  * @return {boolean} True if node is enabled, false if not
-<span class='line'>690</span>  */</span><span class="WHIT">
-<span class='line'>691</span> </span><span class="NAME">twodee.SceneNode.prototype.isEnabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>692</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>693</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.enabled</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>694</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>695</span> 
-<span class='line'>696</span> </span><span class="COMM">/**
-<span class='line'>697</span>  * Sets the opacity of the node.
-<span class='line'>698</span>  * 
-<span class='line'>699</span>  * @param {number} opacity
-<span class='line'>700</span>  *            The opacity to set. 1.0 = Fully solid, 0.0 = fully transparent
-<span class='line'>701</span>  */</span><span class="WHIT">
-<span class='line'>702</span> </span><span class="NAME">twodee.SceneNode.prototype.setOpacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">opacity</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>703</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>704</span> </span><span class="WHIT">    </span><span class="NAME">this.opacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">opacity</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>705</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>706</span> 
-<span class='line'>707</span> </span><span class="COMM">/**
-<span class='line'>708</span>  * Returns the current opacity of the node.
-<span class='line'>709</span>  * 
-<span class='line'>710</span>  * @return {number}
-<span class='line'>711</span>  *             The node opacity. 1.0 = Fully solid, 0.0 = fully transparent
-<span class='line'>712</span>  */</span><span class="WHIT">
-<span class='line'>713</span> </span><span class="NAME">twodee.SceneNode.prototype.getOpacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>714</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>715</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.opacity</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>716</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>717</span> </span></pre></body></html>
+<span class='line'>551</span>  * Do not call this method yourself, it is called by the scene.
+<span class='line'>552</span>  * 
+<span class='line'>553</span>  * @param {twodee.SceneNode} other
+<span class='line'>554</span>  *            The node this one has collided with
+<span class='line'>555</span>  */</span><span class="WHIT">
+<span class='line'>556</span> </span><span class="NAME">twodee.SceneNode.prototype.collide</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">other</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>557</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>558</span> </span><span class="WHIT">    </span><span class="NAME">this.collisions</span><span class="PUNC">[</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">other.getId</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">other</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>559</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>560</span> 
+<span class='line'>561</span> </span><span class="COMM">/**
+<span class='line'>562</span>  * Finishes the collision detection. This must be called after rendering of
+<span class='line'>563</span>  * the scene is complete. It checks which collisions are new or obsolete and
+<span class='line'>564</span>  * sends the required signals.
+<span class='line'>565</span>  *
+<span class='line'>566</span>  * Don't call this method yourself, it is done by the Scene.
+<span class='line'>567</span>  */</span><span class="WHIT">
+<span class='line'>568</span> </span><span class="NAME">twodee.SceneNode.prototype.processCollisions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>569</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>570</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="COMM">/** @type {string} */</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>571</span> </span><span class="WHIT">    
+<span class='line'>572</span>     </span><span class="COMM">// Create shorthand variables</span><span class="WHIT">
+<span class='line'>573</span> </span><span class="WHIT">    </span><span class="NAME">collisions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.collisions</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>574</span> </span><span class="WHIT">    </span><span class="NAME">previousCollisions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.previousCollisions</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>575</span> </span><span class="WHIT">    
+<span class='line'>576</span>     </span><span class="COMM">// Check for new collisions</span><span class="WHIT">
+<span class='line'>577</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.parentNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>578</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>579</span> </span><span class="WHIT">        </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>580</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>581</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>582</span> </span><span class="WHIT">            </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>583</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">collisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">parentNode</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>584</span> </span><span class="WHIT">                    </span><span class="NAME">this.sendSignal</span><span class="PUNC">(</span><span class="STRN">"collisionStarted"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>585</span> </span><span class="WHIT">                
+<span class='line'>586</span>                 </span><span class="COMM">// Process no more collisions if we were removed from the scene</span><span class="WHIT">
+<span class='line'>587</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.parentNode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">break</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>588</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>589</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>590</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>591</span> </span><span class="WHIT">    
+<span class='line'>592</span>     </span><span class="COMM">// Check for old collisions</span><span class="WHIT">
+<span class='line'>593</span> </span><span class="WHIT">    </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>594</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>595</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>596</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>597</span> </span><span class="WHIT">            </span><span class="NAME">this.sendSignal</span><span class="PUNC">(</span><span class="STRN">"collisionStopped"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">            
+<span class='line'>598</span>         </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>599</span> </span><span class="WHIT">        </span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">previousCollisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>600</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>601</span> </span><span class="WHIT">    
+<span class='line'>602</span>     </span><span class="COMM">// Remember current collisions for next run</span><span class="WHIT">
+<span class='line'>603</span> </span><span class="WHIT">    </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">id</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>604</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>605</span> </span><span class="WHIT">        </span><span class="NAME">previousCollisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.collisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>606</span> </span><span class="WHIT">        </span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">collisions</span><span class="PUNC">[</span><span class="NAME">id</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>607</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>608</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>609</span> 
+<span class='line'>610</span> </span><span class="COMM">/**
+<span class='line'>611</span>  * Sets the physics model. Specify null to remove the existing physics model.
+<span class='line'>612</span>  * 
+<span class='line'>613</span>  * @param {twodee.Physics} physics
+<span class='line'>614</span>  *            The physics model to set
+<span class='line'>615</span>  */</span><span class="WHIT">
+<span class='line'>616</span> </span><span class="NAME">twodee.SceneNode.prototype.setPhysics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">physics</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>617</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>618</span> </span><span class="WHIT">    </span><span class="NAME">this.physics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">physics</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>619</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>620</span> 
+<span class='line'>621</span> </span><span class="COMM">/**
+<span class='line'>622</span>  * Returns the physics model. May return null if node has no physics model.
+<span class='line'>623</span>  * 
+<span class='line'>624</span>  * @return {twodee.Physics} The physics model or null if not present
+<span class='line'>625</span>  */</span><span class="WHIT">
+<span class='line'>626</span> </span><span class="NAME">twodee.SceneNode.prototype.getPhysics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>627</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>628</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.physics</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>629</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>630</span> 
+<span class='line'>631</span> </span><span class="COMM">/**
+<span class='line'>632</span>  * Updates the node with the specified time delta. Default implementation is
+<span class='line'>633</span>  * processing the physics model if present.
+<span class='line'>634</span>  * 
+<span class='line'>635</span>  * @param {number} delta
+<span class='line'>636</span>  *            The time elapsed since the last scene update (in milliseconds)
+<span class='line'>637</span>  */</span><span class="WHIT">
+<span class='line'>638</span> </span><span class="NAME">twodee.SceneNode.prototype.update</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">delta</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>639</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>640</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">physics</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>641</span> </span><span class="WHIT">    
+<span class='line'>642</span>     </span><span class="COMM">// Process the physics model if present</span><span class="WHIT">
+<span class='line'>643</span> </span><span class="WHIT">    </span><span class="NAME">physics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.physics</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>644</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">physics</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">physics.process</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">delta</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>645</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>646</span> 
+<span class='line'>647</span> </span><span class="COMM">/**
+<span class='line'>648</span>  * Renders the node. Default implementation does nothing.
+<span class='line'>649</span>  * 
+<span class='line'>650</span>  * @param {CanvasRenderingContext2D} g
+<span class='line'>651</span>  *            The graphics context
+<span class='line'>652</span>  * @param {twodee.Matrix} transform
+<span class='line'>653</span>  *            The effective transformation. This is already applied to the
+<span class='line'>654</span>  *            node bounds.
+<span class='line'>655</span>  */</span><span class="WHIT">
+<span class='line'>656</span> </span><span class="NAME">twodee.SceneNode.prototype.render</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">g</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">transform</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>657</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>658</span> </span><span class="WHIT">    </span><span class="COMM">// Empty</span><span class="WHIT">
+<span class='line'>659</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>660</span> 
+<span class='line'>661</span> </span><span class="COMM">/**
+<span class='line'>662</span>  * Enables the node.
+<span class='line'>663</span>  */</span><span class="WHIT">
+<span class='line'>664</span> </span><span class="NAME">twodee.SceneNode.prototype.enable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>665</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>666</span> </span><span class="WHIT">    </span><span class="NAME">this.setEnabled</span><span class="PUNC">(</span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>667</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>668</span> 
+<span class='line'>669</span> </span><span class="COMM">/**
+<span class='line'>670</span>  * Disables the node.
+<span class='line'>671</span>  */</span><span class="WHIT">
+<span class='line'>672</span> </span><span class="NAME">twodee.SceneNode.prototype.disable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>673</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>674</span> </span><span class="WHIT">    </span><span class="NAME">this.setEnabled</span><span class="PUNC">(</span><span class="KEYW">false</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>675</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>676</span> 
+<span class='line'>677</span> </span><span class="COMM">/**
+<span class='line'>678</span>  * Enables or disables the node.
+<span class='line'>679</span>  * 
+<span class='line'>680</span>  * @param {boolean} enabled
+<span class='line'>681</span>  *            True to enable the node, false to disable it
+<span class='line'>682</span>  */</span><span class="WHIT">
+<span class='line'>683</span> </span><span class="NAME">twodee.SceneNode.prototype.setEnabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">enabled</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>684</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>685</span> </span><span class="WHIT">    </span><span class="NAME">this.enabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">enabled</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>686</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>687</span> 
+<span class='line'>688</span> </span><span class="COMM">/**
+<span class='line'>689</span>  * Checks if node is enabled or not.
+<span class='line'>690</span>  * 
+<span class='line'>691</span>  * @return {boolean} True if node is enabled, false if not
+<span class='line'>692</span>  */</span><span class="WHIT">
+<span class='line'>693</span> </span><span class="NAME">twodee.SceneNode.prototype.isEnabled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>694</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>695</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.enabled</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>696</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>697</span> 
+<span class='line'>698</span> </span><span class="COMM">/**
+<span class='line'>699</span>  * Sets the opacity of the node.
+<span class='line'>700</span>  * 
+<span class='line'>701</span>  * @param {number} opacity
+<span class='line'>702</span>  *            The opacity to set. 1.0 = Fully solid, 0.0 = fully transparent
+<span class='line'>703</span>  */</span><span class="WHIT">
+<span class='line'>704</span> </span><span class="NAME">twodee.SceneNode.prototype.setOpacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">opacity</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>705</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>706</span> </span><span class="WHIT">    </span><span class="NAME">this.opacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">opacity</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>707</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>708</span> 
+<span class='line'>709</span> </span><span class="COMM">/**
+<span class='line'>710</span>  * Returns the current opacity of the node.
+<span class='line'>711</span>  * 
+<span class='line'>712</span>  * @return {number}
+<span class='line'>713</span>  *             The node opacity. 1.0 = Fully solid, 0.0 = fully transparent
+<span class='line'>714</span>  */</span><span class="WHIT">
+<span class='line'>715</span> </span><span class="NAME">twodee.SceneNode.prototype.getOpacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>716</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>717</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.opacity</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>718</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>719</span> </span></pre></body></html>
