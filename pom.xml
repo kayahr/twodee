@@ -5,7 +5,7 @@
   <artifactId>twodee</artifactId>
   <packaging>javascript</packaging>
   <name>TwoDee</name>
-  <version>1.0.3</version>
+  <version>1.0.4-SNAPSHOT</version>
   <url>http://kayahr.github.com/${project.artifactId}</url>
   <description>JavaScript 2D scene graph engine</description>
   <inceptionYear>2009</inceptionYear>
