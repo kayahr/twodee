@@ -138,10 +138,13 @@ twodee.Physics.prototype.getVelocity = function()
  * 
  * @param {number} minVelocity
  *            The minimum velocity to set
+ * @return {twodee.Physics}
+ *            This physics instance for method chaining.
  */
 twodee.Physics.prototype.setMinVelocity = function(minVelocity)
 {
     this.minVelocity = minVelocity;
+    return this;
 };
 
 /**
@@ -159,10 +162,13 @@ twodee.Physics.prototype.getMinVelocity = function()
  * 
  * @param {number} maxVelocity
  *            The maximum velocity to set
+ * @return {twodee.Physics}
+ *            This physics instance for method chaining.
  */
 twodee.Physics.prototype.setMaxVelocity = function(maxVelocity)
 {
     this.maxVelocity = maxVelocity;
+    return this;
 };
 
 /**
@@ -201,10 +207,13 @@ twodee.Physics.prototype.getSpin = function()
  * 
  * @param {number} spin
  *            The spin to set
+ * @return {twodee.Physics}
+ *            This physics instance for method chaining.
  */
 twodee.Physics.prototype.setSpin = function(spin)
 {
     this.spin = spin;
+    return this;
 };
 
 /**
@@ -222,10 +231,13 @@ twodee.Physics.prototype.getSpinAcceleration = function()
  * 
  * @param {number} spinAcceleration
  *            The spin acceleration to set
+ * @return {twodee.Physics}
+ *            This physics instance for method chaining.
  */
 twodee.Physics.prototype.setSpinAcceleration = function(spinAcceleration)
 {
     this.spinAcceleration = spinAcceleration;
+    return this;
 };
 
 /**
@@ -243,10 +255,13 @@ twodee.Physics.prototype.getMinSpin = function()
  * 
  * @param {number} minSpin
  *            The minimum spin to set
+ * @return {twodee.Physics}
+ *            This physics instance for method chaining.
  */
 twodee.Physics.prototype.setMinSpin = function(minSpin)
 {
     this.minSpin = minSpin;
+    return this;
 };
 
 /**
@@ -264,10 +279,13 @@ twodee.Physics.prototype.getMaxSpin = function()
  * 
  * @param {number} maxSpin
  *            The maximum spin to set
+ * @return {twodee.Physics}
+ *            This physics instance for method chaining.
  */
 twodee.Physics.prototype.setMaxSpin = function(maxSpin)
 {
     this.maxSpin = maxSpin;
+    return this;
 };
 
 /**
@@ -285,10 +303,13 @@ twodee.Physics.prototype.getScaling = function()
  * 
  * @param {number} scaling
  *            The scaling to set
+ * @return {twodee.Physics}
+ *            This physics instance for method chaining.
  */
 twodee.Physics.prototype.setScaling = function(scaling)
 {
     this.scaling = scaling;
+    return this;
 };
 
 /**
@@ -306,10 +327,13 @@ twodee.Physics.prototype.getLifetime = function()
  * 
  * @param {number} lifetime
  *            The lifetime to set
+ * @return {twodee.Physics}
+ *            This physics instance for method chaining.
  */
 twodee.Physics.prototype.setLifetime = function(lifetime)
 {
     this.lifetime = lifetime;
+    return this;
 };
 
 /**
@@ -321,10 +345,13 @@ twodee.Physics.prototype.setLifetime = function(lifetime)
  * 
  * @param {number} decay
  *            The decay time in seconds
+ * @return {twodee.Physics}
+ *            This physics instance for method chaining.
  */
 twodee.Physics.prototype.setDecay = function(decay)
 {
     this.decay = decay;
+    return this;
 };
 
 /**
