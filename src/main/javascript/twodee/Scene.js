@@ -15,6 +15,7 @@
 twodee.Scene = function()
 {
     this.collidables = [];
+    this.baseTransform = new twodee.Matrix();
 };
 
 /** 
@@ -47,6 +48,14 @@ twodee.Scene.prototype.collidables = null;
  * @type {boolean}
  */
 twodee.Scene.prototype.paused = false;
+
+/**
+ * The base transformation.
+ * 
+ * @private
+ * @type {!twodee.Matrix}
+ */
+twodee.Scene.prototype.baseTransform;
 
 /**
  * Sets the root node.
@@ -140,14 +149,16 @@ twodee.Scene.prototype.updateNode = function(node, delta)
  */
 twodee.Scene.prototype.render = function(g, width, height)
 {
-    var node, i, collidables;
+    var node, i, collidables, baseTransform;
     
     // If no root node is set yet then do nothing
     if (!(node = this.rootNode)) return;
     
     // Prepare the canvas
     g.save();
-    g.translate(width / 2, height / 2);
+
+    // Reset base transform to screen center
+    this.baseTransform.setTranslate(width / 2, height / 2);
     
     // Render the root node
     this.renderNode(node, g);
@@ -179,7 +190,7 @@ twodee.Scene.prototype.renderNode = function(node, g)
     if (!node.isEnabled()) return;
     
     // Update the effective transformation of the node
-    transform = node.updateTransformation();
+    transform = node.updateTransformation(this.baseTransform);
     
     // Update collision state
     if (node.isCollidable())

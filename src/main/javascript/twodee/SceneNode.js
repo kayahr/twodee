@@ -403,9 +403,11 @@ twodee.SceneNode.prototype.replaceChild = function(oldNode, newNode)
  * 
  * Do not call this method yourself. It is triggered by the scene.
  * 
+ * @param {twodee.Matrix} baseTransform
+ *            The base transformation to apply to nodes without a parent.
  * @return {twodee.Matrix} The calculated effetive transformation of this node
  */
-twodee.SceneNode.prototype.updateTransformation = function()
+twodee.SceneNode.prototype.updateTransformation = function(baseTransform)
 {
     var parentNode, transform, bounds;
         
@@ -421,8 +423,8 @@ twodee.SceneNode.prototype.updateTransformation = function()
     {
         // If no parent node is present then effective transform is
         // the local transform
-        transform = this.effectiveTransform = this.transform.copy(
-            this.effectiveTransform);
+        this.effectiveTransform = baseTransform.copy(this.effectiveTransform);
+        transform = this.effectiveTransform.transform(this.transform);
     }
 
     // Transform the bounds if this node has bounds
