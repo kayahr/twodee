@@ -1,4 +1,5 @@
 http://cooltext.com/
+Style: Neon
 Font: Lotusflower 
 Glow: #000000
 Shadow: True
